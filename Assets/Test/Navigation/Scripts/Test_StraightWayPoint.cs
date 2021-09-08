@@ -17,9 +17,9 @@ public class Test_StraightWayPoint : Test_Waypoint
 #endregion
 
 #region API
-    public override Vector3 ApproachMethod( Vector3 position, float speed)
+    public override Vector3 ApproachMethod( Transform targetTransform, float speed )
     {
-		return Vector3.MoveTowards( position, TargetPosition, Time.deltaTime * speed );
+		return Vector3.MoveTowards( targetTransform.position, TargetPosition, Time.deltaTime * speed );
 	}
 #endregion
 
@@ -42,7 +42,7 @@ public class Test_StraightWayPoint : Test_Waypoint
 		Handles.DrawLine( leftPoint, rightPoint, 1f );
 		Handles.DrawSolidDisc( leftPoint, Vector3.up, 0.1f );
 		Handles.DrawSolidDisc( rightPoint, Vector3.up, 0.1f );
-		Handles.DrawSolidDisc( middlePoint + Vector3.up * 2f, Vector3.up, 0.1f );
+		Handles.DrawSolidDisc( middlePoint + Vector3.up * 2f, Vector3.up, 0.05f );
 
 		Handles.DrawLine( middlePoint, middlePoint + Vector3.up * 2f );
 		Handles.Label( middlePoint + Vector3.up * 2f, "Straight Rode Wide: " + wide );
@@ -53,7 +53,7 @@ public class Test_StraightWayPoint : Test_Waypoint
 
 		Handles.DrawLine( transform.position, TargetPosition );
 		Handles.DrawLine( transform.position, transform.position + Vector3.up * 2f );
-		Handles.DrawSolidDisc( transform.position + Vector3.up * 2f, Vector3.up, 0.1f );
+		Handles.DrawSolidDisc( transform.position + Vector3.up * 2f, Vector3.up, 0.05f );
 		Handles.Label( transform.position + Vector3.up * 2f, "Straight Rode Lenght: " + Vector3.Distance( transform.position, TargetPosition) );
 	}
 #endif

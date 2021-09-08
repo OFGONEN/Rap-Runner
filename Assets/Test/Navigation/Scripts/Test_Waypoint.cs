@@ -25,7 +25,7 @@ public abstract class Test_Waypoint : MonoBehaviour
 #endregion
 
 #region API
-    public abstract Vector3 ApproachMethod( Vector3 position, float speed);
+    public abstract Vector3 ApproachMethod( Transform targetTransform, float speed);
 #endregion
 
 #region Implementation

@@ -47,7 +47,7 @@ public class Test_Player : MonoBehaviour
     {
 		var position = transform.position;
 
-		var approachDistance = waypoint.ApproachMethod( position, speed_Move_Vertical );
+		var approachDistance = waypoint.ApproachMethod( transform, speed_Move_Vertical );
 
         if( Vector3.Distance( approachDistance, waypoint.TargetPosition ) <= 0.1f)
         {
