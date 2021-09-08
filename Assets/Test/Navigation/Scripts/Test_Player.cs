@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
+using NaughtyAttributes;
 
 public class Test_Player : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Test_Player : MonoBehaviour
     
     public Transform gfx_Transform;
 
+	public bool moveOnStart = false;
 
 	private UnityMessage updateMethod;
 #endregion
@@ -24,7 +26,10 @@ public class Test_Player : MonoBehaviour
 #region Unity API
     private void Start()
     {
-		updateMethod = ApproachWaypoint;
+        updateMethod = ExtensionMethods.EmptyMethod;
+
+        if( moveOnStart )
+		    updateMethod = ApproachWaypoint;
 	}
 
     private void Update()
