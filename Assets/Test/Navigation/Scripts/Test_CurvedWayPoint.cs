@@ -62,7 +62,13 @@ public class Test_CurvedWayPoint : Test_Waypoint
 		var turnOrigin_World = transform.TransformPoint( turnOrigin );
 		var turnOrigin_World_Up = turnOrigin_World + Vector3.up * 2f;
 
-		Handles.color = Color.green;
+		var targetPoint_Up = TargetPosition + Vector3.up * 0.5f;
+
+		if ( nextWaypoint == null )
+			Handles.color = Color.red;
+		else 
+			Handles.color = Color.green;
+
 		Handles.DrawSolidDisc( startPosition, Vector3.up, 0.1f );
 		Handles.DrawSolidDisc( TargetPosition, Vector3.up, 0.1f );
 
@@ -84,9 +90,9 @@ public class Test_CurvedWayPoint : Test_Waypoint
 		sewingPoint = turnOrigin_World + transform.forward * ( turnOrigin.x - wide / 2f );
 		var sewingPoint_Up = sewingPoint + Vector3.up * 0.5f;
 		Handles.DrawSolidDisc( sewingPoint, Vector3.up, 0.05f );
-		Handles.DrawSolidDisc( sewingPoint_Up , Vector3.up, 0.05f );
-		Handles.DrawLine( sewingPoint, sewingPoint_Up );
-		Handles.Label( sewingPoint_Up , "Sewing Point \n" + sewingPoint );
+		Handles.DrawSolidDisc( targetPoint_Up , Vector3.up, 0.05f );
+		Handles.DrawLine( TargetPosition, targetPoint_Up );
+		Handles.Label( targetPoint_Up , "Sewing Point \n" + TargetPosition );
 
 	}
 

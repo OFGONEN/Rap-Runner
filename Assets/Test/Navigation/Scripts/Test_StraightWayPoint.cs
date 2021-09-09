@@ -37,24 +37,38 @@ public class Test_StraightWayPoint : Test_Waypoint
 		    rightPoint  = transform.TransformPoint( rightPoint );
 		var middlePoint = ( leftPoint + rightPoint ) / 2f;
 
+		var targetPoint_Up = TargetPosition + Vector3.up * 0.5f;
+		var middlePoint_Up = middlePoint + Vector3.up;
+
 		Handles.color = Color.blue;
 
 		Handles.DrawLine( leftPoint, rightPoint, 1f );
 		Handles.DrawSolidDisc( leftPoint, Vector3.up, 0.1f );
 		Handles.DrawSolidDisc( rightPoint, Vector3.up, 0.1f );
-		Handles.DrawSolidDisc( middlePoint + Vector3.up * 2f, Vector3.up, 0.05f );
+		Handles.DrawSolidDisc( middlePoint_Up, Vector3.up, 0.05f );
 
 		Handles.DrawLine( middlePoint, middlePoint + Vector3.up * 2f );
-		Handles.Label( middlePoint + Vector3.up * 2f, "Straight Rode Wide: " + wide );
+		Handles.Label( middlePoint_Up, "Straight Rode Wide: " + wide );
 
-		Handles.color = Color.green;
+		Handles.DrawLine( TargetPosition, targetPoint_Up );
+		Handles.DrawSolidDisc( targetPoint_Up, Vector3.up, 0.05f );
+
+		Handles.Label( targetPoint_Up , "Sewing Point \n" + TargetPosition );
+
+		if ( nextWaypoint == null )
+			Handles.color = Color.red;
+		else 
+			Handles.color = Color.green;
+
 		Handles.DrawSolidDisc( transform.position, Vector3.up, 0.1f );
 		Handles.DrawSolidDisc( TargetPosition, Vector3.up, 0.1f );
 
 		Handles.DrawLine( transform.position, TargetPosition );
-		Handles.DrawLine( transform.position, transform.position + Vector3.up * 2f );
-		Handles.DrawSolidDisc( transform.position + Vector3.up * 2f, Vector3.up, 0.05f );
-		Handles.Label( transform.position + Vector3.up * 2f, "Straight Rode Lenght: " + Vector3.Distance( transform.position, TargetPosition) );
+		Handles.DrawLine( middlePoint_Up, middlePoint + Vector3.up * 2f );
+		Handles.DrawSolidDisc( middlePoint + Vector3.up * 2f, Vector3.up, 0.05f );
+		Handles.Label( middlePoint + Vector3.up * 2f, "Straight Rode Lenght: " + Vector3.Distance( transform.position, TargetPosition) );
+
+
 	}
 #endif
 #endregion
