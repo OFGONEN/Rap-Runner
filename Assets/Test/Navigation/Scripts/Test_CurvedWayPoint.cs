@@ -10,7 +10,6 @@ public class Test_CurvedWayPoint : Test_Waypoint
 {
 #region Fields
     public Vector3 turnOrigin;
-    public Test_Curve curve;
     public float turn_SpeedModifier = 1f;
 
     private float turnModifier;
@@ -22,11 +21,13 @@ public class Test_CurvedWayPoint : Test_Waypoint
 #region Unity API
     private void Awake()
     {
-        if( curve == Test_Curve.LeftCurve )
-			turnModifier = -1f;
-        else if ( curve == Test_Curve.RightCurve )
-			turnModifier = 1f;
-        
+        // if( curve == Test_Curve.LeftCurve )
+		// 	turnModifier = -1f;
+        // else if ( curve == Test_Curve.RightCurve )
+		// 	turnModifier = 1f;
+
+		turnModifier = Mathf.Sign( turnOrigin.x );
+
 		targetPosition = turnOrigin + transform.forward * turnOrigin.x;
 	}
 #endregion
@@ -43,12 +44,6 @@ public class Test_CurvedWayPoint : Test_Waypoint
 #region Implementation
 #endregion
 
-    public enum Test_Curve
-    {
-        LeftCurve,
-        RightCurve
-    }
-
 #region Editor Only
 #if UNITY_EDITOR
     [ Header( "EditorOnly" ), HorizontalLine ]
@@ -56,8 +51,10 @@ public class Test_CurvedWayPoint : Test_Waypoint
 
     private void OnDrawGizmos()
     {
+		var sign = Mathf.Sign( turnOrigin.x );
+		var absolute = Mathf.Abs( turnOrigin.x );
 		var startPosition = transform.position;
-		var middlePoint = transform.TransformPoint( new Vector3( turnOrigin.x - turnOrigin.x * Mathf.Cos( 45 ), 0, turnOrigin.x * Mathf.Sin( 45 ) ) );
+		var middlePoint = transform.TransformPoint( new Vector3( turnOrigin.x - turnOrigin.x * Mathf.Cos( 45 ), 0, absolute * Mathf.Sin( 45 ) ) );
 		var middlePoint_Up = middlePoint + Vector3.up * 2f;
 		var turnOrigin_World = transform.TransformPoint( turnOrigin );
 		var turnOrigin_World_Up = turnOrigin_World + Vector3.up * 2f;
@@ -77,18 +74,17 @@ public class Test_CurvedWayPoint : Test_Waypoint
 		Handles.DrawSolidDisc( middlePoint_Up, Vector3.up, 0.05f );
 		Handles.Label( middlePoint_Up , "Curved Road Wide: " + wide );
 
-		Handles.DrawWireArc( turnOrigin_World, Vector3.up, -transform.right, 90, turnOrigin.x );
-		Handles.DrawWireArc( turnOrigin_World, Vector3.up, -transform.right, 90, turnOrigin.x + wide / 2f );
+		Handles.DrawWireArc( turnOrigin_World, Vector3.up, sign * -transform.right, sign * 90, absolute );
+		Handles.DrawWireArc( turnOrigin_World, Vector3.up, sign * -transform.right, sign * 90, absolute + wide / 2f );
 
 		Handles.color = Color.blue;
 		Handles.DrawSolidDisc( turnOrigin_World, Vector3.up, 0.1f );
-		Handles.DrawWireArc( turnOrigin_World, Vector3.up, -transform.right, 90f, turnOrigin.x - wide / 2f );
+		Handles.DrawWireArc( turnOrigin_World, Vector3.up, sign * -transform.right, sign * 90f, absolute - wide / 2f );
 		Handles.DrawLine( turnOrigin_World, turnOrigin_World_Up );
 		Handles.DrawSolidDisc( turnOrigin_World_Up, Vector3.up, 0.05f );
-		Handles.Label( turnOrigin_World_Up, "Curved Road Turning Wide: " + ( turnOrigin.x - wide / 2f ) );
+		Handles.Label( turnOrigin_World_Up, "Curved Road Turning Wide: " + ( absolute - wide / 2f ) );
 
-		sewingPoint = turnOrigin_World + transform.forward * ( turnOrigin.x - wide / 2f );
-		var sewingPoint_Up = sewingPoint + Vector3.up * 0.5f;
+		sewingPoint = turnOrigin_World + transform.forward * ( absolute - wide / 2f );
 		Handles.DrawSolidDisc( sewingPoint, Vector3.up, 0.05f );
 		Handles.DrawSolidDisc( targetPoint_Up , Vector3.up, 0.05f );
 		Handles.DrawLine( TargetPosition, targetPoint_Up );
@@ -96,10 +92,9 @@ public class Test_CurvedWayPoint : Test_Waypoint
 
 	}
 
-    [ Button() ]
-    public void CalculateTargetPosition()
-    {
-		targetPosition = turnOrigin + transform.forward * turnOrigin.x;
+	private void OnValidate()
+	{
+		targetPosition = turnOrigin + transform.forward * Mathf.Abs( turnOrigin.x );
 	}
 #endif
 #endregion

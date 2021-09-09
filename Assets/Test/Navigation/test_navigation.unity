@@ -218,7 +218,6 @@ MonoBehaviour:
   targetPosition: {x: 1.7, y: 0, z: 1.7}
   wide: 3
   turnOrigin: {x: 1.7, y: 0, z: 0}
-  curve: 1
   turn_SpeedModifier: 5
   sewingPoint: {x: 1.7, y: 0, z: 5.2}
 --- !u!1 &188090859
