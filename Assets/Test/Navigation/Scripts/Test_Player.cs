@@ -9,15 +9,18 @@ using NaughtyAttributes;
 public class Test_Player : MonoBehaviour
 {
 #region Fields
-    public Test_Waypoint waypoint;
+    public Test_Waypoint waypoint; //TODO Use SharedReferenceSetter to obtain the first waypoint of the level
     public float speed_Move_Vertical;
     public float speed_Move_Horizontal;
-    
+    public float speed_Rotation;
+
     public Transform gfx_Transform;
 
+	public float rotationValue;
 	public bool moveOnStart = false;
 
 	private UnityMessage updateMethod;
+	private float gfx_Rotation;
 #endregion
 
 #region Properties
@@ -67,9 +70,22 @@ public class Test_Player : MonoBehaviour
 		Vector3 horizontalMove = Vector3.zero;
 
 		if( Input.GetKey( KeyCode.RightArrow ) ) 
+		{
 			horizontalMove += Vector3.right;
+			gfx_Rotation = Mathf.Lerp( gfx_Rotation, rotationValue, Time.deltaTime * speed_Rotation );
+		}
 		else if( Input.GetKey( KeyCode.LeftArrow ) ) 
+		{ 
 			horizontalMove += Vector3.left;
+			gfx_Rotation = Mathf.Lerp( gfx_Rotation, -rotationValue, Time.deltaTime * speed_Rotation );
+		}
+		else 
+		{ 
+			gfx_Rotation = Mathf.Lerp( gfx_Rotation, 0, Time.deltaTime * speed_Rotation );
+		}
+
+		gfx_Transform.localRotation = Quaternion.Euler( 0, gfx_Rotation, 0 );
+
 
 		var gfx_Position = gfx_Transform.localPosition;
 		var nextPosition = Vector3.MoveTowards( gfx_Position, gfx_Position + horizontalMove, Time.deltaTime * speed_Move_Horizontal );
