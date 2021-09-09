@@ -75,7 +75,7 @@ public class Test_CurvedWayPoint : Test_Waypoint
 		Handles.DrawLine( middlePoint, middlePoint_Up );
 		Handles.DrawSolidDisc( middlePoint, Vector3.up, 0.05f );
 		Handles.DrawSolidDisc( middlePoint_Up, Vector3.up, 0.05f );
-		Handles.Label( middlePoint_Up , "Curved Rode Wide: " + wide );
+		Handles.Label( middlePoint_Up , "Curved Road Wide: " + wide );
 
 		Handles.DrawWireArc( turnOrigin_World, Vector3.up, -transform.right, 90, turnOrigin.x );
 		Handles.DrawWireArc( turnOrigin_World, Vector3.up, -transform.right, 90, turnOrigin.x + wide / 2f );
@@ -85,7 +85,7 @@ public class Test_CurvedWayPoint : Test_Waypoint
 		Handles.DrawWireArc( turnOrigin_World, Vector3.up, -transform.right, 90f, turnOrigin.x - wide / 2f );
 		Handles.DrawLine( turnOrigin_World, turnOrigin_World_Up );
 		Handles.DrawSolidDisc( turnOrigin_World_Up, Vector3.up, 0.05f );
-		Handles.Label( turnOrigin_World_Up, "Curved Rode Turning Wide: " + ( turnOrigin.x - wide / 2f ) );
+		Handles.Label( turnOrigin_World_Up, "Curved Road Turning Wide: " + ( turnOrigin.x - wide / 2f ) );
 
 		sewingPoint = turnOrigin_World + transform.forward * ( turnOrigin.x - wide / 2f );
 		var sewingPoint_Up = sewingPoint + Vector3.up * 0.5f;

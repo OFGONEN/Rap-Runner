@@ -48,7 +48,7 @@ public class Test_StraightWayPoint : Test_Waypoint
 		Handles.DrawSolidDisc( middlePoint_Up, Vector3.up, 0.05f );
 
 		Handles.DrawLine( middlePoint, middlePoint + Vector3.up * 2f );
-		Handles.Label( middlePoint_Up, "Straight Rode Wide: " + wide );
+		Handles.Label( middlePoint_Up, "Straight Road Wide: " + wide );
 
 		Handles.DrawLine( TargetPosition, targetPoint_Up );
 		Handles.DrawSolidDisc( targetPoint_Up, Vector3.up, 0.05f );
@@ -66,7 +66,7 @@ public class Test_StraightWayPoint : Test_Waypoint
 		Handles.DrawLine( transform.position, TargetPosition );
 		Handles.DrawLine( middlePoint_Up, middlePoint + Vector3.up * 2f );
 		Handles.DrawSolidDisc( middlePoint + Vector3.up * 2f, Vector3.up, 0.05f );
-		Handles.Label( middlePoint + Vector3.up * 2f, "Straight Rode Lenght: " + Vector3.Distance( transform.position, TargetPosition) );
+		Handles.Label( middlePoint + Vector3.up * 2f, "Straight Road Lenght: " + Vector3.Distance( transform.position, TargetPosition) );
 
 
 	}
