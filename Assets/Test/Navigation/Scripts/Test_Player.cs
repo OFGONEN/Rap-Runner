@@ -10,7 +10,9 @@ public class Test_Player : MonoBehaviour
 {
 #region Fields
     public Test_Waypoint waypoint; //TODO Use SharedReferenceSetter to obtain the first waypoint of the level
-    public float speed_Move_Vertical;
+	public Test_Obstacle obstacle;
+	public float speed_Move_Vertical;
+	public float speed_Move_Approach;
     public float speed_Move_Horizontal;
     public float speed_Rotation;
 
@@ -32,7 +34,7 @@ public class Test_Player : MonoBehaviour
         updateMethod = ExtensionMethods.EmptyMethod;
 
         if( moveOnStart )
-		    updateMethod = ApproachWaypoint;
+		    updateMethod = ApproachWaypointMethod;
 	}
 
     private void Update()
@@ -42,11 +44,48 @@ public class Test_Player : MonoBehaviour
 #endregion
 
 #region API
+	public void ApproachWaypoint()
+	{
+		if( waypoint != null )
+			updateMethod = ApproachWaypoint;
+	}
+	
+	public void ApproachObstacle( Test_Obstacle obstacle)
+	{
+		//TODO: disable input
+
+		this.obstacle = obstacle;
+		updateMethod = ApproachObstacleMethod;
+	}
 #endregion
 
 #region Implementation
+    private void ApproachObstacleMethod()
+	{
+		var position            = transform.position;
+		var position_gfx        = gfx_Transform.localPosition;
+		var targetPosition      = obstacle.TargetPoint;
+		var targetPositionLocal = transform.InverseTransformPoint( targetPosition );
 
-    private void ApproachWaypoint()
+		var newPosition       = Vector3.MoveTowards( position, targetPosition, Time.deltaTime * speed_Move_Approach );
+		var newPosition_GFX_X = Mathf.Lerp( position_gfx.x, targetPositionLocal.x, Time.deltaTime * speed_Move_Horizontal );
+
+		position_gfx.x = newPosition_GFX_X;
+
+		transform.position          = newPosition;
+		gfx_Transform.localPosition = position_gfx;
+
+		gfx_Transform.LookAtOverTimeAxis( obstacle.transform.position, Vector3.up, speed_Rotation );
+
+		if( Vector3.Distance( newPosition, targetPosition) <= 0.1f )
+		{
+			FFLogger.Log( "Target Approached" );
+			updateMethod = ExtensionMethods.EmptyMethod;
+			//TODO: Start Rapping
+		}
+	}
+
+    private void ApproachWaypointMethod()
     {
 		var position = transform.position;
 
@@ -94,6 +133,8 @@ public class Test_Player : MonoBehaviour
 
 		gfx_Transform.localPosition = nextPosition;
 	}
+	
+	
 
 #endregion
 
