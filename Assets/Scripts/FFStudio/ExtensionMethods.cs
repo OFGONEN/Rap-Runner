@@ -174,6 +174,11 @@ namespace FFStudio
 			return theVector;
 		}
 
+		public static Vector3 AddUp( this Vector3 theVector, float addUp )
+		{
+			return theVector + Vector3.up * addUp;
+		}
+
 		public static float ComponentSum( this Vector3 theVector )
 		{
 			return theVector.x + theVector.y + theVector.z;
