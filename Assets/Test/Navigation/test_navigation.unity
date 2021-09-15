@@ -153,7 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e7a271c1f9e3004cae4196e640dc0de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statusPoint: 20
   targetPoint: {x: 0, y: 0, z: -0.75}
+  rapping_targetPoint: {x: 0, y: 0, z: 0.75}
   boxCollider: {fileID: 25648128}
 --- !u!65 &25648128
 BoxCollider:
@@ -176,7 +178,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 25648126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3.75}
+  m_LocalPosition: {x: 0, y: 0, z: 3.214}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1035090853}
@@ -1779,6 +1781,8 @@ MonoBehaviour:
   speed_Move_Approach: 1
   speed_Move_Horizontal: 10
   speed_Rotation: 10
+  duration_Rapping: 2
+  statusPoint: 30
   gfx_Transform: {fileID: 1412189159}
   rotationValue: 30
   moveOnStart: 1
