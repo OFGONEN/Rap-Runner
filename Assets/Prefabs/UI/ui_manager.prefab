@@ -781,7 +781,7 @@ GameObject:
   - component: {fileID: 124199665187945363}
   - component: {fileID: 124199665187945367}
   m_Layer: 5
-  m_Name: canvas_UIManager
+  m_Name: ui_manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -902,6 +902,7 @@ MonoBehaviour:
   foreGroundImage: {fileID: 124199664216971439}
   tutorialObjects: {fileID: 124199664260450679}
   levelRevealedEvent: {fileID: 11400000, guid: be5502ede7f194b4cad32082aa9196eb, type: 2}
+  levelStartEvent: {fileID: 11400000, guid: efef06bf257ee27438d6c2aab4936226, type: 2}
   loadNewLevelEvent: {fileID: 11400000, guid: f21048912f45f4f4ba5088a96779eb2f, type: 2}
   resetLevelEvent: {fileID: 11400000, guid: 0a3e52cd505ecfc4ba9ef153d4f3ba93, type: 2}
   elephantLevelEvent: {fileID: 11400000, guid: 33ccf5f609258ea46b63b78483df10f5, type: 2}
@@ -983,7 +984,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: APK_28-08-21_Build-1
+  m_text: APK_30/08/21_Build-1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
