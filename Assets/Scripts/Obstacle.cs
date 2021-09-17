@@ -67,7 +67,7 @@ public class Obstacle : MonoBehaviour
 		var player = other.GetComponentInParent< PlayerController >();
 
 		boxCollider.enabled = false;
-        //TODO:(ofg) player.StartApproacObstacle
+		//TODO:(ofg) player.StartApproachObstacle( this );
 	}
 	#endregion
 
@@ -91,7 +91,7 @@ public class Obstacle : MonoBehaviour
 		Handles.color = Color.red;
 
 		Handles.Label( rappingPosition.AddUp( 0.5f ), "Rapping Point:\n" + rappingPosition );
-		Handles.DrawWireCube( transform.TransformPoint( boxCollider.center ), boxCollider.size );
+		Handles.DrawWireCube( boxCollider.transform.TransformPoint( boxCollider.center ), boxCollider.size );
 		Handles.DrawDottedLine( position.AddUp( 0.1f ), rappingPosition.AddUp( 0.1f ), 1f );
 		Handles.DrawWireDisc( rappingPosition.AddUp( 0.1f ), Vector3.up, 0.1f );
 
