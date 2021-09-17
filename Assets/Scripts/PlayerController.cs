@@ -101,9 +101,9 @@ public class PlayerController : MonoBehaviour
 		// Move GFX Object
 
 		Vector3 horizontalMove = Vector3.right * inputDirectionProperty.sharedValue;
-		modelRotationAmount = Mathf.MoveTowards( modelRotationAmount, 
+		modelRotationAmount = Mathf.Lerp( modelRotationAmount, 
                                 inputDirectionProperty.sharedValue * GameSettings.Instance.player_clamp_rotation, 
-                                Time.deltaTime * GameSettings.Instance.player_speed_rotation );
+                                Time.deltaTime * GameSettings.Instance.player_speed_turn );
 
         // Calculate new local position for model
 		var modelPosition = modelTransform.localPosition;

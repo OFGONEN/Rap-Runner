@@ -21,6 +21,7 @@ namespace FFStudio
 		[ Foldout( "Player" ), Tooltip( "Player's vertical movement speed" ) ] public float player_speed_vertical = 10f;
 		[ Foldout( "Player" ), Tooltip( "Player's vertical movement speed" ) ] public float player_speed_horizontal = 8f;
 		[ Foldout( "Player" ), Tooltip( "Player's rotation movement speed" ) ] public float player_speed_rotation = 10f;
+		[ Foldout( "Player" ), Tooltip( "Player's rotation movement speed" ) ] public float player_speed_turn = 20f;
 		[ Foldout( "Player" ), Tooltip( "Player's Catwalk status depleting speed" ) ] public float player_speed_statusDepleting = 5f;
 
         private static GameSettings instance;

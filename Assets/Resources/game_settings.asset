@@ -22,5 +22,6 @@ MonoBehaviour:
   player_clamp_rotation: 30
   player_speed_vertical: 10
   player_speed_horizontal: 8
-  player_speed_rotation: 10
+  player_speed_rotation: 90
+  player_speed_turn: 20
   player_speed_statusDepleting: 5
