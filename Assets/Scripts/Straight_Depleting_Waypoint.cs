@@ -13,12 +13,11 @@ public class Straight_Depleting_Waypoint : Straight_Waypoint
 #endregion
 
 #region Unity API
-    public override void PlayerEntered() //TODO:(ofg) PlayerController as parameter
+    public override void PlayerEntered( PlayerController player )
     {
         // If not null
 		player_EnteredEvent?.Raise();
-
-        //TODO:(ofg) Set PlayerController's approach delegate as depleting
+		player.StartApproach_DepletingWaypoint();
 	}
 #endregion
 

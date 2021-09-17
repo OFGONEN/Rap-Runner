@@ -40,15 +40,14 @@ public abstract class Waypoint : MonoBehaviour
 #region API
     public abstract Vector3 ApproachMethod( Transform targetTransform );
 
-    public virtual void PlayerEntered() //TODO:(ofg) PlayerController as parameter
+    public virtual void PlayerEntered( PlayerController player ) 
     {
         // If not null
 		player_EnteredEvent?.Raise();
-
-        //TODO:(ofg) Set PlayerController's approach delegate 
+		player.StartApproachWaypoint();
 	}
 
-    public virtual void PlayerExited() //TODO:(ofg) PlayerController as parameter
+    public virtual void PlayerExited( PlayerController player )
     {
         // If not null
         player_ExiteddEvent?.Raise();
