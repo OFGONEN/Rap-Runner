@@ -14,6 +14,7 @@ namespace FFStudio
 		public IntGameEvent tapInputEvent;
 
 		[ Header( "Shared Variables" ) ]
+		public SharedFloatProperty inputDirectionProperty;
 		public SharedReferenceProperty mainCamera_ReferenceProperty;
 
 		// Privat fields
@@ -56,6 +57,17 @@ namespace FFStudio
 			tapInputEvent.eventValue = count;
 
 			tapInputEvent.Raise();
+		}
+
+		public void LeanFingerDelta( Vector2 delta )
+		{
+			var direction = Mathf.Approximately( delta.x, 0 ) ? 0 : Mathf.Sign( delta.x );
+			inputDirectionProperty.sharedValue = direction;
+		}
+
+		public void LeanFingerUp( LeanFinger finger )
+		{
+			inputDirectionProperty.sharedValue = 0;
 		}
 #endregion
 
