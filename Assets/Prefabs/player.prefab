@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6226045501835103261}
   - component: {fileID: 6226045501835103260}
   - component: {fileID: 6226045501835103263}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6226045502115610997}
   - component: {fileID: -2228157181285855398}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 6226045503252483190}
   - component: {fileID: 6226045503252483185}
   - component: {fileID: 6226045503252483184}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,6 +305,10 @@ PrefabInstance:
     - target: {fileID: 3747325266785291023, guid: ed4a75596492d5941b007d11e01ab28a, type: 3}
       propertyPath: m_Name
       value: main_camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 3747325266785291023, guid: ed4a75596492d5941b007d11e01ab28a, type: 3}
+      propertyPath: m_Layer
+      value: 31
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed4a75596492d5941b007d11e01ab28a, type: 3}
