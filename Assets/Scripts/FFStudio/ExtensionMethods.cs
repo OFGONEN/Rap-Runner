@@ -88,6 +88,21 @@ namespace FFStudio
 			baseTransform.rotation = Quaternion.LookRotation( newDirection );
 		}
 
+		public static void LookAtAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis )
+		{
+
+			var _directionVector = targetPosition - baseTransform.position;
+			var eulerAngles      = baseTransform.eulerAngles;
+			var newRotationEuler = Quaternion.LookRotation( _directionVector ).eulerAngles;
+
+			newRotationEuler.x = eulerAngles.x + ( newRotationEuler.x - eulerAngles.x ) * axis.x;
+			newRotationEuler.y = eulerAngles.y + ( newRotationEuler.y - eulerAngles.y ) * axis.y;
+			newRotationEuler.z = eulerAngles.z + ( newRotationEuler.z - eulerAngles.z ) * axis.z;
+
+			// baseTransform.rotation = Quaternion.LookRotation( newDirection );
+			baseTransform.rotation = Quaternion.Euler( newRotationEuler );
+		}
+
 		public static void LookAtOverTimeAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis, float speed )
 		{
 
