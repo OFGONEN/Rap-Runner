@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour
 #region Fields
     [ Header( "Event Listeners" ) ]
     public EventListenerDelegateResponse levelStartListener;
-    [ Header( "Shared Variables" ) ]
+	public EventListenerDelegateResponse modifierEventListener;
+	[ Header( "Shared Variables" ) ]
     public SharedFloatProperty inputDirectionProperty;
 	public SharedReferenceProperty startWaypointReference;
 
@@ -19,8 +20,9 @@ public class PlayerController : MonoBehaviour
 
     // Private Fields \\
     private Waypoint currentWaypoint;
-
 	private float modelRotationAmount;
+	private float statusPoint;
+
 
 	// Delegates
 	private UnityMessage updateMethod;
@@ -33,18 +35,21 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
 		levelStartListener.OnEnable();
+		modifierEventListener.OnEnable();
 	}
 
     private void OnDisable()
     {
 		levelStartListener.OnDisable();
+		modifierEventListener.OnDisable();
     }
     
     private void Awake()
     {
-        // Set Delegates
-		levelStartListener.response = LevelStartResponse;
-		updateMethod                = ExtensionMethods.EmptyMethod;
+		// Set Delegates
+		levelStartListener.response    = LevelStartResponse;
+		modifierEventListener.response = ModifierEventResponse;
+		updateMethod                   = ExtensionMethods.EmptyMethod;
 	}
 
     private void Update()
@@ -120,6 +125,14 @@ public class PlayerController : MonoBehaviour
     {
 
     }
+
+    private void ModifierEventResponse()
+    {
+		var modifyAmount = ( modifierEventListener.gameEvent as FloatGameEvent ).eventValue;
+		statusPoint += modifyAmount;
+
+        FFLogger.Log( "Status Point: " + statusPoint );
+	}
 #endregion
 
 #region Editor Only
