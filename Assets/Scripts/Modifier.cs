@@ -20,6 +20,7 @@ public class Modifier : MonoBehaviour
     // Components 
     protected ColliderListener_EventRaiser colliderListener;
     protected Collider modiferCollider;
+
 #endregion
 
 #region Properties
@@ -46,6 +47,10 @@ public class Modifier : MonoBehaviour
 #endregion
 
 #region API
+    public void DisableCollider()
+    {
+		modiferCollider.enabled = false;
+	}
 #endregion
 
 #region Implementation
