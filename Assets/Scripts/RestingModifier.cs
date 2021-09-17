@@ -13,18 +13,17 @@ public class RestingModifier : Modifier
 #endregion
 
 #region Unity API
-    protected override void OnTriggerEnter( Collider other )
-    {
-		base.OnTriggerEnter( other );
-
-		gameObject.SetActive( false );
-	}
 #endregion
 
 #region API
 #endregion
 
 #region Implementation
+    protected override void TriggerEnter( Collider other )
+    {
+		base.TriggerEnter( other );
+		gameObject.SetActive( false );
+	}
 #endregion
 
 #region Editor Only

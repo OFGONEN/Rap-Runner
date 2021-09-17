@@ -13,17 +13,17 @@ public class GateModifier : Modifier
 #endregion
 
 #region Unity API
-    protected override void OnTriggerEnter( Collider other )
-    {
-		base.OnTriggerEnter( other );
-		modiferCollider.enabled = false;
-    }
 #endregion
 
 #region API
 #endregion
 
 #region Implementation
+    protected override void TriggerEnter( Collider other )
+    {
+		base.TriggerEnter( other );
+		modiferCollider.enabled = false;
+    }
 #endregion
 
 #region Editor Only

@@ -18,6 +18,7 @@ public class Modifier : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public string modifier_ParticleName;
 
     // Components 
+    protected ColliderListener_EventRaiser colliderListener;
     protected Collider modiferCollider;
 #endregion
 
@@ -25,12 +26,30 @@ public class Modifier : MonoBehaviour
 #endregion
 
 #region Unity API
+    private void OnEnable()
+    {
+		colliderListener.triggerEnter += TriggerEnter;
+	}
+
+    private void OnDisable()
+    {
+		colliderListener.triggerEnter -= TriggerEnter;
+	}
+
     private void Awake()
     {
+		colliderListener = GetComponentInChildren< ColliderListener_EventRaiser >();
 		modiferCollider = GetComponentInChildren< Collider >();
 	}
 
-    protected virtual void OnTriggerEnter( Collider other )
+
+#endregion
+
+#region API
+#endregion
+
+#region Implementation
+    protected virtual void TriggerEnter( Collider other )
     {
         modifier_Event.eventValue = modifier_Point;
 
@@ -41,12 +60,6 @@ public class Modifier : MonoBehaviour
 		modifier_Event.Raise();
 		particleSpawnEvent.Raise();
     }
-#endregion
-
-#region API
-#endregion
-
-#region Implementation
 #endregion
 
 #region Editor Only
