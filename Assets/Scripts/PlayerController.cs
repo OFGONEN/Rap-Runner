@@ -14,9 +14,14 @@ public class PlayerController : MonoBehaviour
     [ Header( "Event Listeners" ) ]
     public EventListenerDelegateResponse levelStartListener;
 	public EventListenerDelegateResponse modifierEventListener;
+
+	[ Header( "Fired Events" ) ]
+	public GameEvent levelFailedEvent;
+
 	[ Header( "Shared Variables" ) ]
     public SharedFloatProperty inputDirectionProperty;
 	public SharedReferenceProperty startWaypointReference;
+
 
     [ BoxGroup( "Setup" ) ] public Transform modelTransform;
 
@@ -141,8 +146,19 @@ public class PlayerController : MonoBehaviour
 
     private void Approach_DepletingWaypointMethod()
     {
+		var lossStatus   = Time.deltaTime * GameSettings.Instance.player_speed_statusDepleting;
+		    statusPoint -= lossStatus;
 
-    }
+		//TODO:(ofg) handle status type
+
+		if( statusPoint <= 0 )
+		{
+			updateMethod = ExtensionMethods.EmptyMethod;
+			levelFailedEvent.Raise();
+		}
+
+		ApproachWaypointMethod();
+	}
 
 	private void ApproachObstacleMethod()
 	{
@@ -202,6 +218,7 @@ public class PlayerController : MonoBehaviour
 
 	private void OnSequenceUpdate()
 	{
+		//TODO:(ofg) handle status type
 		var lossStatus = Time.deltaTime * statusDepleteSpeed;
 
 		statusPoint -= lossStatus;
