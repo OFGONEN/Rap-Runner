@@ -28,7 +28,7 @@ public class Curved_Waypoint : Waypoint
 		turnModifier = Mathf.Sign( turnOrigin.x );
 
         // Calculate target point local position based on turn origin position
-		targetPoint              = turnOrigin + transform.forward * Mathf.Abs( turnOrigin.x );
+		targetPoint              = turnOrigin + Vector3.forward * Mathf.Abs( turnOrigin.x );
         // Cache turn origin world position
 		turnOrigin_WorldPosition = transform.TransformPoint( turnOrigin );
 
@@ -57,7 +57,7 @@ public class Curved_Waypoint : Waypoint
 		var absolute = Mathf.Abs( turnOrigin.x );
 		var startPosition = transform.position;
 
-		var targetPosition = transform.TransformPoint( turnOrigin + transform.forward * Mathf.Abs( turnOrigin.x ) );
+		var targetPosition = transform.TransformPoint( turnOrigin + Vector3.forward * Mathf.Abs( turnOrigin.x ) );
 		var middlePoint = transform.TransformPoint( new Vector3( turnOrigin.x - turnOrigin.x * Mathf.Cos( 45 ), 0, absolute * Mathf.Sin( 45 ) ) );
 		var middlePoint_Up = middlePoint.AddUp( 2f );
 		var turnOrigin_World = transform.TransformPoint( turnOrigin );
@@ -96,7 +96,7 @@ public class Curved_Waypoint : Waypoint
 
 	private void OnValidate()
 	{
-		targetPoint = turnOrigin + transform.forward * Mathf.Abs( turnOrigin.x );
+		targetPoint = turnOrigin + Vector3.forward * Mathf.Abs( turnOrigin.x );
 	}
 #endif
 #endregion
