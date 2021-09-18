@@ -5,27 +5,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using FFStudio;
+using DG.Tweening;
 using NaughtyAttributes;
 
 public class Obstacle : MonoBehaviour
 {
 #region Fields
-    [ BoxGroup( "Setup" ), SerializeField ] public float statusPoint;
-    [ BoxGroup( "Setup" ), SerializeField ] public Vector3 targetPosition; // Local position
-    [ BoxGroup( "Setup" ), SerializeField ] public Vector3 rappingPosition; // Local position
+    [ BoxGroup( "Setup" ), SerializeField ] private float statusPoint;
+    [ BoxGroup( "Setup" ), SerializeField ] private Vector3 targetPosition; // Local position
+    [ BoxGroup( "Setup" ), SerializeField ] private Vector3 rappingPosition; // Local position
 
 	// Private Fields \\
 	private Vector3 targetPosition_WorldPoint;
+	private Vector3 lookTargetPosition;
 
-    // Components
-    private ColliderListener_EventRaiser colliderListener;
+	// Components
+	private ColliderListener_EventRaiser colliderListener;
     private BoxCollider boxCollider;
 #endregion
 
 #region Properties
 	// Properties \\
 	public Vector3 TargetPoint => targetPosition_WorldPoint;
-    public Vector3 RappingDistance => rappingPosition;
+    public Vector3 TargetDistance => transform.forward * targetPosition.z;
+    public Vector3 RappingDistance => transform.forward * rappingPosition.z;
+	public Vector3 LookTargetPoint => lookTargetPosition;
+
+	public float StatusPoint
+	{
+		get 
+		{
+			return statusPoint;
+		}
+		set
+		{
+			statusPoint = value;
+		}
+	}
 #endregion
 
 #region Unity API
@@ -41,11 +57,12 @@ public class Obstacle : MonoBehaviour
 
     private void Awake()
     {
-        // Cache world position of target position
-		targetPosition_WorldPoint = transform.TransformPoint( targetPosition );
-
 		colliderListener = GetComponentInChildren< ColliderListener_EventRaiser >();
 		boxCollider      = GetComponentInChildren< BoxCollider >();
+
+		// Cache world position of target position
+		targetPosition_WorldPoint = boxCollider.transform.TransformPoint( targetPosition ).SetY( 0 );
+		lookTargetPosition        = boxCollider.transform.position.SetY( 0 );
 	}
 #endregion
 
@@ -59,6 +76,11 @@ public class Obstacle : MonoBehaviour
     {
         //TODO:(ofg) Enable ragdoll object
     }
+
+	public Tween StartRapping( float duration )
+	{
+		return transform.DOMove( transform.position + RappingDistance, duration );
+	}
 #endregion
 
 #region Implementation
@@ -67,7 +89,7 @@ public class Obstacle : MonoBehaviour
 		var player = other.GetComponentInParent< PlayerController >();
 
 		boxCollider.enabled = false;
-		//TODO:(ofg) player.StartApproachObstacle( this );
+		player.StartApproachObstacle( this );
 	}
 	#endregion
 
@@ -78,9 +100,9 @@ public class Obstacle : MonoBehaviour
         if( boxCollider == null )
 			boxCollider = GetComponentInChildren< BoxCollider >();
 
-		var position = transform.position;
-		var targetPosition = transform.TransformPoint( this.targetPosition );
-		var rappingPosition = transform.TransformPoint( this.rappingPosition );
+		var position        = boxCollider.transform.position.SetY( 0 );
+		var targetPosition  = boxCollider.transform.TransformPoint( this.targetPosition ).SetY( 0 );
+		var rappingPosition = boxCollider.transform.TransformPoint( this.rappingPosition ).SetY( 0 );
 
 		Handles.color = Color.blue;
 		Handles.Label( targetPosition.AddUp( 0.5f ), "Approach Point:\n" + targetPosition );
