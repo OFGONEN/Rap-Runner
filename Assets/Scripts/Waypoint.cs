@@ -11,7 +11,7 @@ public abstract class Waypoint : MonoBehaviour
 #region Fields
     [ Header( "Fired Events" ) ]
     [ SerializeField ] protected GameEvent player_EnteredEvent; 
-    [ SerializeField ] protected GameEvent player_ExiteddEvent; 
+    [ SerializeField ] protected GameEvent player_ExitedEvent; 
 
     [ BoxGroup( "Setup" ), SerializeField ] protected Waypoint nextWaypoint;
     [ BoxGroup( "Setup" ), SerializeField ] protected Vector3 targetPoint;
@@ -50,7 +50,7 @@ public abstract class Waypoint : MonoBehaviour
     public virtual void PlayerExited( PlayerController player )
     {
         // If not null
-        player_ExiteddEvent?.Raise();
+        player_ExitedEvent?.Raise();
 	}
 
 #endregion
