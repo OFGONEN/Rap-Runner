@@ -35,7 +35,7 @@ public class AnimationTrigger : MonoBehaviour
 #region API
     public void PlayParticle()
     {
-		mainParticleSystem.Play();
+		mainParticleSystem?.Play();
 	}
 #endregion
 
