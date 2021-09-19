@@ -34,21 +34,13 @@ public class GateModifier : Modifier
 #if UNITY_EDITOR
 	private void OnDrawGizmos()
 	{
-		GUIStyle style = new GUIStyle();
-
 		if( pairGate == null )
 		{
+			GUIStyle style = new GUIStyle();
 			style.fontSize = 25;
 			style.normal.textColor = Color.red;
 			style.fontStyle = FontStyle.Bold;
 			Handles.Label( transform.position + Vector3.up * 5, "GATE IS NOT PAIRED", style );
-		}
-		else 
-		{
-			style.fontSize = 15;
-			style.normal.textColor = Color.green;
-			style.fontStyle = FontStyle.Italic;
-			Handles.Label( transform.position + Vector3.up * 5, "Gate is paired", style );
 		}
 	}
 #endif
