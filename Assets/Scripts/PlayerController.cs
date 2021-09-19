@@ -14,9 +14,11 @@ public class PlayerController : MonoBehaviour
     [ Header( "Event Listeners" ) ]
     public EventListenerDelegateResponse levelStartListener;
 	public EventListenerDelegateResponse modifierEventListener;
+	public EventListenerDelegateResponse catwalkEventListener;
 
 	[ Header( "Fired Events" ) ]
-	public GameEvent levelFailedEvent;
+	public GameEvent levelCompleteEvent;
+	public GameEvent levelFailEvent;
 
 	[ Header( "Shared Variables" ) ]
     public SharedFloatProperty inputDirectionProperty;
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour
 	private float statusPoint;
 	private float statusDepleteSpeed;
 
+	private bool catwalking = false;
 
 	// Delegates
 	private UnityMessage updateMethod;
@@ -49,12 +52,14 @@ public class PlayerController : MonoBehaviour
     {
 		levelStartListener.OnEnable();
 		modifierEventListener.OnEnable();
+		catwalkEventListener.OnEnable();
 	}
 
     private void OnDisable()
     {
 		levelStartListener.OnDisable();
 		modifierEventListener.OnDisable();
+		catwalkEventListener.OnDisable();
     }
     
     private void Awake()
@@ -63,6 +68,7 @@ public class PlayerController : MonoBehaviour
 		levelStartListener.response    = LevelStartResponse;
 		modifierEventListener.response = ModifierEventResponse;
 		updateMethod                   = ExtensionMethods.EmptyMethod;
+		catwalkEventListener.response  = CatwalkEventResponse;
 	}
 
     private void Update()
@@ -102,6 +108,22 @@ public class PlayerController : MonoBehaviour
 		currentWaypoint.PlayerEntered( this );
 	}
 
+    private void ModifierEventResponse()
+    {
+		var modifyAmount = ( modifierEventListener.gameEvent as FloatGameEvent ).eventValue;
+		statusPoint += modifyAmount;
+
+		//TODO:(ofg) level fails when status is lower than 0
+		statusPoint = Mathf.Max( statusPoint, 0 );
+
+		FFLogger.Log( "Status Point: " + statusPoint );
+	}
+
+	private void CatwalkEventResponse()
+	{
+		catwalking = true;
+	}
+
     private void ApproachWaypointMethod()
     {
 		var position = transform.position;
@@ -110,9 +132,10 @@ public class PlayerController : MonoBehaviour
 
         if( Vector3.Distance( approachDistance, currentWaypoint.TargetPoint ) <= GameSettings.Instance.player_target_checkDistance )
         {
+			currentWaypoint.PlayerExited( this );
+
             if( currentWaypoint.NextWaypoint != null )
             {
-				currentWaypoint.PlayerExited( this );
 
 				currentWaypoint = currentWaypoint.NextWaypoint;
 				currentWaypoint.PlayerEntered( this );
@@ -154,7 +177,11 @@ public class PlayerController : MonoBehaviour
 		if( statusPoint <= 0 )
 		{
 			updateMethod = ExtensionMethods.EmptyMethod;
-			levelFailedEvent.Raise();
+
+			if( catwalking )
+				levelCompleteEvent.Raise();
+			else 
+				levelFailEvent.Raise();
 		}
 
 		ApproachWaypointMethod();
@@ -247,18 +274,11 @@ public class PlayerController : MonoBehaviour
 		FFLogger.Log( "Sequence Lost" );
 		currentObstacle.Rapping_Won();
 		//TODO:(ofg) Player lost 
+
+		levelFailEvent.Raise();
 	}
 
-    private void ModifierEventResponse()
-    {
-		var modifyAmount = ( modifierEventListener.gameEvent as FloatGameEvent ).eventValue;
-		statusPoint += modifyAmount;
 
-		//TODO:(ofg) level fails when status is lower than 0
-		statusPoint = Mathf.Max( statusPoint, 0 );
-
-		FFLogger.Log( "Status Point: " + statusPoint );
-	}
 #endregion
 
 #region Editor Only
