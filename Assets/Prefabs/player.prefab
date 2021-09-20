@@ -171,6 +171,7 @@ MonoBehaviour:
   inputDirectionProperty: {fileID: 11400000, guid: 10013a92544522a46850caab4dc76535, type: 2}
   startWaypointReference: {fileID: 11400000, guid: e48fa8568b0c6b94fb5b37baaf07d5b8, type: 2}
   modelTransform: {fileID: 6226045501835103251}
+  currentStatus: {fileID: 11400000, guid: 2e6acfcfa457bb3469418da1f3a92f0c, type: 2}
 --- !u!1 &6226045503252483189
 GameObject:
   m_ObjectHideFlags: 0

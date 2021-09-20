@@ -26,21 +26,26 @@ public class PlayerController : MonoBehaviour
 
 
     [ BoxGroup( "Setup" ) ] public Transform modelTransform;
+    [ BoxGroup( "Setup" ) ] public Status currentStatus;
+	//TODO:(ofg) private float statusPoint_Ratio; probably SharedFloatTweener for WorldUI to use
 
-    // Private Fields \\
-    private Waypoint currentWaypoint;
+	// Private Fields \\
+	private Waypoint currentWaypoint;
 	private Obstacle currentObstacle;
 	private float modelRotationAmount;
 
 	// Status releated
-	private float statusPoint;
+	private float statusPoint_Current;
 	private float statusDepleteSpeed;
+	private float statusPoint_Floor;
+	private float statusPoint_Ceil;
 
+	private bool transformAfterSequence = false;
 	private bool catwalking = false;
 
 	// Delegates
 	private UnityMessage updateMethod;
-	private UnityMessage approachMethod;
+	private UnityMessage startApproachMethod;
 	private Sequence obstacleInteractonSequence;
 #endregion
 
@@ -80,7 +85,7 @@ public class PlayerController : MonoBehaviour
 #region API
     public void StartApproachWaypoint()
     {
-		approachMethod = StartApproachWaypoint;
+		startApproachMethod = StartApproachWaypoint;
 
 		if( currentWaypoint != null )
 			updateMethod = ApproachWaypointMethod;
@@ -88,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
     public void StartApproach_DepletingWaypoint()
     {
-		approachMethod = StartApproach_DepletingWaypoint;
+		startApproachMethod = StartApproach_DepletingWaypoint;
 
         if( currentWaypoint != null )
 			updateMethod = Approach_DepletingWaypointMethod;
@@ -106,17 +111,26 @@ public class PlayerController : MonoBehaviour
     {
 		currentWaypoint = startWaypointReference.sharedValue as Waypoint;
 		currentWaypoint.PlayerEntered( this );
+
+		statusPoint_Floor = 0;
+		statusPoint_Ceil = currentStatus.status_Point;
 	}
 
     private void ModifierEventResponse()
     {
 		var modifyAmount = ( modifierEventListener.gameEvent as FloatGameEvent ).eventValue;
-		statusPoint += modifyAmount;
 
-		//TODO:(ofg) level fails when status is lower than 0
-		statusPoint = Mathf.Max( statusPoint, 0 );
+		var transform = ModifyStatus( modifyAmount );
 
-		FFLogger.Log( "Status Point: " + statusPoint );
+		if( statusPoint_Current < 0 )
+		{
+			LevelComplete( levelFailEvent );
+		}
+		else if ( transform ) 
+		{
+			FFLogger.Log( "Transform the player" );
+			//TODO:(ofg): Transform the player
+		}
 	}
 
 	private void CatwalkEventResponse()
@@ -169,19 +183,22 @@ public class PlayerController : MonoBehaviour
 
     private void Approach_DepletingWaypointMethod()
     {
-		var lossStatus   = Time.deltaTime * GameSettings.Instance.player_speed_statusDepleting;
-		    statusPoint -= lossStatus;
+		var lossStatus = Time.deltaTime * GameSettings.Instance.player_speed_statusDepleting;
 
+		var transform = ModifyStatus( -lossStatus );
 		//TODO:(ofg) handle status type
 
-		if( statusPoint <= 0 )
+		if( statusPoint_Current < 0 )
 		{
-			updateMethod = ExtensionMethods.EmptyMethod;
-
 			if( catwalking )
-				levelCompleteEvent.Raise();
+				LevelComplete( levelCompleteEvent );
 			else 
-				levelFailEvent.Raise();
+				LevelComplete( levelFailEvent );
+		}
+		else if ( !catwalking && transform ) 
+		{
+			FFLogger.Log( "Transform the player" );
+			//TODO:(ofg): Transform the player
 		}
 
 		ApproachWaypointMethod();
@@ -227,7 +244,7 @@ public class PlayerController : MonoBehaviour
 	private void StartObstacleSequence()
 	{
 		var duration = GameSettings.Instance.player_duration_obstacleInteraction;
-		statusDepleteSpeed = Mathf.Min( statusPoint, currentObstacle.StatusPoint ) / duration;
+		statusDepleteSpeed = Mathf.Min( statusPoint_Current, currentObstacle.StatusPoint ) / duration;
 
 		obstacleInteractonSequence = DOTween.Sequence();
 
@@ -236,7 +253,7 @@ public class PlayerController : MonoBehaviour
 
 		obstacleInteractonSequence.OnUpdate( OnSequenceUpdate );
 
-		if( statusPoint > currentObstacle.StatusPoint )
+		if( statusPoint_Current > currentObstacle.StatusPoint )
 			obstacleInteractonSequence.OnComplete( OnSequenceComplete_Win );
 		else
 			obstacleInteractonSequence.OnComplete( OnSequenceComplete_Lost );
@@ -248,7 +265,7 @@ public class PlayerController : MonoBehaviour
 		//TODO:(ofg) handle status type
 		var lossStatus = Time.deltaTime * statusDepleteSpeed;
 
-		statusPoint -= lossStatus;
+		transformAfterSequence = ModifyStatus( -lossStatus );
 		currentObstacle.StatusPoint -= lossStatus;
 	}
 
@@ -257,13 +274,16 @@ public class PlayerController : MonoBehaviour
 		obstacleInteractonSequence.Kill();
 		obstacleInteractonSequence = null;
 
-		FFLogger.Log( "Sequence Won" );
-		statusPoint = Mathf.CeilToInt( statusPoint );
+		if( transformAfterSequence )
+		{
+			FFLogger.Log( "Transform Player" );
+			//TODO:(ofg) transform player etc.
+			transformAfterSequence = false;
+		}
 
-		//TODO:(ofg) transform player etc.
 		currentObstacle.Rapping_Lost();
 
-		approachMethod();
+		startApproachMethod();
 	}
 
 	private void OnSequenceComplete_Lost()
@@ -271,21 +291,50 @@ public class PlayerController : MonoBehaviour
 		obstacleInteractonSequence.Kill();
 		obstacleInteractonSequence = null;
 
-		FFLogger.Log( "Sequence Lost" );
 		currentObstacle.Rapping_Won();
-		//TODO:(ofg) Player lost 
-
-		levelFailEvent.Raise();
+		LevelComplete( levelFailEvent );
 	}
 
+	private bool ModifyStatus( float modifyAmount )
+	{
+		bool transform = false;
+		var newStatusPoint = statusPoint_Current + modifyAmount;
 
+		if( newStatusPoint < statusPoint_Floor && currentStatus.prevStatus != null )
+		{
+			statusPoint_Floor = statusPoint_Ceil;
+			statusPoint_Ceil  = statusPoint_Ceil - currentStatus.prevStatus.status_Point;
+			currentStatus     = currentStatus.prevStatus;
+
+			transform = true;
+		}
+		else if( newStatusPoint >= statusPoint_Ceil && currentStatus.nextStatus != null )
+		{
+			statusPoint_Floor = statusPoint_Ceil;
+			statusPoint_Ceil  = statusPoint_Ceil + currentStatus.nextStatus.status_Point;
+			currentStatus     = currentStatus.nextStatus;
+
+			transform = true;
+		}
+
+		    statusPoint_Current = newStatusPoint;
+		var ratio               = statusPoint_Current / GameSettings.Instance.status_maxPoint;
+
+		return transform;
+	}
+
+	private void LevelComplete( GameEvent completeEvent )
+	{
+		completeEvent.Raise();
+		updateMethod = ExtensionMethods.EmptyMethod;
+	}
 #endregion
 
 #region Editor Only
 #if UNITY_EDITOR
 	private void OnDrawGizmos()
 	{
-		Handles.Label( transform.position.AddUp( 1.5f ), "Status: " + Mathf.CeilToInt( statusPoint ) );
+		Handles.Label( transform.position.AddUp( 2.5f ), currentStatus.status_Name + ": " + Mathf.CeilToInt( statusPoint_Current ) );
 	}
 #endif
 #endregion
