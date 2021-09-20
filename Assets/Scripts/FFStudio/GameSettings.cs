@@ -32,6 +32,9 @@ namespace FFStudio
 		[ BoxGroup( "Camera" ), Tooltip( "Camera's end game rotation clamp" ) ] public float camera_clamp_LevelEndRotation = 20f;
 		[ BoxGroup( "Camera" ), Tooltip( "Camera's end game rotation speed" ) ] public float camera_speed_LevelEndRotation = 3f;
 
+		// Status
+		[ BoxGroup( "Status" ), Tooltip( "Max status point" ) ] public float status_maxPoint = 200f;
+
         private static GameSettings instance;
 
         private delegate GameSettings ReturnGameSettings();
