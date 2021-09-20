@@ -10,7 +10,7 @@ using NaughtyAttributes;
 public class UIStatus : UILoadingBar
 {
 #region Fields
-    [ BoxGroup( "Shared Variables" ) ] public SharedReference playerStatusReference;
+    [ BoxGroup( "Shared Variables" ) ] public Status_Property statusProperty;
 	[ BoxGroup( "UI Elements" ) ] public TextMeshProUGUI statusText;
 #endregion
 
@@ -18,21 +18,37 @@ public class UIStatus : UILoadingBar
 #endregion
 
 #region Unity API
+    protected override void OnEnable()
+	{
+		base.OnEnable();
+
+		statusProperty.changeEvent += OnStatusChange;
+	}
+
+	protected override void OnDisable()
+	{
+		base.OnDisable();
+
+		statusProperty.changeEvent -= OnStatusChange;
+	}
+
+	protected override void Awake()
+	{
+		base.Awake();
+
+		OnStatusChange();
+	}
 #endregion
 
 #region API
 #endregion
 
 #region Implementation
-    protected override void OnValueChange()
-    {
-		base.OnValueChange();
-
-		var playerStatus = playerStatusReference.sharedValue as Status;
-
-		statusText.text    = playerStatus.status_Name;
-		statusText.color   = playerStatus.status_Color;
-		fillingImage.color = playerStatus.status_Color;
+	private void OnStatusChange()
+	{
+		statusText.text    = statusProperty.status_Name;
+		statusText.color   = statusProperty.status_Color;
+		fillingImage.color = statusProperty.status_Color;
 	}
 #endregion
 
