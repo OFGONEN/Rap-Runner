@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using FFStudio;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -90,6 +91,11 @@ public class UIStatusAnnounce : UIText
 
 #region Editor Only
 #if UNITY_EDITOR
+	private void OnDrawGizmosSelected()
+	{
+		Handles.DrawDottedLine( uiTransform.position, uiTransform.position + targetPoint, 1f );
+		Handles.DrawWireDisc( uiTransform.position + targetPoint, uiTransform.forward, 0.05f );
+	}
 #endif
 #endregion
 }
