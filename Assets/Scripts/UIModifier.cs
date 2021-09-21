@@ -52,6 +52,8 @@ public class UIModifier : UIText
 
     private void Awake()
     {
+		modifierEventListener.response = ModifierEventResponse;
+
 		textStartColor = textRenderer.color;
 		iconStartColor = imageRenderer.color;
 
