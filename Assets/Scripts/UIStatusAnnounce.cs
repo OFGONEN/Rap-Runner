@@ -11,6 +11,7 @@ using DG.Tweening;
 public class UIStatusAnnounce : UIText
 {
 #region Fields
+    public EventListenerDelegateResponse levelStartListener;
     public Status_Property playerStatusProperty;
 
 	public Vector3 targetPoint;
@@ -29,11 +30,13 @@ public class UIStatusAnnounce : UIText
 #region Unity API
     private void OnEnable()
     {
-		playerStatusProperty.changeEvent += OnPlayerStatusChange;
+		levelStartListener.OnEnable();
 	}
 
     private void OnDisable()
     {
+		levelStartListener.OnDisable();
+
 		playerStatusProperty.changeEvent -= OnPlayerStatusChange;
 
         if ( sequence != null )
@@ -49,6 +52,8 @@ public class UIStatusAnnounce : UIText
 		uiStartLocalSize     = uiTransform.localScale;
 
 		textRenderer.enabled = false;
+
+		levelStartListener.response = LevelStartResponse;
 	}
 #endregion
 
@@ -86,6 +91,11 @@ public class UIStatusAnnounce : UIText
 		sequence = null;
 
 		textRenderer.enabled = false;
+	}
+
+    private void LevelStartResponse()
+    {
+		playerStatusProperty.changeEvent += OnPlayerStatusChange;
 	}
 #endregion
 
