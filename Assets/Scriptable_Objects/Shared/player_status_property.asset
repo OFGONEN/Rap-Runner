@@ -9,6 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b04c69603e406ff4db897817ccbcb7b8, type: 3}
-  m_Name: player_status_current
+  m_Script: {fileID: 11500000, guid: e71a123c51c2c014b9ec9844db6f86f7, type: 3}
+  m_Name: player_status_property
   m_EditorClassIdentifier: 
+  status_Name: 
+  status_Color: {r: 0, g: 0, b: 0, a: 0}
