@@ -217,7 +217,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &3423258647779915927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,7 +333,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: ui_world_loadingBar
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 453416092374961834, guid: 1caa7843707589a4496bb5c848924651, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1caa7843707589a4496bb5c848924651, type: 3}
 --- !u!224 &3011500856962833153 stripped
 RectTransform:

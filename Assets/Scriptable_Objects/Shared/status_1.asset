@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextStatus: {fileID: 11400000, guid: fb10555905e400d4cbafc09afc88f0c3, type: 2}
   prevStatus: {fileID: 0}
-  status_Color: {r: 1, g: 0.32790178, b: 0, a: 0}
+  status_Color: {r: 1, g: 0.32790178, b: 0, a: 1}
   status_Name: Street Rapper
   status_Point: 50
   status_Model: {fileID: 0}

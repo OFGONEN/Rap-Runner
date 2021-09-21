@@ -23,11 +23,12 @@ public class PlayerController : MonoBehaviour
 	[ Header( "Shared Variables" ) ]
     public SharedFloatProperty inputDirectionProperty;
 	public SharedReferenceProperty startWaypointReference;
+	public SharedFloatProperty playerStatusRatioProperty;
+	public Status_Property playerStatusProperty;
 
 
-    [ BoxGroup( "Setup" ) ] public Transform modelTransform;
+	[ BoxGroup( "Setup" ) ] public Transform modelTransform;
     [ BoxGroup( "Setup" ) ] public Status currentStatus;
-	//TODO:(ofg) private float statusPoint_Ratio; probably SharedFloatTweener for WorldUI to use
 
 	// Private Fields \\
 	private Waypoint currentWaypoint;
@@ -75,6 +76,12 @@ public class PlayerController : MonoBehaviour
 		updateMethod                   = ExtensionMethods.EmptyMethod;
 		catwalkEventListener.response  = CatwalkEventResponse;
 	}
+	
+	private void Start()
+	{
+		playerStatusRatioProperty.SetValue( statusPoint_Current / GameSettings.Instance.status_maxPoint );
+		playerStatusProperty.SetValue( currentStatus );
+	}
 
     private void Update()
     {
@@ -109,6 +116,7 @@ public class PlayerController : MonoBehaviour
 #region Implementation
     private void LevelStartResponse()
     {
+
 		currentWaypoint = startWaypointReference.sharedValue as Waypoint;
 		currentWaypoint.PlayerEntered( this );
 
@@ -128,8 +136,10 @@ public class PlayerController : MonoBehaviour
 		}
 		else if ( transform ) 
 		{
-			FFLogger.Log( "Transform the player" );
-			//TODO:(ofg): Transform the player
+			if( modifyAmount > 0 )
+				TransformUp();
+			else
+				TransformDown();
 		}
 	}
 
@@ -186,7 +196,6 @@ public class PlayerController : MonoBehaviour
 		var lossStatus = Time.deltaTime * GameSettings.Instance.player_speed_statusDepleting;
 
 		var transform = ModifyStatus( -lossStatus );
-		//TODO:(ofg) handle status type
 
 		if( statusPoint_Current < 0 )
 		{
@@ -197,8 +206,7 @@ public class PlayerController : MonoBehaviour
 		}
 		else if ( !catwalking && transform ) 
 		{
-			FFLogger.Log( "Transform the player" );
-			//TODO:(ofg): Transform the player
+			TransformDown();
 		}
 
 		ApproachWaypointMethod();
@@ -262,7 +270,6 @@ public class PlayerController : MonoBehaviour
 
 	private void OnSequenceUpdate()
 	{
-		//TODO:(ofg) handle status type
 		var lossStatus = Time.deltaTime * statusDepleteSpeed;
 
 		transformAfterSequence = ModifyStatus( -lossStatus );
@@ -276,13 +283,11 @@ public class PlayerController : MonoBehaviour
 
 		if( transformAfterSequence )
 		{
-			FFLogger.Log( "Transform Player" );
-			//TODO:(ofg) transform player etc.
 			transformAfterSequence = false;
+			TransformDown();
 		}
 
 		currentObstacle.Rapping_Lost();
-
 		startApproachMethod();
 	}
 
@@ -317,10 +322,22 @@ public class PlayerController : MonoBehaviour
 			transform = true;
 		}
 
-		    statusPoint_Current = newStatusPoint;
-		var ratio               = statusPoint_Current / GameSettings.Instance.status_maxPoint;
+		statusPoint_Current = newStatusPoint;
+		playerStatusRatioProperty.SetValue( statusPoint_Current / GameSettings.Instance.status_maxPoint );
 
 		return transform;
+	}
+
+	private void TransformUp()
+	{
+		playerStatusProperty.SetValue( currentStatus );
+		//TODO:(ofg) Announce transformed status with world ui
+	}
+
+	private void TransformDown()
+	{
+		playerStatusProperty.SetValue( currentStatus );
+		//TODO:(ofg) Announce transformed status with world ui
 	}
 
 	private void LevelComplete( GameEvent completeEvent )

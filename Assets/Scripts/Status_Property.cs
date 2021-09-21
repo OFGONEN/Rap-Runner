@@ -23,10 +23,10 @@ public class Status_Property : ScriptableObject
 
 #region API
 
-	public void SetValue( string name, Color color )
+	public void SetValue( Status status )
 	{
-		status_Name  = name;
-		status_Color = color;
+		status_Name  = status.status_Name;
+		status_Color = status.status_Color;
 
         changeEvent?.Invoke();
 	}
