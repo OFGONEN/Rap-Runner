@@ -17,6 +17,7 @@ namespace FFStudio
 
 		// World UI
         [ Foldout( "UI World" ), Tooltip( "Modifier announce duration" ) ] public float ui_world_modifier_duration = 0.75f;
+        [ Foldout( "UI World" ), Tooltip( "Status announce duration" ) ] public float ui_world_announce_duration = 0.75f;
 
         // Player
 		[ BoxGroup( "Player" ), Tooltip( "Player's target point check distance" ) ] public float player_target_checkDistance = 0.1f;
