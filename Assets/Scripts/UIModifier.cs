@@ -76,7 +76,7 @@ public class UIModifier : UIText
         {
 			StartSequence();
 		}
-        else if( modifyAmount < 0 )
+        else if( modifyAmount < 0 && compare == Compare.Smaller )
         {
 			StartSequence();
         }
