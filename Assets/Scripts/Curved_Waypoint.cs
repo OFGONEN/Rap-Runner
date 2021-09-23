@@ -98,6 +98,11 @@ public class Curved_Waypoint : Waypoint
 	{
 		targetPoint = turnOrigin + Vector3.forward * Mathf.Abs( turnOrigin.x );
 	}
+
+	public Vector3 Editor_TurnOrigin()
+	{
+		return turnOrigin;
+	}
 #endif
 #endregion
 }

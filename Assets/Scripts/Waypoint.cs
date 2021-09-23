@@ -60,6 +60,15 @@ public abstract class Waypoint : MonoBehaviour
 
 #region Editor Only
 #if UNITY_EDITOR
+    public Vector3 Editor_TargetPoint()
+    {
+		return transform.TransformPoint( targetPoint );
+    }
+    
+    public void Editor_SetNextWaypoint( Waypoint waypoint )
+    {
+		nextWaypoint = waypoint;
+	}
 #endif
 #endregion
 }
