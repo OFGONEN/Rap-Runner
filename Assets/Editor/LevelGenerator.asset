@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8220ce51433959f4c920dafc66407b2a, type: 3}
+  m_Name: LevelGenerator
+  m_EditorClassIdentifier: 
+  levelCode: 3R2L3
+  straightRoad: {fileID: 5704441529904671092, guid: 4407242b4c4f1ed4a9d818b55ce3bf47, type: 3}
+  leftCurvedRoad: {fileID: 2575339873354737194, guid: 598da1ec95394e64b8ab033fdd07c289, type: 3}
+  rightCurvedRoad: {fileID: 4786782825190934976, guid: 8b08d2cd06fec584f91113730bdb4e92, type: 3}

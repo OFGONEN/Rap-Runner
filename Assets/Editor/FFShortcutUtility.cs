@@ -118,7 +118,7 @@ namespace FFEditor
 
 		static LevelSewer sewer;
 
-		[ MenuItem( "FFGame/Start Sewing %#k" ) ]
+		// [ MenuItem( "FFGame/Start Sewing %#k" ) ]
 		private static void StartSewing()
 		{
 			sewer = new LevelSewer();
@@ -130,7 +130,7 @@ namespace FFEditor
 			FFLogger.Log( "Start Sewing: " + startWaypoint.Editor_TargetPoint() );
 		}
 
-		[ MenuItem( "FFGame/Sew Waypoint %#l" ) ]
+		// [ MenuItem( "FFGame/Sew Waypoint %#l" ) ]
 		private static void SewWaypoint()
 		{
 			EditorSceneManager.MarkAllScenesDirty();
