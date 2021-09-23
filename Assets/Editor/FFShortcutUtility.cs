@@ -150,6 +150,7 @@ namespace FFEditor
 
 			var currentWayPoint = gameObject.GetComponentInChildren< Waypoint >();
 			sewer.lastSewedWaypoint.Editor_SetNextWaypoint( currentWayPoint );
+			PrefabUtility.RecordPrefabInstancePropertyModifications( sewer.lastSewedWaypoint );
 
 			sewer.lastSewedWaypoint = currentWayPoint;
 
