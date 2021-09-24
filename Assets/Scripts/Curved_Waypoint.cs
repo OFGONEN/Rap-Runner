@@ -55,31 +55,44 @@ public class Curved_Waypoint : Waypoint
 	{
 		var sign = Mathf.Sign( turnOrigin.x );
 		var absolute = Mathf.Abs( turnOrigin.x );
-		var startPosition = transform.position;
-
-		var targetPosition = transform.TransformPoint( turnOrigin + Vector3.forward * Mathf.Abs( turnOrigin.x ) );
-		var middlePoint = transform.TransformPoint( new Vector3( turnOrigin.x - turnOrigin.x * Mathf.Cos( 45 ), 0, absolute * Mathf.Sin( 45 ) ) );
-		var middlePoint_Up = middlePoint.AddUp( 2f );
 		var turnOrigin_World = transform.TransformPoint( turnOrigin );
 		var turnOrigin_World_Up = turnOrigin_World.AddUp( 2f );
 
-		var targetPoint_Up = targetPosition.AddUp( 0.5f );
-
 		if( nextWaypoint == null )
+		{
+			var startPosition = transform.position;
+
+			var targetPosition = transform.TransformPoint( turnOrigin + Vector3.forward * Mathf.Abs( turnOrigin.x ) );
+			var middlePoint = transform.TransformPoint( new Vector3( turnOrigin.x - turnOrigin.x * Mathf.Cos( 45 ), 0, absolute * Mathf.Sin( 45 ) ) );
+			var middlePoint_Up = middlePoint.AddUp( 2f );
+
+			var targetPoint_Up = targetPosition.AddUp( 0.5f );
+
 			Handles.color = Color.red;
-		else
+
+			Handles.DrawSolidDisc( startPosition, Vector3.up, 0.1f );
+			Handles.DrawSolidDisc( targetPosition, Vector3.up, 0.1f );
+
+			Handles.DrawLine( middlePoint, middlePoint_Up );
+			Handles.DrawSolidDisc( middlePoint, Vector3.up, 0.05f );
+			Handles.DrawSolidDisc( middlePoint_Up, Vector3.up, 0.05f );
+			Handles.Label( middlePoint_Up, "Curved Road Wide: " + wide );
+
+			Handles.DrawWireArc( turnOrigin_World, Vector3.up, sign * -transform.right, sign * 90, absolute );
+			Handles.DrawWireArc( turnOrigin_World, Vector3.up, sign * -transform.right, sign * 90, absolute + wide / 2f );
+
+			Handles.color = Color.blue;
+			Handles.DrawSolidDisc( targetPosition, Vector3.up, 0.05f );
+			Handles.DrawSolidDisc( targetPoint_Up, Vector3.up, 0.05f );
+			Handles.DrawLine( targetPosition, targetPoint_Up );
+			Handles.Label( targetPoint_Up, "Sewing Point \n" + targetPosition );
+		}
+		else 
+		{
 			Handles.color = Color.green;
-
-		Handles.DrawSolidDisc( startPosition, Vector3.up, 0.1f );
-		Handles.DrawSolidDisc( targetPosition, Vector3.up, 0.1f );
-
-		Handles.DrawLine( middlePoint, middlePoint_Up );
-		Handles.DrawSolidDisc( middlePoint, Vector3.up, 0.05f );
-		Handles.DrawSolidDisc( middlePoint_Up, Vector3.up, 0.05f );
-		Handles.Label( middlePoint_Up, "Curved Road Wide: " + wide );
-
-		Handles.DrawWireArc( turnOrigin_World, Vector3.up, sign * -transform.right, sign * 90, absolute );
-		Handles.DrawWireArc( turnOrigin_World, Vector3.up, sign * -transform.right, sign * 90, absolute + wide / 2f );
+			Handles.DrawWireArc( turnOrigin_World, Vector3.up, sign * -transform.right, sign * 90, absolute );
+			Handles.DrawWireArc( turnOrigin_World, Vector3.up, sign * -transform.right, sign * 90, absolute + wide / 2f );
+		}
 
 		Handles.color = Color.blue;
 		Handles.DrawSolidDisc( turnOrigin_World, Vector3.up, 0.05f );
@@ -88,10 +101,6 @@ public class Curved_Waypoint : Waypoint
 		Handles.DrawSolidDisc( turnOrigin_World_Up, Vector3.up, 0.05f );
 		Handles.Label( turnOrigin_World_Up, "Curved Road Turning Wide: " + ( absolute - wide / 2f ) );
 
-		Handles.DrawSolidDisc( targetPosition, Vector3.up, 0.05f );
-		Handles.DrawSolidDisc( targetPoint_Up, Vector3.up, 0.05f );
-		Handles.DrawLine( targetPosition, targetPoint_Up );
-		Handles.Label( targetPoint_Up, "Sewing Point \n" + targetPosition );
 	}
 
 	private void OnValidate()
