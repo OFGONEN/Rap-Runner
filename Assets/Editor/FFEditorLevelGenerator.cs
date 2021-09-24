@@ -33,6 +33,13 @@ namespace FFEditor
 #endregion
 
 #region API
+		[ Button( "--- GENERATE LEVEL ---" ) ]
+		public void GenerateLevel()
+		{
+			GenerateEnvironment();
+			GenerateEntities();
+		}
+
 		[ Button() ]
 		public void GenerateEnvironment()
 		{
