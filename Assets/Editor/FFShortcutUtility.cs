@@ -2,6 +2,7 @@
 
 using System.IO;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using FFStudio;
 using System.Reflection;
@@ -89,6 +90,14 @@ namespace FFEditor
 		static private void SelectAppScene()
 		{
 			var gameSettings = AssetDatabase.LoadAssetAtPath( "Assets/Scenes/app.unity", typeof( SceneAsset ) );
+
+			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
+		}
+
+		[ MenuItem( "FFShortcut/Select Level Generator &4" ) ]
+		static private void SelectLevelGenerator()
+		{
+			var gameSettings = AssetDatabase.LoadAssetAtPath( "Assets/Editor/LevelGenerator.asset", typeof( ScriptableObject ) );
 
 			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
 		}
