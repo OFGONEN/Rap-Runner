@@ -83,13 +83,12 @@ namespace FFEditor
 			// Spawn start road
 			var start = PrefabUtility.InstantiatePrefab( startRoad.gameObject ) as GameObject;
 
-			start.transform.SetParent( parentTransform );
-			start.transform.position = Vector3.zero;
-
 			// Create sewer object
 			sewer = new WaypointSewer();
 			sewer.lastSewedWaypoint = start.GetComponent<Waypoint>();
 
+			start.transform.SetParent( parentTransform );
+			start.transform.position = -sewer.lastSewedWaypoint.Editor_TargetPoint();
 
 			// Read level generation code than spawn waypoints
 			for( var i = 0; i < levelCode.Length; i++ )
@@ -128,7 +127,7 @@ namespace FFEditor
 			var player = PrefabUtility.InstantiatePrefab( playerPrefab ) as GameObject; // Player Prefab
 
 			player.transform.forward = Vector3.forward;
-			player.transform.position = Vector3.zero;
+			player.transform.position = -Vector3.forward * 1.5f;
 			player.transform.SetSiblingIndex( FindSeperatorIndex( "--- Entities ---" ) );
 
 			EditorSceneManager.SaveOpenScenes();
