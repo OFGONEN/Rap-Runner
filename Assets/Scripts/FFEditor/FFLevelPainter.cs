@@ -21,6 +21,9 @@ namespace FFEditor
 		[ ShowIf("Line") ] public int count;
         [ ShowIf("Line") ] public float gap;
 
+		[ HorizontalLine ]
+		public GameObject[] objectPalette;
+
         // Show If Properties
         public bool Single => paintMode == PaintMode.Single; 
         public bool Line => paintMode == PaintMode.Line; 
@@ -78,7 +81,14 @@ namespace FFEditor
 			Handles.DrawDottedLine( position, position.AddUp( 0.5f ), 1 );
 
 			if( objectToPaint != null )
-				Handles.Label( position.AddUp( 0.5f ), objectToPaint.name );
+			{
+				GUIStyle style = new GUIStyle();
+				style.fontSize = 15;
+				style.normal.textColor = Color.red;
+				style.fontStyle = FontStyle.Bold;
+
+				Handles.Label( position.AddUp( 0.5f ), objectToPaint.name, style );
+			}
 		}
 #endif
 #endregion
