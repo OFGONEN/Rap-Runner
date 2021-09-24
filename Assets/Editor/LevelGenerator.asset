@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8220ce51433959f4c920dafc66407b2a, type: 3}
   m_Name: LevelGenerator
   m_EditorClassIdentifier: 
-  levelCode: 3R2L3
+  levelCode: 2R1L2
+  customWaypoints:
+  - character: 76
+    customWaypoint: {fileID: 2575339873354737194, guid: 598da1ec95394e64b8ab033fdd07c289, type: 3}
+  - character: 82
+    customWaypoint: {fileID: 4786782825190934976, guid: 8b08d2cd06fec584f91113730bdb4e92, type: 3}
   straightRoad: {fileID: 5704441529904671092, guid: 4407242b4c4f1ed4a9d818b55ce3bf47, type: 3}
-  leftCurvedRoad: {fileID: 2575339873354737194, guid: 598da1ec95394e64b8ab033fdd07c289, type: 3}
-  rightCurvedRoad: {fileID: 4786782825190934976, guid: 8b08d2cd06fec584f91113730bdb4e92, type: 3}
+  catwalk: {fileID: 5391997148747398471, guid: 2f65fe7df0518cd468768c9462c46590, type: 3}
+  startRoad: {fileID: 4156388240315862050, guid: c1777b48c6a7fc24a9c05d426fe900b5, type: 3}

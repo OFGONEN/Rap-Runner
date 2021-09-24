@@ -94,6 +94,14 @@ namespace FFEditor
 			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
 		}
 
+		[ MenuItem( "FFShortcut/Select Level Generator &4" ) ]
+		static private void SelectLevelGenerator()
+		{
+			var gameSettings = AssetDatabase.LoadAssetAtPath( "Assets/Editor/LevelGenerator.asset", typeof( ScriptableObject ) );
+
+			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
+		}
+
 		[ MenuItem( "FFShortcut/Copy Global Transform &c" ) ]
 		static private void CopyTransform()
 		{

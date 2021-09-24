@@ -13,11 +13,14 @@ public class FFEditorLevelGenerator : ScriptableObject
 {
 #region Fields
     [ BoxGroup( "Setup" ) ] public string levelCode;
+    [ BoxGroup( "Setup" ) ] public CustomWaypoint[] customWaypoints;
     [ BoxGroup( "Setup" ) ] public Waypoint straightRoad;
-    [ BoxGroup( "Setup" ) ] public Waypoint leftCurvedRoad;
-    [ BoxGroup( "Setup" ) ] public Waypoint rightCurvedRoad;
+    [ BoxGroup( "Setup" ) ] public Waypoint catwalk;
+    [ BoxGroup( "Setup" ) ] public Waypoint startRoad;
+
 
     private static WaypointSewer sewer;
+	private static Dictionary< char, Waypoint > customWaypointDictionary;
 #endregion
 
 #region Properties
@@ -34,35 +37,58 @@ public class FFEditorLevelGenerator : ScriptableObject
 
 #region Editor Only
 #if UNITY_EDITOR
-	[ MenuItem( "FFGame/Start Sewing %#k" ) ]
-    public static void SelectStartWaypoint()
-    {
-		sewer = new WaypointSewer();
-
-		var gameObject              = Selection.activeGameObject;
-		var startWaypoint           = gameObject.GetComponentInChildren<Waypoint>();
-		    sewer.lastSewedWaypoint = startWaypoint;
-
-		FFLogger.Log( "Start Sewing: " + startWaypoint.Editor_TargetPoint() );
-	}
-
     [ Button() ]
     public void Generate()
     {
-        if( sewer == null )
-            FFLogger.LogError( " Select a Start Waypoint" );
-
 		EditorSceneManager.MarkAllScenesDirty();
+
+		// Generate Custom Road Dictionary
+		customWaypointDictionary = new Dictionary<char, Waypoint>( customWaypoints.Length );
+
+		for( var i = 0; i < customWaypoints.Length; i++ )
+		{
+			customWaypointDictionary.Add( customWaypoints[ i ].character, customWaypoints[ i ].customWaypoint );
+		}
+
+		// Find waypoints parent
+		var parent = GameObject.FindWithTag( "WaypointParent" );
+
+		if ( parent == null )
+		{
+			FFLogger.LogError( "Waypoints parent is abcent!!" );
+			return;
+		}
+
+		var parentTransform = parent.transform;
+
+		if( parentTransform.childCount > 0 )
+		{
+			for( var i = parentTransform.childCount - 1; i >= 0; i-- )
+			{
+				var child = parentTransform.GetChild( i );
+				DestroyImmediate( child.gameObject );
+			}
+		}
+
+		// Spawn start road
+		var start = PrefabUtility.InstantiatePrefab( startRoad.gameObject ) as GameObject;
+
+		start.transform.SetParent( parentTransform );
+		start.transform.position = Vector3.zero;
+
+		// Create sewer object
+		sewer = new WaypointSewer();
+		sewer.lastSewedWaypoint = start.GetComponent< Waypoint >();
 
         for( var i = 0; i < levelCode.Length; i++ )
         {
-            if( levelCode[ i ] == 'R' ) 
+			Waypoint waypoint;
+
+			customWaypointDictionary.TryGetValue( levelCode[ i ], out waypoint );
+
+			if( waypoint != null ) 
             {
-				InstantiateWaypoint( rightCurvedRoad );
-            }
-            else if( levelCode[ i ] == 'L' )
-            {
-				InstantiateWaypoint( leftCurvedRoad );
+				InstantiateWaypoint( waypoint, parentTransform );
             }
             else
             {
@@ -70,17 +96,19 @@ public class FFEditorLevelGenerator : ScriptableObject
 
                 for( var x = 0; x < count; x++ )
                 {
-					InstantiateWaypoint( straightRoad );
+					InstantiateWaypoint( straightRoad, parentTransform );
 				}
 			}
         }
 
+		InstantiateWaypoint( catwalk, parentTransform );
 		EditorSceneManager.SaveOpenScenes();
 	}
 
-    private void InstantiateWaypoint( Waypoint waypoint )
+    private void InstantiateWaypoint( Waypoint waypoint, Transform parent )
     {
 		var gameObject = PrefabUtility.InstantiatePrefab( waypoint.gameObject ) as GameObject;
+		gameObject.transform.SetParent( parent );
 		gameObject.transform.position = sewer.lastSewedWaypoint.Editor_TargetPoint();
 
 		if( sewer.lastSewedWaypoint is Curved_Waypoint )
@@ -106,5 +134,12 @@ public class FFEditorLevelGenerator : ScriptableObject
 	class WaypointSewer
 	{
 		public Waypoint lastSewedWaypoint;
+	}
+
+	[ System.Serializable ]
+	public struct CustomWaypoint
+	{
+		public char character;
+		public Waypoint customWaypoint;
 	}
 }
