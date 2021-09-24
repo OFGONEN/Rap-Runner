@@ -13,34 +13,28 @@ namespace FFEditor
 	[CreateAssetMenu( fileName = "LevelGenerator", menuName = "FF/Editor/LevelGenerator" )]
 	public class FFEditorLevelGenerator : ScriptableObject
 	{
-		#region Fields
+#region Fields
 		[BoxGroup( "Setup" )] public string levelCode;
 		[BoxGroup( "Setup" )] public CustomWaypoint[] customWaypoints;
 		[BoxGroup( "Setup" )] public Waypoint straightRoad;
 		[BoxGroup( "Setup" )] public Waypoint catwalk;
 		[BoxGroup( "Setup" )] public Waypoint startRoad;
+		[BoxGroup( "Setup" )] public GameObject playerPrefab;
 
 
 		private static WaypointSewer sewer;
 		private static Dictionary<char, Waypoint> customWaypointDictionary;
-		#endregion
+#endregion
 
-		#region Properties
-		#endregion
+#region Properties
+#endregion
 
-		#region Unity API
-		#endregion
+#region Unity API
+#endregion
 
-		#region API
-		#endregion
-
-		#region Implementation
-		#endregion
-
-		#region Editor Only
-#if UNITY_EDITOR
-		[Button()]
-		public void Generate()
+#region API
+		[ Button() ]
+		public void GenerateEnvironment()
 		{
 			EditorSceneManager.MarkAllScenesDirty();
 
@@ -57,16 +51,19 @@ namespace FFEditor
 
 			if( parent == null )
 			{
-				FFLogger.LogError( "Waypoints parent is abcent!!" );
+				FFLogger.LogWarning( "Waypoints parent is abcent!!" );
 				FFLogger.LogWarning( "Creating new Waypoints parent!" );
 
 				parent = new GameObject( "waypoints" );
-				parent.transform.SetSiblingIndex( 3 );
 				parent.tag = "WaypointParent";
+
+				parent.transform.SetSiblingIndex( FindSeperatorIndex( "--- Environment ---" ) + 1 ); // refactor this
 			}
 
+			// Cache the transform of the  waypoint parent
 			var parentTransform = parent.transform;
 
+			// Destroy any child waypoint parent has
 			if( parentTransform.childCount > 0 )
 			{
 				for( var i = parentTransform.childCount - 1; i >= 0; i-- )
@@ -86,6 +83,8 @@ namespace FFEditor
 			sewer = new WaypointSewer();
 			sewer.lastSewedWaypoint = start.GetComponent<Waypoint>();
 
+
+			// Read level generation code than spawn waypoints
 			for( var i = 0; i < levelCode.Length; i++ )
 			{
 				Waypoint waypoint;
@@ -107,10 +106,34 @@ namespace FFEditor
 				}
 			}
 
-			InstantiateWaypoint( catwalk, parentTransform );
+			// Spawn constant level entites
+			InstantiateWaypoint( catwalk, parentTransform ); // Final road: catwalk
+
+
 			EditorSceneManager.SaveOpenScenes();
 		}
 
+		[ Button() ]
+		public void GenerateEntities()
+		{
+			EditorSceneManager.MarkAllScenesDirty();
+
+			var player = PrefabUtility.InstantiatePrefab( playerPrefab ) as GameObject; // Player Prefab
+
+			player.transform.forward = Vector3.forward;
+			player.transform.position = Vector3.zero;
+			player.transform.SetSiblingIndex( FindSeperatorIndex( "--- Entities ---" ) );
+
+			EditorSceneManager.SaveOpenScenes();
+		}
+
+#endregion
+
+#region Implementation
+#endregion
+
+#region Editor Only
+#if UNITY_EDITOR
 		private void InstantiateWaypoint( Waypoint waypoint, Transform parent )
 		{
 			var gameObject = PrefabUtility.InstantiatePrefab( waypoint.gameObject ) as GameObject;
@@ -134,9 +157,24 @@ namespace FFEditor
 
 			sewer.lastSewedWaypoint = currentWayPoint;
 		}
-#endif
-		#endregion
 
+		private int FindSeperatorIndex( string seperatorName )
+		{
+			var seperator = GameObject.Find( seperatorName );
+
+			if( seperatorName == null )
+			{
+				FFLogger.LogError( seperatorName + " is not FOUND!" );
+				FFLogger.LogError( "Discard this scene then create SEPERATOR Object" );
+				return -1;
+			}
+			else 
+			{
+				return seperator.transform.GetSiblingIndex();
+			}
+		}
+#endif
+#endregion
 		class WaypointSewer
 		{
 			public Waypoint lastSewedWaypoint;

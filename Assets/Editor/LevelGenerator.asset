@@ -21,3 +21,4 @@ MonoBehaviour:
   straightRoad: {fileID: 5704441529904671092, guid: 4407242b4c4f1ed4a9d818b55ce3bf47, type: 3}
   catwalk: {fileID: 5391997148747398471, guid: 2f65fe7df0518cd468768c9462c46590, type: 3}
   startRoad: {fileID: 4156388240315862050, guid: c1777b48c6a7fc24a9c05d426fe900b5, type: 3}
+  playerPrefab: {fileID: 6226045502115610996, guid: 38866ce9e655d734f99e065c35a0eba0, type: 3}
