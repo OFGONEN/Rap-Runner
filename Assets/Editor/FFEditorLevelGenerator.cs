@@ -56,7 +56,11 @@ public class FFEditorLevelGenerator : ScriptableObject
 		if ( parent == null )
 		{
 			FFLogger.LogError( "Waypoints parent is abcent!!" );
-			return;
+			FFLogger.LogWarning( "Creating new Waypoints parent!" );
+
+			parent = new GameObject( "waypoints" );
+			parent.transform.SetSiblingIndex( 3 );
+			parent.tag = "WaypointParent";
 		}
 
 		var parentTransform = parent.transform;

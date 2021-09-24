@@ -123,52 +123,5 @@ namespace FFEditor
 			var method = type.GetMethod( "Clear" );
 			method.Invoke( new object(), null );
 		}
-
-		static LevelSewer sewer;
-
-		// [ MenuItem( "FFGame/Start Sewing %#k" ) ]
-		private static void StartSewing()
-		{
-			sewer = new LevelSewer();
-
-			var gameObject              = Selection.activeGameObject;
-			var startWaypoint           = gameObject.GetComponentInChildren< Waypoint >();
-			    sewer.lastSewedWaypoint = startWaypoint;
-
-			FFLogger.Log( "Start Sewing: " + startWaypoint.Editor_TargetPoint() );
-		}
-
-		// [ MenuItem( "FFGame/Sew Waypoint %#l" ) ]
-		private static void SewWaypoint()
-		{
-			EditorSceneManager.MarkAllScenesDirty();
-
-			var gameObject = PrefabUtility.InstantiatePrefab( Selection.activeObject ) as GameObject;
-			gameObject.transform.position = sewer.lastSewedWaypoint.Editor_TargetPoint();
-
-			if( sewer.lastSewedWaypoint is Curved_Waypoint )
-			{
-				var curvedWaypoint = sewer.lastSewedWaypoint as Curved_Waypoint;
-				gameObject.transform.forward = curvedWaypoint.Editor_TurnOrigin().x < 0 ? -curvedWaypoint.transform.right : curvedWaypoint.transform.right;
-			}
-			else 
-			{
-				gameObject.transform.forward  = sewer.lastSewedWaypoint.transform.forward;
-			}
-
-			var currentWayPoint = gameObject.GetComponentInChildren< Waypoint >();
-			sewer.lastSewedWaypoint.Editor_SetNextWaypoint( currentWayPoint );
-			PrefabUtility.RecordPrefabInstancePropertyModifications( sewer.lastSewedWaypoint );
-
-			sewer.lastSewedWaypoint = currentWayPoint;
-
-			EditorSceneManager.SaveOpenScenes();
-			FFLogger.Log( gameObject.name + " Sewed: " + sewer.lastSewedWaypoint.Editor_TargetPoint() );
-		}
-
-		class LevelSewer
-		{
-			public Waypoint lastSewedWaypoint;
-		}
 	}
 }
