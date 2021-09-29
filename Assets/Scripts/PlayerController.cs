@@ -207,7 +207,10 @@ public class PlayerController : MonoBehaviour
 		if( statusPoint_Current < 0 )
 		{
 			if( catwalking )
+			{
+				animator.SetBool( "victory", true );
 				LevelComplete( levelCompleteEvent );
+			}
 			else 
 				LevelComplete( levelFailEvent );
 		}
