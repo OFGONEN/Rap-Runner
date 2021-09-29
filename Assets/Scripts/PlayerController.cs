@@ -177,6 +177,13 @@ public class PlayerController : MonoBehaviour
             else
             {
 				updateMethod = ExtensionMethods.EmptyMethod;
+
+				if( catwalking )
+				{
+					animator.SetBool( "victory", true );
+					LevelComplete( levelCompleteEvent );
+				}
+
 				return;
 			}
 		}
