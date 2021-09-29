@@ -350,6 +350,7 @@ public class PlayerController : MonoBehaviour
 		animator.SetBool( "walking", false );
 		animator.SetBool( "rapping", false );
 		animator.SetTrigger( "transform" );
+		animator.SetInteger( "walk", currentStatus.status_Walking );
 	}
 
 	private void TransformDown()
@@ -360,6 +361,7 @@ public class PlayerController : MonoBehaviour
 		animator.SetBool( "walking", false );
 		animator.SetBool( "rapping", false );
 		animator.SetTrigger( "transform" );
+		animator.SetInteger( "walk", currentStatus.status_Walking );
 	}
 
 	private void LevelComplete( GameEvent completeEvent )

@@ -16,6 +16,6 @@ MonoBehaviour:
   prevStatus: {fileID: 11400000, guid: fb10555905e400d4cbafc09afc88f0c3, type: 2}
   status_Color: {r: 0.11645913, g: 1, b: 0, a: 1}
   status_Name: MC Rapper
-  status_Walking_Name: walking_feminene
+  status_Walking: 2
   status_Point: 50
   status_Model: {fileID: 0}

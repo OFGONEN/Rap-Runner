@@ -13,7 +13,7 @@ public class Status : ScriptableObject
     public Status prevStatus;
     public Color status_Color;
     public string status_Name;
-	[ Label( "Walking animation animator trigger name" ) ] public string status_Walking_Name;
+	public int status_Walking;
 	public float status_Point;
     public GameObject status_Model;
 #endregion
