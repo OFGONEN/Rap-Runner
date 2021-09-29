@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
 
 	[ BoxGroup( "Setup" ) ] public Transform modelTransform;
+    [ BoxGroup( "Setup" ) ] public Animator animator;
     [ BoxGroup( "Setup" ) ] public Status currentStatus;
 
 	// Private Fields \\
@@ -94,6 +95,8 @@ public class PlayerController : MonoBehaviour
     {
 		startApproachMethod = StartApproachWaypoint;
 
+		animator.SetBool( "walking", true );
+
 		if( currentWaypoint != null )
 			updateMethod = ApproachWaypointMethod;
 	}
@@ -102,12 +105,16 @@ public class PlayerController : MonoBehaviour
     {
 		startApproachMethod = StartApproach_DepletingWaypoint;
 
+		animator.SetBool( "walking", true );
+
         if( currentWaypoint != null )
 			updateMethod = Approach_DepletingWaypointMethod;
     }
 
 	public void StartApproachObstacle( Obstacle obstacle )
 	{
+		animator.SetBool( "walking", true );
+
 		currentObstacle = obstacle;
 		updateMethod    = ApproachObstacleMethod;
 	}
@@ -251,6 +258,10 @@ public class PlayerController : MonoBehaviour
 
 	private void StartObstacleSequence()
 	{
+		// Animator
+		animator.SetBool( "walking", false );
+		animator.SetBool( "rapping", true );
+
 		var duration = GameSettings.Instance.player_duration_obstacleInteraction;
 		statusDepleteSpeed = Mathf.Min( statusPoint_Current, currentObstacle.StatusPoint ) / duration;
 
@@ -331,17 +342,29 @@ public class PlayerController : MonoBehaviour
 	private void TransformUp()
 	{
 		playerStatusProperty.SetValue( currentStatus );
-		//TODO:(ofg) Announce transformed status with world ui
+
+		//TODO:(ofg) We can player different animation when transforming UP
+		animator.SetBool( "walking", false );
+		animator.SetBool( "rapping", false );
+		animator.SetTrigger( "transform" );
 	}
 
 	private void TransformDown()
 	{
 		playerStatusProperty.SetValue( currentStatus );
-		//TODO:(ofg) Announce transformed status with world ui
+
+		//TODO:(ofg) We can player different animation when transforming DOWN
+		animator.SetBool( "walking", false );
+		animator.SetBool( "rapping", false );
+		animator.SetTrigger( "transform" );
 	}
 
 	private void LevelComplete( GameEvent completeEvent )
 	{
+		animator.SetBool( "walking", false );
+		animator.SetBool( "rapping", false );
+		animator.SetTrigger( "complete" );
+
 		completeEvent.Raise();
 		updateMethod = ExtensionMethods.EmptyMethod;
 	}
