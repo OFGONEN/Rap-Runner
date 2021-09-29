@@ -58,6 +58,7 @@ MonoBehaviour:
   playerStatusRatioProperty: {fileID: 11400000, guid: 249ef2067233f854eadca487d9fbdf1f, type: 2}
   playerStatusProperty: {fileID: 11400000, guid: 839cbad99c40a6543822999b9eaafc65, type: 2}
   modelTransform: {fileID: 7373955672554946479}
+  animator: {fileID: 3509888819532981717}
   currentStatus: {fileID: 11400000, guid: 2e6acfcfa457bb3469418da1f3a92f0c, type: 2}
 --- !u!1001 &540757683379157695
 PrefabInstance:
@@ -119,6 +120,11 @@ PrefabInstance:
 --- !u!4 &7373955672554946479 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7049441436231370000, guid: 583a6eb972b23a94fb9debc022f36598, type: 3}
+  m_PrefabInstance: {fileID: 540757683379157695}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3509888819532981717 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3977955512820981610, guid: 583a6eb972b23a94fb9debc022f36598, type: 3}
   m_PrefabInstance: {fileID: 540757683379157695}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2992412983495851575
@@ -228,7 +234,7 @@ PrefabInstance:
     - target: {fileID: 182236359371392575, guid: ed4a75596492d5941b007d11e01ab28a, type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7373955672554946479}
     - target: {fileID: 3747325266785291020, guid: ed4a75596492d5941b007d11e01ab28a, type: 3}
       propertyPath: m_RootOrder
       value: 0
