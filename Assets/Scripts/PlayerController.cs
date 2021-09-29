@@ -336,8 +336,8 @@ public class PlayerController : MonoBehaviour
 
 		if( newStatusPoint < statusPoint_Floor && currentStatus.prevStatus != null )
 		{
-			statusPoint_Floor = statusPoint_Ceil;
-			statusPoint_Ceil  = statusPoint_Ceil - currentStatus.prevStatus.status_Point;
+			statusPoint_Ceil  = statusPoint_Floor;
+			statusPoint_Floor = statusPoint_Floor - currentStatus.prevStatus.status_Point;
 			currentStatus     = currentStatus.prevStatus;
 
 			transform = true;
