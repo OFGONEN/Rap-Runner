@@ -300,6 +300,11 @@ public class PlayerController : MonoBehaviour
 			transformAfterSequence = false;
 			TransformDown();
 		}
+		else 
+		{
+			animator.SetBool( "walking", true );
+			animator.SetBool( "rapping", false );
+		}
 
 		currentObstacle.Rapping_Lost();
 		startApproachMethod();
