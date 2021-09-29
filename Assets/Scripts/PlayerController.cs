@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
     {
 		startApproachMethod = StartApproach_DepletingWaypoint;
 
-		animator.SetBool( "walking", true );
+		animator.SetBool( "walking", !catwalking );
 
         if( currentWaypoint != null )
 			updateMethod = Approach_DepletingWaypointMethod;
@@ -153,6 +153,9 @@ public class PlayerController : MonoBehaviour
 	private void CatwalkEventResponse()
 	{
 		catwalking = true;
+		
+		animator.SetBool( "walking", false );
+		animator.SetBool( "rapping", true );
 	}
 
     private void ApproachWaypointMethod()
