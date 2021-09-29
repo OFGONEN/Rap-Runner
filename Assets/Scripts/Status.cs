@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 [ CreateAssetMenu( fileName = "Status", menuName = "FF/Game/Status" ) ]
 public class Status : ScriptableObject
@@ -12,7 +13,8 @@ public class Status : ScriptableObject
     public Status prevStatus;
     public Color status_Color;
     public string status_Name;
-    public float status_Point;
+	public int status_Walking;
+	public float status_Point;
     public GameObject status_Model;
 #endregion
 

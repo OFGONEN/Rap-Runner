@@ -16,5 +16,6 @@ MonoBehaviour:
   prevStatus: {fileID: 11400000, guid: 67ca9bec734563841b23303e4c903c00, type: 2}
   status_Color: {r: 0, g: 0.09885931, b: 1, a: 1}
   status_Name: Rap God
+  status_Walking: 3
   status_Point: 50
   status_Model: {fileID: 0}

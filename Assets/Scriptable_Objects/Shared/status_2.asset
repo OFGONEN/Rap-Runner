@@ -16,5 +16,6 @@ MonoBehaviour:
   prevStatus: {fileID: 11400000, guid: 2e6acfcfa457bb3469418da1f3a92f0c, type: 2}
   status_Color: {r: 1, g: 0.80811393, b: 0, a: 1}
   status_Name: Gangsta Rapper
+  status_Walking: 1
   status_Point: 50
   status_Model: {fileID: 0}

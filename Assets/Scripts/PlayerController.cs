@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
 
 	[ BoxGroup( "Setup" ) ] public Transform modelTransform;
+    [ BoxGroup( "Setup" ) ] public Animator animator;
     [ BoxGroup( "Setup" ) ] public Status currentStatus;
 
 	// Private Fields \\
@@ -94,6 +95,8 @@ public class PlayerController : MonoBehaviour
     {
 		startApproachMethod = StartApproachWaypoint;
 
+		animator.SetBool( "walking", true );
+
 		if( currentWaypoint != null )
 			updateMethod = ApproachWaypointMethod;
 	}
@@ -102,12 +105,16 @@ public class PlayerController : MonoBehaviour
     {
 		startApproachMethod = StartApproach_DepletingWaypoint;
 
+		animator.SetBool( "walking", !catwalking );
+
         if( currentWaypoint != null )
 			updateMethod = Approach_DepletingWaypointMethod;
     }
 
 	public void StartApproachObstacle( Obstacle obstacle )
 	{
+		animator.SetBool( "walking", true );
+
 		currentObstacle = obstacle;
 		updateMethod    = ApproachObstacleMethod;
 	}
@@ -146,6 +153,9 @@ public class PlayerController : MonoBehaviour
 	private void CatwalkEventResponse()
 	{
 		catwalking = true;
+		
+		animator.SetBool( "walking", false );
+		animator.SetBool( "rapping", true );
 	}
 
     private void ApproachWaypointMethod()
@@ -167,6 +177,13 @@ public class PlayerController : MonoBehaviour
             else
             {
 				updateMethod = ExtensionMethods.EmptyMethod;
+
+				if( catwalking )
+				{
+					animator.SetBool( "victory", true );
+					LevelComplete( levelCompleteEvent );
+				}
+
 				return;
 			}
 		}
@@ -200,7 +217,10 @@ public class PlayerController : MonoBehaviour
 		if( statusPoint_Current < 0 )
 		{
 			if( catwalking )
+			{
+				animator.SetBool( "victory", true );
 				LevelComplete( levelCompleteEvent );
+			}
 			else 
 				LevelComplete( levelFailEvent );
 		}
@@ -251,6 +271,10 @@ public class PlayerController : MonoBehaviour
 
 	private void StartObstacleSequence()
 	{
+		// Animator
+		animator.SetBool( "walking", false );
+		animator.SetBool( "rapping", true );
+
 		var duration = GameSettings.Instance.player_duration_obstacleInteraction;
 		statusDepleteSpeed = Mathf.Min( statusPoint_Current, currentObstacle.StatusPoint ) / duration;
 
@@ -285,6 +309,11 @@ public class PlayerController : MonoBehaviour
 		{
 			transformAfterSequence = false;
 			TransformDown();
+		}
+		else 
+		{
+			animator.SetBool( "walking", true );
+			animator.SetBool( "rapping", false );
 		}
 
 		currentObstacle.Rapping_Lost();
@@ -331,17 +360,31 @@ public class PlayerController : MonoBehaviour
 	private void TransformUp()
 	{
 		playerStatusProperty.SetValue( currentStatus );
-		//TODO:(ofg) Announce transformed status with world ui
+
+		//TODO:(ofg) We can player different animation when transforming UP
+		animator.SetBool( "walking", false );
+		animator.SetBool( "rapping", false );
+		animator.SetTrigger( "transform" );
+		animator.SetInteger( "walk", currentStatus.status_Walking );
 	}
 
 	private void TransformDown()
 	{
 		playerStatusProperty.SetValue( currentStatus );
-		//TODO:(ofg) Announce transformed status with world ui
+
+		//TODO:(ofg) We can player different animation when transforming DOWN
+		animator.SetBool( "walking", false );
+		animator.SetBool( "rapping", false );
+		animator.SetTrigger( "transform" );
+		animator.SetInteger( "walk", currentStatus.status_Walking );
 	}
 
 	private void LevelComplete( GameEvent completeEvent )
 	{
+		animator.SetBool( "walking", false );
+		animator.SetBool( "rapping", false );
+		animator.SetTrigger( "complete" );
+
 		completeEvent.Raise();
 		updateMethod = ExtensionMethods.EmptyMethod;
 	}

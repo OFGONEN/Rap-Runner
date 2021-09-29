@@ -16,5 +16,6 @@ MonoBehaviour:
   prevStatus: {fileID: 0}
   status_Color: {r: 1, g: 0.32790178, b: 0, a: 1}
   status_Name: Street Rapper
+  status_Walking: 0
   status_Point: 50
   status_Model: {fileID: 0}
