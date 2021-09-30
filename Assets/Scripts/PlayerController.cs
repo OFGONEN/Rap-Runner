@@ -316,6 +316,15 @@ public class PlayerController : MonoBehaviour
 			animator.SetBool( "rapping", false );
 		}
 
+		if (currentWaypoint.NextWaypoint != null )
+		{
+			var nextWaypoint     = currentWaypoint.NextWaypoint;
+			var relativePosition = nextWaypoint.transform.InverseTransformPoint( transform.position );
+
+			if( relativePosition.z > 0 )
+				currentWaypoint = nextWaypoint;
+		}
+
 		currentObstacle.Rapping_Lost();
 		startApproachMethod();
 	}
