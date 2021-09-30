@@ -22,6 +22,7 @@ public class Obstacle : MonoBehaviour
 	// Components
 	private ColliderListener_EventRaiser colliderListener;
     private BoxCollider boxCollider;
+	private Animator animator;
 #endregion
 
 #region Properties
@@ -59,6 +60,7 @@ public class Obstacle : MonoBehaviour
     {
 		colliderListener = GetComponentInChildren< ColliderListener_EventRaiser >();
 		boxCollider      = GetComponentInChildren< BoxCollider >();
+		animator 		 = GetComponentInChildren< Animator >();
 
 		// Cache world position of target position
 		targetPosition_WorldPoint = boxCollider.transform.TransformPoint( targetPosition ).SetY( 0 );
@@ -69,16 +71,21 @@ public class Obstacle : MonoBehaviour
 #region API
     public void Rapping_Won()
     {
-        //TODO:(ofg) Obstacle plays victory animation
+
+		animator.SetBool( "victory", true );
+		animator.SetTrigger( "complete" );
     }
 
     public void Rapping_Lost()
     {
-        //TODO:(ofg) Enable ragdoll object
+
+		animator.SetBool( "victory", false );
+		animator.SetTrigger( "complete" );
     }
 
 	public Tween StartRapping( float duration )
 	{
+		animator.SetTrigger( "rapping" );
 		return transform.DOMove( transform.position + RappingDistance, duration );
 	}
 #endregion
