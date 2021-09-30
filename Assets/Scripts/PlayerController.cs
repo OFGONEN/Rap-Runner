@@ -29,7 +29,11 @@ public class PlayerController : MonoBehaviour
 
 	[ BoxGroup( "Setup" ) ] public Transform modelTransform;
     [ BoxGroup( "Setup" ) ] public Animator animator;
+    [ BoxGroup( "Setup" ) ] public CameraController cameraController;
     [ BoxGroup( "Setup" ) ] public Status currentStatus;
+
+    [ BoxGroup( "Rapping Camera" ) ] public Vector3 cameraRappingPositon;
+    [ BoxGroup( "Rapping Camera" ) ] public Vector3 cameraRappingRotation;
 
 	// Private Fields \\
 	private Waypoint currentWaypoint;
@@ -250,6 +254,7 @@ public class PlayerController : MonoBehaviour
 			modelTransform.localPosition = position_gfx;
 
 			modelTransform.LookAtAxis( currentObstacle.LookTargetPoint, Vector3.up );
+			cameraController.MoveAndLook( cameraRappingPositon, cameraRappingRotation );
 			StartObstacleSequence();
 			return;
 		}
@@ -325,6 +330,7 @@ public class PlayerController : MonoBehaviour
 				currentWaypoint = nextWaypoint;
 		}
 
+		cameraController.ReturnDefault();
 		currentObstacle.Rapping_Lost();
 		startApproachMethod();
 	}
@@ -403,7 +409,11 @@ public class PlayerController : MonoBehaviour
 #if UNITY_EDITOR
 	private void OnDrawGizmos()
 	{
-		Handles.Label( transform.position.AddUp( 2.5f ), currentStatus.status_Name + ": " + Mathf.CeilToInt( statusPoint_Current ) );
+		var final_cameraPosition = transform.position + cameraRappingPositon;
+
+		Handles.ArrowHandleCap( 0, final_cameraPosition, Quaternion.Euler( cameraRappingRotation ), 1f, EventType.Repaint );
+		Handles.Label( final_cameraPosition.AddUp( 0.5f ), "Final Camera Position\n" + final_cameraPosition );
+
 	}
 #endif
 #endregion

@@ -33,6 +33,7 @@ namespace FFStudio
         // Camera
 		[ BoxGroup( "Camera" ), Tooltip( "Camera's target follow speed" ) ] public float camera_speed_follow = 1f;
 		[ BoxGroup( "Camera" ), Tooltip( "Camera's movement duration" ) ] public float camera_duration_movement = 1f;
+		[ BoxGroup( "Camera" ), Tooltip( "Camera's movement duration" ) ] public float camera_duration_moveAndLook = 0.5f;
 		[ BoxGroup( "Camera" ), Tooltip( "Camera's end game rotation clamp" ) ] public float camera_clamp_LevelEndRotation = 20f;
 		[ BoxGroup( "Camera" ), Tooltip( "Camera's end game rotation speed" ) ] public float camera_speed_LevelEndRotation = 3f;
 
