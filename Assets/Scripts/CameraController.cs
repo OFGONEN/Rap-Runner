@@ -26,6 +26,7 @@ public class CameraController : MonoBehaviour
     // Private Fields \\
     private UnityMessage updateMethod;
     private Sequence levelStartSequence;
+	private Sequence moveAndLookSequence;
 
 	private float totalRotateAmount = 0f;
 	private float rotateSign = 1f;
@@ -45,6 +46,12 @@ public class CameraController : MonoBehaviour
     {
  		levelRevealedListener.OnDisable();
 		levelCompleteListener.OnDisable();
+
+		if( moveAndLookSequence != null )
+		{
+			moveAndLookSequence.Kill();
+			moveAndLookSequence = null;
+		}
     }
 
     private void Awake()
@@ -61,6 +68,27 @@ public class CameraController : MonoBehaviour
 #endregion
 
 #region API
+	public void MoveAndLook( Vector3 movePosition, Vector3 lookRotation )
+	{
+		updateMethod = ExtensionMethods.EmptyMethod;
+
+		var duration = GameSettings.Instance.camera_duration_moveAndLook;
+
+		moveAndLookSequence = DOTween.Sequence();
+		moveAndLookSequence.Append( transform.DOLocalMove( movePosition, duration ) );
+		moveAndLookSequence.Join( transform.DOLocalRotate( lookRotation, duration ) );
+		moveAndLookSequence.OnComplete( OnMoveAndLookSequenceComplete );
+	}
+
+	public void ReturnDefault()
+	{
+		var duration = GameSettings.Instance.camera_duration_moveAndLook;
+
+		levelStartSequence = DOTween.Sequence();
+		levelStartSequence.Append( transform.DOLocalMove( targetPosition, duration ) );
+		levelStartSequence.Join( transform.DOLocalRotate( targetRotation, duration ) );
+		levelStartSequence.OnComplete( OnReturnDefaultComplete );
+	}
 #endregion
 
 #region Implementation
@@ -110,6 +138,20 @@ public class CameraController : MonoBehaviour
 
 		updateMethod = FollowTargetMethod;
         levelStartEvent.Raise();
+	}
+
+	private void OnReturnDefaultComplete()
+	{
+		levelStartSequence.Kill();
+		levelStartSequence = null;
+
+		updateMethod = FollowTargetMethod;
+	}
+
+	private void OnMoveAndLookSequenceComplete()
+	{
+		moveAndLookSequence.Kill();
+		moveAndLookSequence = null;
 	}
 #endregion
 

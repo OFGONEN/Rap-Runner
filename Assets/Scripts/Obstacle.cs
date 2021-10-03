@@ -14,6 +14,7 @@ public class Obstacle : MonoBehaviour
     [ BoxGroup( "Setup" ), SerializeField ] private float statusPoint;
     [ BoxGroup( "Setup" ), SerializeField ] private Vector3 targetPosition; // Local position
     [ BoxGroup( "Setup" ), SerializeField ] private Vector3 rappingPosition; // Local position
+    [ BoxGroup( "Setup" ), Tooltip( "Should Camera transition while rapping" ), SerializeField ] private bool cameraTransition = false; 
 
 	// Private Fields \\
 	private Vector3 targetPosition_WorldPoint;
@@ -27,10 +28,11 @@ public class Obstacle : MonoBehaviour
 
 #region Properties
 	// Properties \\
-	public Vector3 TargetPoint => targetPosition_WorldPoint;
-    public Vector3 TargetDistance => transform.forward * targetPosition.z;
-    public Vector3 RappingDistance => transform.forward * rappingPosition.z;
+	public Vector3 TargetPoint     => targetPosition_WorldPoint;
+	public Vector3 TargetDistance  => transform.forward * targetPosition.z;
+	public Vector3 RappingDistance => transform.forward * rappingPosition.z;
 	public Vector3 LookTargetPoint => lookTargetPosition;
+	public bool CameraTransition   => cameraTransition;
 
 	public float StatusPoint
 	{
