@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEditor;
 using FFStudio;
 using DG.Tweening;
+using TMPro;
 using NaughtyAttributes;
 
 public class Obstacle : MonoBehaviour
@@ -24,6 +25,7 @@ public class Obstacle : MonoBehaviour
 	private ColliderListener_EventRaiser colliderListener;
     private BoxCollider boxCollider;
 	private Animator animator;
+	private TextMeshProUGUI worldUIText;
 #endregion
 
 #region Properties
@@ -42,7 +44,7 @@ public class Obstacle : MonoBehaviour
 		}
 		set
 		{
-			statusPoint = value;
+			UpdateStatusWorldUIText( value );
 		}
 	}
 #endregion
@@ -62,11 +64,13 @@ public class Obstacle : MonoBehaviour
     {
 		colliderListener = GetComponentInChildren< ColliderListener_EventRaiser >();
 		boxCollider      = GetComponentInChildren< BoxCollider >();
-		animator 		 = GetComponentInChildren< Animator >();
+		animator         = GetComponentInChildren< Animator >();
+		worldUIText      = GetComponentInChildren< TextMeshProUGUI >();
 
 		// Cache world position of target position
 		targetPosition_WorldPoint = boxCollider.transform.TransformPoint( targetPosition ).SetY( 0 );
 		lookTargetPosition        = boxCollider.transform.position.SetY( 0 );
+		worldUIText.text          = statusPoint.ToString();
 	}
 #endregion
 
@@ -99,6 +103,16 @@ public class Obstacle : MonoBehaviour
 
 		boxCollider.enabled = false;
 		player.StartApproachObstacle( this );
+	}
+
+	private void UpdateStatusWorldUIText( float newValue )
+	{
+		var newIntValue = ( int )newValue;
+
+		if( (int)statusPoint != newIntValue )
+			worldUIText.text = newIntValue.ToString();
+
+		statusPoint = newValue;
 	}
 	#endregion
 
