@@ -254,7 +254,10 @@ public class PlayerController : MonoBehaviour
 			modelTransform.localPosition = position_gfx;
 
 			modelTransform.LookAtAxis( currentObstacle.LookTargetPoint, Vector3.up );
-			cameraController.MoveAndLook( cameraRappingPositon, cameraRappingRotation );
+
+			if( currentObstacle.CameraTransition )
+				cameraController.MoveAndLook( cameraRappingPositon, cameraRappingRotation );
+
 			StartObstacleSequence();
 			return;
 		}
@@ -330,7 +333,9 @@ public class PlayerController : MonoBehaviour
 				currentWaypoint = nextWaypoint;
 		}
 
-		cameraController.ReturnDefault();
+		if( currentObstacle.CameraTransition )
+			cameraController.ReturnDefault();
+
 		currentObstacle.Rapping_Lost();
 		startApproachMethod();
 	}
