@@ -18,19 +18,21 @@ MonoBehaviour:
   ui_Entity_Scale_TweenDuration: 0.5
   ui_Entity_FloatingMove_TweenDuration: 0.5
   swipeThreshold: 2
+  input_horizontal_threshold: 0.1
   ui_world_modifier_duration: 0.75
   ui_world_announce_duration: 0.75
   player_target_checkDistance: 0.1
-  player_clamp_rotation: 30
+  player_clamp_rotation: 45
   player_speed_vertical: 10
   player_speed_horizontal: 8
   player_speed_rotation: 90
   player_speed_turning: 20
   player_speed_approach: 5
   player_speed_statusDepleting: 30
-  player_duration_obstacleInteraction: 1.5
+  player_duration_obstacleInteraction: 3
   camera_speed_follow: 1
   camera_duration_movement: 1
+  camera_duration_moveAndLook: 0.5
   camera_clamp_LevelEndRotation: 20
   camera_speed_LevelEndRotation: 12.5
   status_maxPoint: 200

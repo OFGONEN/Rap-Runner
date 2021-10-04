@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8932405526349790572}
   - component: {fileID: 8932405526349790573}
   - component: {fileID: 8932405526349790561}
+  - component: {fileID: -1245400340535387402}
   m_Layer: 31
   m_Name: canvas_world_announce
   m_TagString: Untagged
@@ -105,6 +106,19 @@ MonoBehaviour:
   playerStatusProperty: {fileID: 11400000, guid: 839cbad99c40a6543822999b9eaafc65, type: 2}
   targetPoint: {x: 0, y: 0.4, z: -0.25}
   targetSize: {x: 1.3, y: 1.3, z: 0}
+--- !u!114 &-1245400340535387402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8932405526349790575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7866969bff85241b1a6af9332028fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedTransformReference: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
 --- !u!1 &8932405527112413802
 GameObject:
   m_ObjectHideFlags: 0

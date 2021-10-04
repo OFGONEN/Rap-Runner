@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 3423258647779915912}
   - component: {fileID: 3423258647779915913}
   - component: {fileID: 3423258647779915927}
+  - component: {fileID: 1463731992850446741}
   m_Layer: 31
   m_Name: canvas_world_status
   m_TagString: Untagged
@@ -217,7 +218,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3423258647779915927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,6 +239,19 @@ MonoBehaviour:
   fillingImage: {fileID: 3011500856653274545}
   statusProperty: {fileID: 11400000, guid: 839cbad99c40a6543822999b9eaafc65, type: 2}
   statusText: {fileID: 3423258646411310988}
+--- !u!114 &1463731992850446741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3423258647779915915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7866969bff85241b1a6af9332028fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedTransformReference: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
 --- !u!1001 &3423258647415313832
 PrefabInstance:
   m_ObjectHideFlags: 0

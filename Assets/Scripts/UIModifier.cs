@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using FFStudio;
@@ -28,6 +29,8 @@ public class UIModifier : UIText
 
 	// Delegates
 	private Sequence sequence;
+
+	private StringBuilder stringBuilder = new StringBuilder( 16 );
 #endregion
 
 #region Properties
@@ -74,23 +77,28 @@ public class UIModifier : UIText
 
 		if( compare == Compare.Greater && modifyAmount > 0 )
         {
-			StartSequence();
+			StartSequence( modifyAmount );
 		}
         else if( modifyAmount < 0 && compare == Compare.Smaller )
         {
-			StartSequence();
+			StartSequence( modifyAmount );
         }
     }
 
-    private void StartSequence()
+    private void StartSequence( float modifyAmount )
     {
         if( sequence != null )
 			sequence.Kill();
+
+		stringBuilder.Clear();
+		stringBuilder.Append( '+' );
+		stringBuilder.Append( modifyAmount.ToString() );
 
 		sequence = DOTween.Sequence();
 
 		uiTransform.localPosition = uiStartLocalPosition;
 
+		textRenderer.text   = stringBuilder.ToString();
 		textRenderer.color  = textStartColor;
 		imageRenderer.color = iconStartColor;
 
