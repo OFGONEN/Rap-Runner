@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
 	private bool transformAfterSequence = false;
 	private bool catwalking = false;
 
-	private Dictionary< string, Renderer[] > modelRendererDictionary;
+	private Dictionary< string, Renderer > modelRendererDictionary;
 
 	// Delegates
 	private UnityMessage updateMethod;
@@ -84,11 +84,11 @@ public class PlayerController : MonoBehaviour
 		updateMethod                   = ExtensionMethods.EmptyMethod;
 		catwalkEventListener.response  = CatwalkEventResponse;
 
-		modelRendererDictionary = new Dictionary< string, Renderer[] >( modelRenderers.Length );
+		modelRendererDictionary = new Dictionary< string, Renderer >( modelRenderers.Length );
 
 		for( var i = 0; i < modelRenderers.Length; i++ )
 		{
-			modelRendererDictionary.Add( modelRenderers[ i ].rendererName, modelRenderers[ i ].renderers );
+			modelRendererDictionary.Add( modelRenderers[ i ].rendererName, modelRenderers[ i ].Renderer );
 		}
 
 		ToggleRenderer( currentStatus.status_Name, true );
@@ -139,14 +139,10 @@ public class PlayerController : MonoBehaviour
 #region Implementation
 	private void ToggleRenderer( string rendererName, bool value )
 	{
-		Renderer[] renderers;
+		Renderer renderer;
 
-		modelRendererDictionary.TryGetValue( rendererName, out renderers );
-
-		for( var i = 0; i < renderers.Length; i++ )
-		{
-			renderers[ i ].enabled = value;
-		}
+		modelRendererDictionary.TryGetValue( rendererName, out renderer );
+		renderer.enabled = value;
 	}
 
     private void LevelStartResponse()

@@ -8,13 +8,22 @@ public class ModelRenderer : MonoBehaviour
 {
 #region Fields
 	public string rendererName;
-	public Renderer[] renderers;
+
+	// Private Fields \\
+	private Renderer modelRenderer;
+
+	// Public Delegates \\
+	public Renderer Renderer => modelRenderer;
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
+	private void Awake()
+	{
+		modelRenderer = GetComponentInChildren< Renderer >();
+	}
 #endregion
 
 #region API
