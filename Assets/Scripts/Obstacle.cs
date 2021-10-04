@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEditor;
 using FFStudio;
 using DG.Tweening;
+using TMPro;
 using NaughtyAttributes;
 
 public class Obstacle : MonoBehaviour
@@ -14,6 +15,7 @@ public class Obstacle : MonoBehaviour
     [ BoxGroup( "Setup" ), SerializeField ] private float statusPoint;
     [ BoxGroup( "Setup" ), SerializeField ] private Vector3 targetPosition; // Local position
     [ BoxGroup( "Setup" ), SerializeField ] private Vector3 rappingPosition; // Local position
+    [ BoxGroup( "Setup" ), Tooltip( "Should Camera transition while rapping" ), SerializeField ] private bool cameraTransition = false; 
 
 	// Private Fields \\
 	private Vector3 targetPosition_WorldPoint;
@@ -22,14 +24,17 @@ public class Obstacle : MonoBehaviour
 	// Components
 	private ColliderListener_EventRaiser colliderListener;
     private BoxCollider boxCollider;
+	private Animator animator;
+	private TextMeshProUGUI worldUIText;
 #endregion
 
 #region Properties
 	// Properties \\
-	public Vector3 TargetPoint => targetPosition_WorldPoint;
-    public Vector3 TargetDistance => transform.forward * targetPosition.z;
-    public Vector3 RappingDistance => transform.forward * rappingPosition.z;
+	public Vector3 TargetPoint     => targetPosition_WorldPoint;
+	public Vector3 TargetDistance  => transform.forward * targetPosition.z;
+	public Vector3 RappingDistance => transform.forward * rappingPosition.z;
 	public Vector3 LookTargetPoint => lookTargetPosition;
+	public bool CameraTransition   => cameraTransition;
 
 	public float StatusPoint
 	{
@@ -39,7 +44,7 @@ public class Obstacle : MonoBehaviour
 		}
 		set
 		{
-			statusPoint = value;
+			UpdateStatusWorldUIText( value );
 		}
 	}
 #endregion
@@ -59,26 +64,34 @@ public class Obstacle : MonoBehaviour
     {
 		colliderListener = GetComponentInChildren< ColliderListener_EventRaiser >();
 		boxCollider      = GetComponentInChildren< BoxCollider >();
+		animator         = GetComponentInChildren< Animator >();
+		worldUIText      = GetComponentInChildren< TextMeshProUGUI >();
 
 		// Cache world position of target position
 		targetPosition_WorldPoint = boxCollider.transform.TransformPoint( targetPosition ).SetY( 0 );
 		lookTargetPosition        = boxCollider.transform.position.SetY( 0 );
+		worldUIText.text          = statusPoint.ToString();
 	}
 #endregion
 
 #region API
     public void Rapping_Won()
     {
-        //TODO:(ofg) Obstacle plays victory animation
+
+		animator.SetBool( "victory", true );
+		animator.SetTrigger( "complete" );
     }
 
     public void Rapping_Lost()
     {
-        //TODO:(ofg) Enable ragdoll object
+
+		animator.SetBool( "victory", false );
+		animator.SetTrigger( "complete" );
     }
 
 	public Tween StartRapping( float duration )
 	{
+		animator.SetTrigger( "rapping" );
 		return transform.DOMove( transform.position + RappingDistance, duration );
 	}
 #endregion
@@ -90,6 +103,16 @@ public class Obstacle : MonoBehaviour
 
 		boxCollider.enabled = false;
 		player.StartApproachObstacle( this );
+	}
+
+	private void UpdateStatusWorldUIText( float newValue )
+	{
+		var newIntValue = ( int )newValue;
+
+		if( (int)statusPoint != newIntValue )
+			worldUIText.text = newIntValue.ToString();
+
+		statusPoint = newValue;
 	}
 	#endregion
 

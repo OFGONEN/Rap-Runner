@@ -23,24 +23,38 @@ public class PlayerController : MonoBehaviour
 	[ Header( "Shared Variables" ) ]
     public SharedFloatProperty inputDirectionProperty;
 	public SharedReferenceProperty startWaypointReference;
+	public SharedFloatProperty playerStatusRatioProperty;
+	public Status_Property playerStatusProperty;
 
 
-    [ BoxGroup( "Setup" ) ] public Transform modelTransform;
+	[ BoxGroup( "Setup" ) ] public Transform modelTransform;
+    [ BoxGroup( "Setup" ) ] public AnimatorGroup animatorGroup;
+    [ BoxGroup( "Setup" ) ] public ModelRenderer[] modelRenderers;
+    [ BoxGroup( "Setup" ) ] public CameraController cameraController;
+    [ BoxGroup( "Setup" ) ] public Status currentStatus;
 
-    // Private Fields \\
-    private Waypoint currentWaypoint;
+    [ BoxGroup( "Rapping Camera" ) ] public Vector3 cameraRappingPositon;
+    [ BoxGroup( "Rapping Camera" ) ] public Vector3 cameraRappingRotation;
+
+	// Private Fields \\
+	private Waypoint currentWaypoint;
 	private Obstacle currentObstacle;
 	private float modelRotationAmount;
 
 	// Status releated
-	private float statusPoint;
+	private float statusPoint_Current;
 	private float statusDepleteSpeed;
+	private float statusPoint_Floor;
+	private float statusPoint_Ceil;
 
+	private bool transformAfterSequence = false;
 	private bool catwalking = false;
+
+	private Dictionary< string, Renderer > modelRendererDictionary;
 
 	// Delegates
 	private UnityMessage updateMethod;
-	private UnityMessage approachMethod;
+	private UnityMessage startApproachMethod;
 	private Sequence obstacleInteractonSequence;
 #endregion
 
@@ -69,6 +83,22 @@ public class PlayerController : MonoBehaviour
 		modifierEventListener.response = ModifierEventResponse;
 		updateMethod                   = ExtensionMethods.EmptyMethod;
 		catwalkEventListener.response  = CatwalkEventResponse;
+
+		modelRendererDictionary = new Dictionary< string, Renderer >( modelRenderers.Length );
+
+	}
+	
+	private void Start()
+	{
+		playerStatusRatioProperty.SetValue( statusPoint_Current / GameSettings.Instance.status_maxPoint );
+		playerStatusProperty.SetValue( currentStatus );
+
+		// Cache renderers in a dictionary
+		for( var i = 0; i < modelRenderers.Length; i++ )
+			modelRendererDictionary.Add( modelRenderers[ i ].rendererName, modelRenderers[ i ].Renderer );
+
+		// Toogle on the current status model renderer
+		ToggleRenderer( currentStatus.status_Name, true );
 	}
 
     private void Update()
@@ -80,7 +110,9 @@ public class PlayerController : MonoBehaviour
 #region API
     public void StartApproachWaypoint()
     {
-		approachMethod = StartApproachWaypoint;
+		startApproachMethod = StartApproachWaypoint;
+
+		animatorGroup.SetBool( "walking", true );
 
 		if( currentWaypoint != null )
 			updateMethod = ApproachWaypointMethod;
@@ -88,7 +120,9 @@ public class PlayerController : MonoBehaviour
 
     public void StartApproach_DepletingWaypoint()
     {
-		approachMethod = StartApproach_DepletingWaypoint;
+		startApproachMethod = StartApproach_DepletingWaypoint;
+
+		animatorGroup.SetBool( "walking", !catwalking );
 
         if( currentWaypoint != null )
 			updateMethod = Approach_DepletingWaypointMethod;
@@ -96,32 +130,57 @@ public class PlayerController : MonoBehaviour
 
 	public void StartApproachObstacle( Obstacle obstacle )
 	{
+		animatorGroup.SetBool( "walking", true );
+
 		currentObstacle = obstacle;
 		updateMethod    = ApproachObstacleMethod;
 	}
 #endregion
 
 #region Implementation
+	private void ToggleRenderer( string rendererName, bool value )
+	{
+		Renderer renderer;
+
+		modelRendererDictionary.TryGetValue( rendererName, out renderer );
+		renderer.enabled = value;
+	}
+
     private void LevelStartResponse()
     {
+
 		currentWaypoint = startWaypointReference.sharedValue as Waypoint;
 		currentWaypoint.PlayerEntered( this );
+
+		statusPoint_Floor = 0;
+		statusPoint_Ceil = currentStatus.status_Point;
 	}
 
     private void ModifierEventResponse()
     {
 		var modifyAmount = ( modifierEventListener.gameEvent as FloatGameEvent ).eventValue;
-		statusPoint += modifyAmount;
 
-		//TODO:(ofg) level fails when status is lower than 0
-		statusPoint = Mathf.Max( statusPoint, 0 );
+		var transform = ModifyStatus( modifyAmount );
 
-		FFLogger.Log( "Status Point: " + statusPoint );
+		if( statusPoint_Current < 0 )
+		{
+			LevelComplete( levelFailEvent );
+		}
+		else if ( transform ) 
+		{
+			if( modifyAmount > 0 )
+				TransformUp();
+			else
+				TransformDown();
+		}
 	}
 
 	private void CatwalkEventResponse()
 	{
 		catwalking = true;
+		
+		animatorGroup.SetBool( "walking", false );
+		animatorGroup.SetBool( "rapping", true );
 	}
 
     private void ApproachWaypointMethod()
@@ -143,6 +202,13 @@ public class PlayerController : MonoBehaviour
             else
             {
 				updateMethod = ExtensionMethods.EmptyMethod;
+
+				if( catwalking )
+				{
+					animatorGroup.SetBool( "victory", true );
+					LevelComplete( levelCompleteEvent );
+				}
+
 				return;
 			}
 		}
@@ -169,19 +235,23 @@ public class PlayerController : MonoBehaviour
 
     private void Approach_DepletingWaypointMethod()
     {
-		var lossStatus   = Time.deltaTime * GameSettings.Instance.player_speed_statusDepleting;
-		    statusPoint -= lossStatus;
+		var lossStatus = Time.deltaTime * GameSettings.Instance.player_speed_statusDepleting;
 
-		//TODO:(ofg) handle status type
+		var transform = ModifyStatus( -lossStatus );
 
-		if( statusPoint <= 0 )
+		if( statusPoint_Current < 0 )
 		{
-			updateMethod = ExtensionMethods.EmptyMethod;
-
 			if( catwalking )
-				levelCompleteEvent.Raise();
+			{
+				animatorGroup.SetBool( "victory", true );
+				LevelComplete( levelCompleteEvent );
+			}
 			else 
-				levelFailEvent.Raise();
+				LevelComplete( levelFailEvent );
+		}
+		else if ( !catwalking && transform ) 
+		{
+			TransformDown();
 		}
 
 		ApproachWaypointMethod();
@@ -205,6 +275,10 @@ public class PlayerController : MonoBehaviour
 			modelTransform.localPosition = position_gfx;
 
 			modelTransform.LookAtAxis( currentObstacle.LookTargetPoint, Vector3.up );
+
+			if( currentObstacle.CameraTransition )
+				cameraController.MoveAndLook( cameraRappingPositon, cameraRappingRotation );
+
 			StartObstacleSequence();
 			return;
 		}
@@ -226,8 +300,12 @@ public class PlayerController : MonoBehaviour
 
 	private void StartObstacleSequence()
 	{
+		// Animator
+		animatorGroup.SetBool( "walking", false );
+		animatorGroup.SetBool( "rapping", true );
+
 		var duration = GameSettings.Instance.player_duration_obstacleInteraction;
-		statusDepleteSpeed = Mathf.Min( statusPoint, currentObstacle.StatusPoint ) / duration;
+		statusDepleteSpeed = Mathf.Min( statusPoint_Current, currentObstacle.StatusPoint ) / duration;
 
 		obstacleInteractonSequence = DOTween.Sequence();
 
@@ -236,7 +314,7 @@ public class PlayerController : MonoBehaviour
 
 		obstacleInteractonSequence.OnUpdate( OnSequenceUpdate );
 
-		if( statusPoint > currentObstacle.StatusPoint )
+		if( statusPoint_Current > currentObstacle.StatusPoint )
 			obstacleInteractonSequence.OnComplete( OnSequenceComplete_Win );
 		else
 			obstacleInteractonSequence.OnComplete( OnSequenceComplete_Lost );
@@ -245,10 +323,9 @@ public class PlayerController : MonoBehaviour
 
 	private void OnSequenceUpdate()
 	{
-		//TODO:(ofg) handle status type
 		var lossStatus = Time.deltaTime * statusDepleteSpeed;
 
-		statusPoint -= lossStatus;
+		transformAfterSequence |= ModifyStatus( -lossStatus );
 		currentObstacle.StatusPoint -= lossStatus;
 	}
 
@@ -257,13 +334,31 @@ public class PlayerController : MonoBehaviour
 		obstacleInteractonSequence.Kill();
 		obstacleInteractonSequence = null;
 
-		FFLogger.Log( "Sequence Won" );
-		statusPoint = Mathf.CeilToInt( statusPoint );
+		if( transformAfterSequence )
+		{
+			transformAfterSequence = false;
+			TransformDown();
+		}
+		else 
+		{
+			animatorGroup.SetBool( "walking", true );
+			animatorGroup.SetBool( "rapping", false );
+		}
 
-		//TODO:(ofg) transform player etc.
+		if (currentWaypoint.NextWaypoint != null )
+		{
+			var nextWaypoint     = currentWaypoint.NextWaypoint;
+			var relativePosition = nextWaypoint.transform.InverseTransformPoint( transform.position );
+
+			if( relativePosition.z > 0 )
+				currentWaypoint = nextWaypoint;
+		}
+
+		if( currentObstacle.CameraTransition )
+			cameraController.ReturnDefault();
+
 		currentObstacle.Rapping_Lost();
-
-		approachMethod();
+		startApproachMethod();
 	}
 
 	private void OnSequenceComplete_Lost()
@@ -271,22 +366,120 @@ public class PlayerController : MonoBehaviour
 		obstacleInteractonSequence.Kill();
 		obstacleInteractonSequence = null;
 
-		FFLogger.Log( "Sequence Lost" );
 		currentObstacle.Rapping_Won();
-		//TODO:(ofg) Player lost 
-
-		levelFailEvent.Raise();
+		LevelComplete( levelFailEvent );
 	}
 
+	private bool ModifyStatus( float modifyAmount )
+	{
+		bool transform = false;
+		var newStatusPoint = statusPoint_Current + modifyAmount;
 
+		if( newStatusPoint < statusPoint_Floor && currentStatus.prevStatus != null )
+		{
+			statusPoint_Ceil  = statusPoint_Floor;
+			statusPoint_Floor = statusPoint_Floor - currentStatus.prevStatus.status_Point;
+			currentStatus     = currentStatus.prevStatus;
+
+			transform = true;
+		}
+		else if( newStatusPoint >= statusPoint_Ceil && currentStatus.nextStatus != null )
+		{
+			statusPoint_Floor = statusPoint_Ceil;
+			statusPoint_Ceil  = statusPoint_Ceil + currentStatus.nextStatus.status_Point;
+			currentStatus     = currentStatus.nextStatus;
+
+			transform = true;
+		}
+
+		statusPoint_Current = newStatusPoint;
+		playerStatusRatioProperty.SetValue( statusPoint_Current / GameSettings.Instance.status_maxPoint );
+
+		return transform;
+	}
+
+	private void TransformUp()
+	{
+		ToggleRenderer( currentStatus.prevStatus.status_Name, false ); // Previous model
+		ToggleRenderer( currentStatus.status_Name, true ); // Current model
+
+		//TODO:(ofg) spawn a transform particle
+
+		playerStatusProperty.SetValue( currentStatus );
+
+		//TODO:(ofg) We can player different animation when transforming UP
+		animatorGroup.SetBool( "walking", false );
+		animatorGroup.SetBool( "rapping", false );
+		animatorGroup.SetTrigger( "transform" );
+		animatorGroup.SetInteger( "walk", currentStatus.status_Walking );
+	}
+
+	private void TransformDown()
+	{
+		ToggleRenderer( currentStatus.nextStatus.status_Name, false ); // Previous model
+		ToggleRenderer( currentStatus.status_Name, true ); // Current model
+
+		//TODO:(ofg) spawn a transform particle
+
+		playerStatusProperty.SetValue( currentStatus );
+
+		//TODO:(ofg) We can player different animation when transforming DOWN
+		animatorGroup.SetBool( "walking", false );
+		animatorGroup.SetBool( "rapping", false );
+		animatorGroup.SetTrigger( "transform" );
+		animatorGroup.SetInteger( "walk", currentStatus.status_Walking );
+	}
+
+	private void LevelComplete( GameEvent completeEvent )
+	{
+		animatorGroup.SetBool( "walking", false );
+		animatorGroup.SetBool( "rapping", false );
+		animatorGroup.SetTrigger( "complete" );
+
+		completeEvent.Raise();
+		updateMethod = ExtensionMethods.EmptyMethod;
+	}
 #endregion
 
 #region Editor Only
 #if UNITY_EDITOR
 	private void OnDrawGizmos()
 	{
-		Handles.Label( transform.position.AddUp( 1.5f ), "Status: " + Mathf.CeilToInt( statusPoint ) );
+		var final_cameraPosition = transform.position + cameraRappingPositon;
+
+		Handles.ArrowHandleCap( 0, final_cameraPosition, Quaternion.Euler( cameraRappingRotation ), 1f, EventType.Repaint );
+		Handles.Label( final_cameraPosition.AddUp( 0.5f ), "Final Camera Position\n" + final_cameraPosition );
+
 	}
 #endif
 #endregion
+
+	[ System.Serializable ]
+	public class AnimatorGroup
+	{
+		public Animator[] animators;
+
+		public void SetTrigger( string parameterName )
+		{
+			foreach( var animator in animators )
+			{
+				animator.SetTrigger( parameterName );
+			}
+		}
+		public void SetBool( string parameterName, bool value )
+		{
+			foreach( var animator in animators )
+			{
+				animator.SetBool( parameterName, value );
+			}
+		}
+
+		public void SetInteger( string parameterName, int value )
+		{
+			foreach( var animator in animators )
+			{
+				animator.SetInteger( parameterName, value );
+			}
+		}
+	}
 }

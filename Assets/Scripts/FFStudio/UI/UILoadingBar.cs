@@ -8,26 +8,24 @@ using UnityEngine.UI;
 public class UILoadingBar : UIEntity
 {
 #region Fields
-    [ Header( "Shared Variables" ) ]
-    public SharedFloatProperty progressProperty;
+    [ BoxGroup( "Shared Variables" ) ] public SharedFloatProperty progressProperty;
 
 	[ HorizontalLine ]
-	[ Header( "UI Elements" ) ]
-	public Image fillingImage;
+	[ BoxGroup( "UI Elements" ) ] public Image fillingImage;
 #endregion
 
 #region Unity API
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
 		progressProperty.changeEvent += OnValueChange;
 	}
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
 		progressProperty.changeEvent -= OnValueChange;
     }
 
-	private void Awake()
+	protected virtual void Awake()
 	{
 		OnValueChange(); // Set filling amount to value at the start 
 	}
@@ -37,7 +35,7 @@ public class UILoadingBar : UIEntity
 #endregion
 
 #region Implementation
-    private void OnValueChange()
+    protected virtual void OnValueChange()
     {
 		fillingImage.fillAmount = progressProperty.sharedValue;
 	}

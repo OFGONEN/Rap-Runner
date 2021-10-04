@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: obstacle_twerk_ctrl
+  m_Controller: {fileID: 9100000, guid: fd70224ab0f857a4286243d857b834be, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: df7545dac45f4ca4ca935dea0c6f9af0, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: df7545dac45f4ca4ca935dea0c6f9af0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4811675186cc9da428c2dafb98453ca0, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4811675186cc9da428c2dafb98453ca0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 94374aee61041f94b83163cb49897a8a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bdd4d65f23a1ba64e9779b0676837405, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: daff279a6b79ab14a918ab2b83655389, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: daff279a6b79ab14a918ab2b83655389, type: 2}
