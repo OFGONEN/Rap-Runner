@@ -220,6 +220,7 @@ GameObject:
   - component: {fileID: 2459427439224800750}
   - component: {fileID: 2459427439224800744}
   - component: {fileID: 2459427439224800745}
+  - component: {fileID: 6230404963533591522}
   m_Layer: 31
   m_Name: canvas_world_modifier
   m_TagString: Untagged
@@ -292,6 +293,19 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
+--- !u!114 &6230404963533591522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2459427439224800751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7866969bff85241b1a6af9332028fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedTransformReference: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
 --- !u!1 &2459427439624692404
 GameObject:
   m_ObjectHideFlags: 0
