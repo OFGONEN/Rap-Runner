@@ -1,5 +1,6 @@
 /* Created by and for usage of FF Studios (2021). */
 
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -71,7 +72,6 @@ namespace FFEditor
 #endregion
 
 #region Editor Only
-#if UNITY_EDITOR
 		private void OnDrawGizmosSelected()
 		{
 			Handles.color = Color.red;
@@ -90,7 +90,6 @@ namespace FFEditor
 				Handles.Label( position.AddUp( 0.5f ), objectToPaint.name, style );
 			}
 		}
-#endif
 #endregion
 	}
 
@@ -100,3 +99,4 @@ namespace FFEditor
         Line
     }
 }
+#endif
