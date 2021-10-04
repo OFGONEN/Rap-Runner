@@ -28,6 +28,9 @@ namespace FFEditor
         // Show If Properties
         public bool Single => paintMode == PaintMode.Single; 
         public bool Line => paintMode == PaintMode.Line; 
+
+		// Private Fields \\ 
+		private List< GameObject > cachedObjects = new List< GameObject >( 64 );
 #endregion
 
 #region Properties
@@ -42,9 +45,13 @@ namespace FFEditor
         {
 			EditorSceneManager.MarkAllScenesDirty();
 
+			cachedObjects.Clear();
+
 			var gameObject = PrefabUtility.InstantiatePrefab( objectToPaint ) as GameObject;
 			gameObject.transform.position = transform.position.AddUp( height );
 			gameObject.transform.SetSiblingIndex( seperatorObject.GetSiblingIndex() );
+
+			cachedObjects.Add( gameObject );
 
 			EditorSceneManager.SaveOpenScenes();
 		}
@@ -54,7 +61,9 @@ namespace FFEditor
         {
 			EditorSceneManager.MarkAllScenesDirty();
 
-            for( var i = 0; i < count; i++ )
+			cachedObjects.Clear();
+
+			for( var i = 0; i < count; i++ )
             {
 				var gameObject = PrefabUtility.InstantiatePrefab( objectToPaint ) as GameObject;
 
@@ -62,10 +71,26 @@ namespace FFEditor
 				gameObject.transform.position = position.AddUp( height );
 
 				gameObject.transform.SetSiblingIndex( seperatorObject.GetSiblingIndex() );
+
+				cachedObjects.Add( gameObject );
 			}
 
 			EditorSceneManager.SaveOpenScenes();
         }
+
+		[ Button() ]
+		public void DeleteLast()
+		{
+			EditorSceneManager.MarkAllScenesDirty();
+
+            for( var i = cachedObjects.Count - 1; i >= 0; i-- )
+            {
+				DestroyImmediate( cachedObjects[ i ] );
+			}
+
+			EditorSceneManager.SaveOpenScenes();
+		}
+
 #endregion
 
 #region Implementation
