@@ -324,7 +324,7 @@ public class PlayerController : MonoBehaviour
 	{
 		var lossStatus = Time.deltaTime * statusDepleteSpeed;
 
-		transformAfterSequence = ModifyStatus( -lossStatus );
+		transformAfterSequence |= ModifyStatus( -lossStatus );
 		currentObstacle.StatusPoint -= lossStatus;
 	}
 
