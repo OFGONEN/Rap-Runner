@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviour
 
 
 	[ BoxGroup( "Setup" ) ] public Transform modelTransform;
-    [ BoxGroup( "Setup" ) ] public Animator animator;
+    [ BoxGroup( "Setup" ) ] public AnimatorGroup animatorGroup;
+    [ BoxGroup( "Setup" ) ] public ModelRenderer[] modelRenderers;
     [ BoxGroup( "Setup" ) ] public CameraController cameraController;
     [ BoxGroup( "Setup" ) ] public Status currentStatus;
 
@@ -48,6 +49,8 @@ public class PlayerController : MonoBehaviour
 
 	private bool transformAfterSequence = false;
 	private bool catwalking = false;
+
+	private Dictionary< string, Renderer[] > modelRendererDictionary;
 
 	// Delegates
 	private UnityMessage updateMethod;
@@ -80,6 +83,15 @@ public class PlayerController : MonoBehaviour
 		modifierEventListener.response = ModifierEventResponse;
 		updateMethod                   = ExtensionMethods.EmptyMethod;
 		catwalkEventListener.response  = CatwalkEventResponse;
+
+		modelRendererDictionary = new Dictionary< string, Renderer[] >( modelRenderers.Length );
+
+		for( var i = 0; i < modelRenderers.Length; i++ )
+		{
+			modelRendererDictionary.Add( modelRenderers[ i ].rendererName, modelRenderers[ i ].renderers );
+		}
+
+		ToggleRenderer( currentStatus.status_Name, true );
 	}
 	
 	private void Start()
@@ -99,7 +111,7 @@ public class PlayerController : MonoBehaviour
     {
 		startApproachMethod = StartApproachWaypoint;
 
-		animator.SetBool( "walking", true );
+		animatorGroup.SetBool( "walking", true );
 
 		if( currentWaypoint != null )
 			updateMethod = ApproachWaypointMethod;
@@ -109,7 +121,7 @@ public class PlayerController : MonoBehaviour
     {
 		startApproachMethod = StartApproach_DepletingWaypoint;
 
-		animator.SetBool( "walking", !catwalking );
+		animatorGroup.SetBool( "walking", !catwalking );
 
         if( currentWaypoint != null )
 			updateMethod = Approach_DepletingWaypointMethod;
@@ -117,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
 	public void StartApproachObstacle( Obstacle obstacle )
 	{
-		animator.SetBool( "walking", true );
+		animatorGroup.SetBool( "walking", true );
 
 		currentObstacle = obstacle;
 		updateMethod    = ApproachObstacleMethod;
@@ -125,6 +137,18 @@ public class PlayerController : MonoBehaviour
 #endregion
 
 #region Implementation
+	private void ToggleRenderer( string rendererName, bool value )
+	{
+		Renderer[] renderers;
+
+		modelRendererDictionary.TryGetValue( rendererName, out renderers );
+
+		for( var i = 0; i < renderers.Length; i++ )
+		{
+			renderers[ i ].enabled = value;
+		}
+	}
+
     private void LevelStartResponse()
     {
 
@@ -158,8 +182,8 @@ public class PlayerController : MonoBehaviour
 	{
 		catwalking = true;
 		
-		animator.SetBool( "walking", false );
-		animator.SetBool( "rapping", true );
+		animatorGroup.SetBool( "walking", false );
+		animatorGroup.SetBool( "rapping", true );
 	}
 
     private void ApproachWaypointMethod()
@@ -184,7 +208,7 @@ public class PlayerController : MonoBehaviour
 
 				if( catwalking )
 				{
-					animator.SetBool( "victory", true );
+					animatorGroup.SetBool( "victory", true );
 					LevelComplete( levelCompleteEvent );
 				}
 
@@ -222,7 +246,7 @@ public class PlayerController : MonoBehaviour
 		{
 			if( catwalking )
 			{
-				animator.SetBool( "victory", true );
+				animatorGroup.SetBool( "victory", true );
 				LevelComplete( levelCompleteEvent );
 			}
 			else 
@@ -280,8 +304,8 @@ public class PlayerController : MonoBehaviour
 	private void StartObstacleSequence()
 	{
 		// Animator
-		animator.SetBool( "walking", false );
-		animator.SetBool( "rapping", true );
+		animatorGroup.SetBool( "walking", false );
+		animatorGroup.SetBool( "rapping", true );
 
 		var duration = GameSettings.Instance.player_duration_obstacleInteraction;
 		statusDepleteSpeed = Mathf.Min( statusPoint_Current, currentObstacle.StatusPoint ) / duration;
@@ -320,8 +344,8 @@ public class PlayerController : MonoBehaviour
 		}
 		else 
 		{
-			animator.SetBool( "walking", true );
-			animator.SetBool( "rapping", false );
+			animatorGroup.SetBool( "walking", true );
+			animatorGroup.SetBool( "rapping", false );
 		}
 
 		if (currentWaypoint.NextWaypoint != null )
@@ -379,31 +403,41 @@ public class PlayerController : MonoBehaviour
 
 	private void TransformUp()
 	{
+		ToggleRenderer( currentStatus.prevStatus.status_Name, false ); // Previous model
+		ToggleRenderer( currentStatus.status_Name, true ); // Current model
+
+		//TODO:(ofg) spawn a transform particle
+
 		playerStatusProperty.SetValue( currentStatus );
 
 		//TODO:(ofg) We can player different animation when transforming UP
-		animator.SetBool( "walking", false );
-		animator.SetBool( "rapping", false );
-		animator.SetTrigger( "transform" );
-		animator.SetInteger( "walk", currentStatus.status_Walking );
+		animatorGroup.SetBool( "walking", false );
+		animatorGroup.SetBool( "rapping", false );
+		animatorGroup.SetTrigger( "transform" );
+		animatorGroup.SetInteger( "walk", currentStatus.status_Walking );
 	}
 
 	private void TransformDown()
 	{
+		ToggleRenderer( currentStatus.nextStatus.status_Name, false ); // Previous model
+		ToggleRenderer( currentStatus.status_Name, true ); // Current model
+
+		//TODO:(ofg) spawn a transform particle
+
 		playerStatusProperty.SetValue( currentStatus );
 
 		//TODO:(ofg) We can player different animation when transforming DOWN
-		animator.SetBool( "walking", false );
-		animator.SetBool( "rapping", false );
-		animator.SetTrigger( "transform" );
-		animator.SetInteger( "walk", currentStatus.status_Walking );
+		animatorGroup.SetBool( "walking", false );
+		animatorGroup.SetBool( "rapping", false );
+		animatorGroup.SetTrigger( "transform" );
+		animatorGroup.SetInteger( "walk", currentStatus.status_Walking );
 	}
 
 	private void LevelComplete( GameEvent completeEvent )
 	{
-		animator.SetBool( "walking", false );
-		animator.SetBool( "rapping", false );
-		animator.SetTrigger( "complete" );
+		animatorGroup.SetBool( "walking", false );
+		animatorGroup.SetBool( "rapping", false );
+		animatorGroup.SetTrigger( "complete" );
 
 		completeEvent.Raise();
 		updateMethod = ExtensionMethods.EmptyMethod;
@@ -422,4 +456,33 @@ public class PlayerController : MonoBehaviour
 	}
 #endif
 #endregion
+
+	[ System.Serializable ]
+	public class AnimatorGroup
+	{
+		public Animator[] animators;
+
+		public void SetTrigger( string parameterName )
+		{
+			foreach( var animator in animators )
+			{
+				animator.SetTrigger( parameterName );
+			}
+		}
+		public void SetBool( string parameterName, bool value )
+		{
+			foreach( var animator in animators )
+			{
+				animator.SetBool( parameterName, value );
+			}
+		}
+
+		public void SetInteger( string parameterName, int value )
+		{
+			foreach( var animator in animators )
+			{
+				animator.SetInteger( parameterName, value );
+			}
+		}
+	}
 }

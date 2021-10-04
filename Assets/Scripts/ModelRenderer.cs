@@ -3,18 +3,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NaughtyAttributes;
 
-[ CreateAssetMenu( fileName = "Status", menuName = "FF/Game/Status" ) ]
-public class Status : ScriptableObject
+public class ModelRenderer : MonoBehaviour
 {
 #region Fields
-    public Status nextStatus;
-    public Status prevStatus;
-    public Color status_Color;
-    public string status_Name;
-	public int status_Walking;
-	public float status_Point;
+	public string rendererName;
+	public Renderer[] renderers;
 #endregion
 
 #region Properties
