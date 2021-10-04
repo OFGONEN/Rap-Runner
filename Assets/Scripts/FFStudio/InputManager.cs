@@ -61,8 +61,14 @@ namespace FFStudio
 
 		public void LeanFingerDelta( Vector2 delta )
 		{
-			var direction = Mathf.Approximately( delta.x, 0 ) ? 0 : Mathf.Sign( delta.x );
-			inputDirectionProperty.sharedValue = direction;
+			if( Mathf.Abs( delta.x ) >= GameSettings.Instance.input_horizontal_threshold )
+			{
+				var direction = Mathf.Approximately( delta.x, 0 ) ? 0 : Mathf.Sign( delta.x );
+				inputDirectionProperty.sharedValue = direction;
+			}
+			else
+				inputDirectionProperty.sharedValue = 0;
+
 		}
 
 		public void LeanFingerUp( LeanFinger finger )

@@ -16,6 +16,9 @@ namespace FFStudio
         [ Foldout( "UI Settings" ), Tooltip( "Percentage of the screen to register a swipe"     ) ] public int swipeThreshold;
 
 		// World UI
+        [ Foldout( "Input" ), Tooltip( "Input horizontal threshold" ) ] public float input_horizontal_threshold = 0.1f;
+
+		// World UI
         [ Foldout( "UI World" ), Tooltip( "Modifier announce duration" ) ] public float ui_world_modifier_duration = 0.75f;
         [ Foldout( "UI World" ), Tooltip( "Status announce duration" ) ] public float ui_world_announce_duration = 0.75f;
 
