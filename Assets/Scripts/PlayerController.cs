@@ -86,18 +86,19 @@ public class PlayerController : MonoBehaviour
 
 		modelRendererDictionary = new Dictionary< string, Renderer >( modelRenderers.Length );
 
-		for( var i = 0; i < modelRenderers.Length; i++ )
-		{
-			modelRendererDictionary.Add( modelRenderers[ i ].rendererName, modelRenderers[ i ].Renderer );
-		}
-
-		ToggleRenderer( currentStatus.status_Name, true );
 	}
 	
 	private void Start()
 	{
 		playerStatusRatioProperty.SetValue( statusPoint_Current / GameSettings.Instance.status_maxPoint );
 		playerStatusProperty.SetValue( currentStatus );
+
+		// Cache renderers in a dictionary
+		for( var i = 0; i < modelRenderers.Length; i++ )
+			modelRendererDictionary.Add( modelRenderers[ i ].rendererName, modelRenderers[ i ].Renderer );
+
+		// Toogle on the current status model renderer
+		ToggleRenderer( currentStatus.status_Name, true );
 	}
 
     private void Update()
