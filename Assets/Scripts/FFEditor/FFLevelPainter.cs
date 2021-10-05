@@ -17,8 +17,9 @@ namespace FFEditor
         public Transform seperatorObject;
         public GameObject objectToPaint;
 		public PaintMode paintMode;
+		public Direction spawnDirection;
 
-        public float height;
+		public float height;
 		[ ShowIf("Line") ] public int count;
         [ ShowIf("Line") ] public float gap;
 
@@ -28,6 +29,9 @@ namespace FFEditor
         // Show If Properties
         public bool Single => paintMode == PaintMode.Single; 
         public bool Line => paintMode == PaintMode.Line; 
+
+		// Private Fields \\ 
+		private List< GameObject > cachedObjects = new List< GameObject >( 64 );
 #endregion
 
 #region Properties
@@ -42,9 +46,14 @@ namespace FFEditor
         {
 			EditorSceneManager.MarkAllScenesDirty();
 
+			cachedObjects.Clear();
+
 			var gameObject = PrefabUtility.InstantiatePrefab( objectToPaint ) as GameObject;
 			gameObject.transform.position = transform.position.AddUp( height );
 			gameObject.transform.SetSiblingIndex( seperatorObject.GetSiblingIndex() );
+			gameObject.transform.forward = ReturnDirection( spawnDirection );
+
+			cachedObjects.Add( gameObject );
 
 			EditorSceneManager.SaveOpenScenes();
 		}
@@ -54,21 +63,53 @@ namespace FFEditor
         {
 			EditorSceneManager.MarkAllScenesDirty();
 
-            for( var i = 0; i < count; i++ )
+			cachedObjects.Clear();
+
+			for( var i = 0; i < count; i++ )
             {
 				var gameObject = PrefabUtility.InstantiatePrefab( objectToPaint ) as GameObject;
 
 				var position = transform.position + transform.forward * i * gap;
 				gameObject.transform.position = position.AddUp( height );
+				gameObject.transform.forward = ReturnDirection( spawnDirection );
 
 				gameObject.transform.SetSiblingIndex( seperatorObject.GetSiblingIndex() );
+
+				cachedObjects.Add( gameObject );
 			}
 
 			EditorSceneManager.SaveOpenScenes();
         }
+
+		[ Button() ]
+		public void DeleteLast()
+		{
+			EditorSceneManager.MarkAllScenesDirty();
+
+            for( var i = cachedObjects.Count - 1; i >= 0; i-- )
+            {
+				DestroyImmediate( cachedObjects[ i ] );
+			}
+
+			EditorSceneManager.SaveOpenScenes();
+		}
+
 #endregion
 
 #region Implementation
+		private Vector3 ReturnDirection( Direction direction )
+		{
+			if( direction == Direction.forward )
+				return transform.forward;
+			else if( direction == Direction.backward )
+				return -1f * transform.forward;
+			else if( direction == Direction.right )
+				return transform.right;
+			else if( direction == Direction.left )
+				return -1f * transform.right;
+
+			return Vector3.zero;
+		}
 #endregion
 
 #region Editor Only
@@ -98,5 +139,13 @@ namespace FFEditor
         Single,
         Line
     }
+
+	public enum Direction
+	{
+		forward,
+		backward,
+		right,
+		left
+	}
 }
 #endif

@@ -76,6 +76,17 @@ public class Straight_Waypoint : Waypoint
 			Handles.DrawLine( transform.position, targetPoint );
 		}
 	}
+
+	private void OnDrawGizmosSelected()
+	{
+		GUIStyle style = new GUIStyle();
+		style.fontSize = 15;
+		style.normal.textColor = Color.red;
+		style.fontStyle = FontStyle.Bold;
+
+		var center = transform.position + transform.forward * targetPoint.z / 2f;
+		Handles.Label( center.AddUp( 1.5f ), " Center: " + center, style );
+	}
 #endif
 #endregion
 }
