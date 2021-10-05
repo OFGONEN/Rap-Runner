@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2543854784270964728
+--- !u!1 &6413203328353294275
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1416996292442396653}
-  - component: {fileID: 4156388240315862050}
-  - component: {fileID: 2543854784270964711}
+  - component: {fileID: 7631348051540236246}
+  - component: {fileID: 4891935131458898969}
   m_Layer: 0
-  m_Name: road_straight_start
-  m_TagString: StartWaypoint
+  m_Name: road_straight
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!4 &1416996292442396653
+--- !u!4 &7631348051540236246
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2543854784270964728}
+  m_GameObject: {fileID: 6413203328353294275}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 11.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5400281372412970243}
+  - {fileID: 3213832563822703858}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4156388240315862050
+--- !u!114 &4891935131458898969
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2543854784270964728}
+  m_GameObject: {fileID: 6413203328353294275}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b59f1f962a86c647a38ee00118c684a, type: 3}
@@ -50,26 +49,12 @@ MonoBehaviour:
   nextWaypoint: {fileID: 0}
   targetPoint: {x: 0, y: 0, z: 10}
   wide: 5
---- !u!114 &2543854784270964711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2543854784270964728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a8b9286af946534c832e5352b9db9e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sharedReferenceProperty: {fileID: 11400000, guid: e48fa8568b0c6b94fb5b37baaf07d5b8, type: 2}
-  referenceComponent: {fileID: 4156388240315862050}
---- !u!1001 &5583089383141597928
+--- !u!1001 &3103941997166154521
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1416996292442396653}
+    m_TransformParent: {fileID: 7631348051540236246}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: fcc906df246235f4f95f875669497529, type: 3}
       propertyPath: m_RootOrder
@@ -121,8 +106,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcc906df246235f4f95f875669497529, type: 3}
---- !u!4 &5400281372412970243 stripped
+--- !u!4 &3213832563822703858 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fcc906df246235f4f95f875669497529, type: 3}
-  m_PrefabInstance: {fileID: 5583089383141597928}
+  m_PrefabInstance: {fileID: 3103941997166154521}
   m_PrefabAsset: {fileID: 0}
