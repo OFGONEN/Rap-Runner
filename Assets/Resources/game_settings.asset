@@ -23,14 +23,14 @@ MonoBehaviour:
   ui_world_announce_duration: 0.75
   player_target_checkDistance: 0.1
   player_clamp_rotation: 45
-  player_speed_vertical: 10
-  player_speed_horizontal: 8
+  player_speed_vertical: 8
+  player_speed_horizontal: 3
   player_speed_rotation: 90
-  player_speed_turning: 20
+  player_speed_turning: 10
   player_speed_approach: 5
   player_speed_statusDepleting: 30
-  player_duration_obstacleInteraction: 3
-  camera_speed_follow: 1
+  player_duration_obstacleInteraction: 2
+  camera_speed_follow: 5
   camera_duration_movement: 1
   camera_duration_moveAndLook: 0.5
   camera_clamp_LevelEndRotation: 20
