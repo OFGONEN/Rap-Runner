@@ -16,6 +16,7 @@ public class Obstacle : MonoBehaviour
     [ BoxGroup( "Setup" ), SerializeField ] private Vector3 targetPosition; // Local position
     [ BoxGroup( "Setup" ), SerializeField ] private Vector3 rappingPosition; // Local position
     [ BoxGroup( "Setup" ), Tooltip( "Should Camera transition while rapping" ), SerializeField ] private bool cameraTransition = false; 
+    [ BoxGroup( "Setup" ), SerializeField ] private Obstacle[] pairedObstacles; 
 
 	// Private Fields \\
 	private Vector3 targetPosition_WorldPoint;
@@ -84,6 +85,7 @@ public class Obstacle : MonoBehaviour
 
     public void Rapping_Lost()
     {
+		worldUIText.enabled = false;
 
 		animator.SetBool( "victory", false );
 		animator.SetTrigger( "complete" );
@@ -91,12 +93,29 @@ public class Obstacle : MonoBehaviour
 
 	public Tween StartRapping( float duration )
 	{
+		RetirePairObstacles();
+		boxCollider.enabled = false;
+
 		animator.SetTrigger( "rapping" );
 		return transform.DOMove( transform.position + RappingDistance, duration );
+	}
+
+	public void RetireObstacle()
+	{
+		boxCollider.enabled = false;
+		worldUIText.enabled = false;
 	}
 #endregion
 
 #region Implementation
+	private void RetirePairObstacles()
+	{
+		foreach( var obstacle in pairedObstacles )
+		{
+			obstacle.RetireObstacle();
+		}
+	}
+
     private void TriggerEnter( Collider other )
     {
 		var player = other.GetComponentInParent< PlayerController >();
