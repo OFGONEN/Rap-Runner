@@ -10,5 +10,7 @@ namespace FFStudio
     {
         [ Scene() ]
 		public int sceneIndex;
+
+        [ BoxGroup( "Setup" ) ] public Material skyboxMaterial;
     }
 }

@@ -47,7 +47,9 @@ namespace FFStudio
         private void LevelLoadedResponse()
         {
             levelProgress.SetValue( 0 );
-        }
+
+			RenderSettings.skybox = CurrentLevelData.Instance.levelData.skyboxMaterial;
+		}
 
         private void LevelRevealedResponse()
         {
