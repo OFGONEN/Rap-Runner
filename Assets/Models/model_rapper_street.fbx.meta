@@ -12,6 +12,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: lambert1
     second: {fileID: 2100000, guid: 782922b107c82924e960560dda018db6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert2
+    second: {fileID: 2100000, guid: 782922b107c82924e960560dda018db6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -24,7 +29,12 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Avatar Rig Configuration mis-match. Bone length in configuration
+      does not match position in animation file:\n\t'mixamorig:LeftUpLeg' : position
+      error = 2.237082 mm\n\t'mixamorig:LeftLeg' : position error = 3.014963 mm\n\t'mixamorig:LeftFoot'
+      : position error = 17.713768 mm\n\t'mixamorig:RightUpLeg' : position error
+      = 2.149251 mm\n\t'mixamorig:RightLeg' : position error = 2.928907 mm\n\t'mixamorig:RightFoot'
+      : position error = 19.783066 mm\n"
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
