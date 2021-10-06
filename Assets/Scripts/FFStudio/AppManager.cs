@@ -46,6 +46,20 @@ namespace FFStudio
 		}
 #endregion
 
+#region Terminal
+		[TerminalCommand( "change-horizontal", "change-horizontal(x) Change horizontal speed of player" )]
+		public void Terminal_ChangeHorizontalSpeed( float value )
+		{
+			GameSettings.Instance.player_speed_horizontal = value;
+		}
+
+		[TerminalCommand( "change-input", "change-input(x) Change input threshold" )]
+		public void Terminal_ChangeInputThreshold( float value )
+		{
+			GameSettings.Instance.input_horizontal_threshold = value;
+		}
+#endregion
+
 #region API
 #endregion
 
