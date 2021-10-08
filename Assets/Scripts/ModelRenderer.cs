@@ -10,10 +10,9 @@ public class ModelRenderer : MonoBehaviour
 	public string rendererName;
 
 	// Private Fields \\
-	private Renderer modelRenderer;
+	private Renderer[] modelRenderers;
 
 	// Public Delegates \\
-	public Renderer Renderer => modelRenderer;
 #endregion
 
 #region Properties
@@ -22,11 +21,18 @@ public class ModelRenderer : MonoBehaviour
 #region Unity API
 	private void Awake()
 	{
-		modelRenderer = GetComponentInChildren< Renderer >();
+		modelRenderers = GetComponentsInChildren< Renderer >();
 	}
 #endregion
 
 #region API
+	public void ToggleRenderer( bool value )
+	{
+		foreach( var renderer in modelRenderers )
+		{
+			renderer.enabled = value;
+		}
+	}
 #endregion
 
 #region Implementation
