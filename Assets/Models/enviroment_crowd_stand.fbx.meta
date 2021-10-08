@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fcc906df246235f4f95f875669497529
+guid: 32bf7549afa81bd498505e74da102603
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable: []
@@ -8,11 +8,6 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: All_Color
-    second: {fileID: 2100000, guid: ea6be0b8ec56d6a44a2775979ebdc93a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: All_Color8
     second: {fileID: 2100000, guid: ea6be0b8ec56d6a44a2775979ebdc93a, type: 2}
   materials:
     materialImportMode: 2
@@ -75,7 +70,7 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 0
   tangentSpace:
-    normalSmoothAngle: 180
+    normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
