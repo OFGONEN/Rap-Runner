@@ -249,9 +249,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: model_rapper_god
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6ce4afb1f995a304fb90f16bd4eb86a4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2729051941985189703, guid: 6ce4afb1f995a304fb90f16bd4eb86a4, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 6ce4afb1f995a304fb90f16bd4eb86a4, type: 3}
       propertyPath: m_Controller
@@ -614,6 +618,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: model_rapper_gangsta
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 435f0dcda429fff449146104112217b4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 435f0dcda429fff449146104112217b4, type: 3}
       propertyPath: m_Controller
       value: 
@@ -624,7 +632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7588256546838455192, guid: 435f0dcda429fff449146104112217b4, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 435f0dcda429fff449146104112217b4, type: 3}
@@ -696,11 +704,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3301371553100075355, guid: 946d45706ffeb92479cb5268890223dd, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 946d45706ffeb92479cb5268890223dd, type: 3}
       propertyPath: m_Name
       value: model_rapper_r&b
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 946d45706ffeb92479cb5268890223dd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 946d45706ffeb92479cb5268890223dd, type: 3}
       propertyPath: m_Controller
@@ -784,7 +796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5465029852857279148, guid: 11107f4ccb058ae4b9237a0b01cc912a, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 11107f4ccb058ae4b9237a0b01cc912a, type: 3}
       propertyPath: m_Controller
