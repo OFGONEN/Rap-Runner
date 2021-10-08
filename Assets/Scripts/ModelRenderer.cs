@@ -21,7 +21,7 @@ public class ModelRenderer : MonoBehaviour
 #region Unity API
 	private void Awake()
 	{
-		modelRenderers = GetComponentsInChildren< Renderer >();
+		modelRenderers = GetComponentsInChildren< Renderer >( true );
 	}
 #endregion
 
@@ -30,7 +30,7 @@ public class ModelRenderer : MonoBehaviour
 	{
 		foreach( var renderer in modelRenderers )
 		{
-			renderer.enabled = value;
+			renderer.gameObject.SetActive( value );
 		}
 	}
 #endregion
