@@ -58,7 +58,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: 8a07051895879614aa9b4e2e3a222386, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: 64678d4fbbc7f844eaa03db9510841f4, type: 2}
+      objectReference: {fileID: 22100000, guid: cf2af35f2784f6f48a367fb6adc1e81c, type: 2}
     - target: {fileID: 5866666021909216657, guid: 8a07051895879614aa9b4e2e3a222386, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
@@ -74,7 +74,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8746794542451080753, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
       propertyPath: m_Name
-      value: obstacle
+      value: obstacle_dancer
       objectReference: {fileID: 0}
     - target: {fileID: 8746794542451080755, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
       propertyPath: m_RootOrder

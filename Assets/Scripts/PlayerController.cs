@@ -162,7 +162,6 @@ public class PlayerController : MonoBehaviour
 
     private void LevelStartResponse()
     {
-
 		currentWaypoint = startWaypointReference.sharedValue as Waypoint;
 		currentWaypoint.PlayerEntered( this );
 
@@ -464,6 +463,12 @@ public class PlayerController : MonoBehaviour
 		Handles.ArrowHandleCap( 0, final_cameraPosition, Quaternion.Euler( cameraRappingRotation ), 1f, EventType.Repaint );
 		Handles.Label( final_cameraPosition.AddUp( 0.5f ), "Final Camera Position\n" + final_cameraPosition );
 
+	}
+	
+	[ Button() ]
+	public void StartPlayer()
+	{
+		LevelStartResponse();
 	}
 #endif
 #endregion
