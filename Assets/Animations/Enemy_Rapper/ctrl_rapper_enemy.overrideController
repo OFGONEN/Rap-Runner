@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ctrl_rapper_enemy
+  m_Controller: {fileID: 9100000, guid: fd70224ab0f857a4286243d857b834be, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: df7545dac45f4ca4ca935dea0c6f9af0, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: feda2639da93a6d44a5ff48fc8a0b49e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4811675186cc9da428c2dafb98453ca0, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: be3360e24f176024d95940dc6c5f93f8, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: daff279a6b79ab14a918ab2b83655389, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 516eb5f5841c31e4e945db647c4869e5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 94374aee61041f94b83163cb49897a8a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1716a6c5bc83a354cbc943be7736b07e, type: 2}
