@@ -59,6 +59,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 538621465934224774}
     m_Modifications:
+    - target: {fileID: -8831588999086417465, guid: f0808a1d5ffa7c647afed299c6821021, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f0808a1d5ffa7c647afed299c6821021, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -103,9 +107,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8351797026965176962, guid: f0808a1d5ffa7c647afed299c6821021, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -7979523817261157198, guid: f0808a1d5ffa7c647afed299c6821021, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -2140058497194025997, guid: f0808a1d5ffa7c647afed299c6821021, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f0808a1d5ffa7c647afed299c6821021, type: 3}
       propertyPath: m_Name
       value: enviroment_score_plane
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f0808a1d5ffa7c647afed299c6821021, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7353608817358971976, guid: f0808a1d5ffa7c647afed299c6821021, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0808a1d5ffa7c647afed299c6821021, type: 3}
@@ -231,6 +255,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: enviroment_podium
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0000d9a6c90cd8945b777b7ec509b3a7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0000d9a6c90cd8945b777b7ec509b3a7, type: 3}
 --- !u!4 &7373263221056433294 stripped
@@ -292,6 +320,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 10b114cb0627b5146873aeb97119e71c, type: 3}
       propertyPath: m_Name
       value: environment_catwalk_road
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 10b114cb0627b5146873aeb97119e71c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10b114cb0627b5146873aeb97119e71c, type: 3}
