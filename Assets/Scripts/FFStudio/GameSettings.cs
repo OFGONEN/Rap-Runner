@@ -42,6 +42,7 @@ namespace FFStudio
 
 		// Status
 		[ BoxGroup( "Status" ), Tooltip( "Max status point" ) ] public float status_maxPoint = 200f;
+		[ BoxGroup( "Status" ), Tooltip( "Obstacle depleted status color" ) ] public Color status_depleted_color;
 
         private static GameSettings instance;
 
