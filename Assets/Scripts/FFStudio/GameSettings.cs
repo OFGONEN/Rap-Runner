@@ -17,6 +17,7 @@ namespace FFStudio
 
 		// World UI
         [ Foldout( "Input" ), Tooltip( "Input horizontal threshold" ) ] public float input_horizontal_threshold = 0.1f;
+        [ Foldout( "Input" ), Tooltip( "Input horizontal speed clamp" ) ] public float input_horizontal_clamp = 10f;
 
 		// World UI
         [ Foldout( "UI World" ), Tooltip( "Modifier announce duration" ) ] public float ui_world_modifier_duration = 0.75f;
