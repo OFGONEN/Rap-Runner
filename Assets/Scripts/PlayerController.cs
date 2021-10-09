@@ -135,20 +135,6 @@ public class PlayerController : MonoBehaviour
 	{
 		animatorGroup.SetBool( "walking", true );
 
-		// Since Model transform is a child object of player object
-		// When player player's transform is aproaching the obstacle, player's model is aproaching that much as well,
-		// And this pushes the player's model out of the platform. 
-		// If we blink the player to model's position, when player moves model would not need to move.
-
-		var camera_WorldPosition = cameraController.transform.position;
-		var model_WorldPosition = modelTransform.position;
-
-		transform.position = model_WorldPosition;
-		modelTransform.position = model_WorldPosition;
-		
-		// Camera's transform is child of player object. We dont want to blink camera's position
-		cameraController.transform.position = camera_WorldPosition;
-
 		currentObstacle = obstacle;
 		updateMethod    = ApproachObstacleMethod;
 	}
@@ -275,9 +261,7 @@ public class PlayerController : MonoBehaviour
 
 	private void ApproachObstacleMethod()
 	{
-		var position                   = transform.position;
 		var position_gfx               = modelTransform.localPosition;
-		var targetPosition             = currentObstacle.transform.position + currentObstacle.TargetDistance;
 		var model_targetPosition       = currentObstacle.TargetPoint;
 		var model_TargetPosition_Local = transform.InverseTransformPoint( model_targetPosition );
 
@@ -299,8 +283,12 @@ public class PlayerController : MonoBehaviour
 			return;
 		}
 
+		var targetPosition       = currentObstacle.transform.position + currentObstacle.TargetDistance;
+		var position             = transform.position;
+		var targetPosition_Local = transform.InverseTransformPoint( targetPosition );
+
 		var newPosition = Vector3.MoveTowards( position, 
-							targetPosition, 
+							position + transform.forward * targetPosition_Local.z, 
 							Time.deltaTime * GameSettings.Instance.player_speed_approach );
 
 		var newPosition_GFX_X = Mathf.MoveTowards( position_gfx.x, 
