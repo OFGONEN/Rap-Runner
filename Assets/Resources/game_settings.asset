@@ -18,13 +18,15 @@ MonoBehaviour:
   ui_Entity_Scale_TweenDuration: 0.5
   ui_Entity_FloatingMove_TweenDuration: 0.5
   swipeThreshold: 2
-  input_horizontal_threshold: 1.5
+  input_horizontal_threshold: 2
+  input_acceleration_speed: 5
+  input_acceleration_clamp: 2
   ui_world_modifier_duration: 0.75
   ui_world_announce_duration: 0.75
   player_target_checkDistance: 0.1
   player_clamp_rotation: 45
   player_speed_vertical: 8
-  player_speed_horizontal: 4.5
+  player_speed_horizontal: 3
   player_speed_rotation: 90
   player_speed_turning: 10
   player_speed_approach: 5
