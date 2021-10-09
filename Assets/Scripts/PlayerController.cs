@@ -219,16 +219,14 @@ public class PlayerController : MonoBehaviour
 
 		// Move GFX Object
 
-		var clampedInput = Mathf.Clamp( inputDirectionProperty.sharedValue, -1, 1 );
-		Vector3 horizontalMove = Vector3.right * clampedInput;
-
+		Vector3 horizontalMove = Vector3.right * inputDirectionProperty.sharedValue;
 		modelRotationAmount = Mathf.Lerp( modelRotationAmount, 
-                                clampedInput * GameSettings.Instance.player_clamp_rotation, 
+                                inputDirectionProperty.sharedValue * GameSettings.Instance.player_clamp_rotation, 
                                 Time.deltaTime * GameSettings.Instance.player_speed_turning );
 
         // Calculate new local position for model
 		var modelPosition = modelTransform.localPosition;
-		var model_NewPosition = Vector3.MoveTowards( modelPosition, modelPosition + horizontalMove, Time.deltaTime * GameSettings.Instance.player_speed_horizontal * Mathf.Abs( inputDirectionProperty.sharedValue ) );
+		var model_NewPosition = Vector3.MoveTowards( modelPosition, modelPosition + horizontalMove, Time.deltaTime * GameSettings.Instance.player_speed_horizontal );
 
 		model_NewPosition.x = Mathf.Clamp( model_NewPosition.x, -currentWaypoint.Wide / 2f, currentWaypoint.Wide / 2f );
 		modelTransform.localPosition = model_NewPosition;

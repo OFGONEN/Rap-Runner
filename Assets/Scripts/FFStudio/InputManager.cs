@@ -19,7 +19,6 @@ namespace FFStudio
 
 		// Privat fields
 		private int swipeThreshold;
-		private float inputAcceleration = 1;
 
 		// Components
 		private Transform mainCamera_Transform;
@@ -64,26 +63,17 @@ namespace FFStudio
 		{
 			if( Mathf.Abs( delta.x ) >= GameSettings.Instance.input_horizontal_threshold )
 			{
-				if( !Mathf.Approximately( Mathf.Sign( delta.x), Mathf.Sign( inputDirectionProperty.sharedValue ) ) )
-					inputAcceleration = 1;
-
-				inputAcceleration = Mathf.Min( inputAcceleration + Time.deltaTime * GameSettings.Instance.input_acceleration_speed, GameSettings.Instance.input_acceleration_clamp );
-
-				var direction                          = Mathf.Sign( delta.x );
-				    inputDirectionProperty.sharedValue = direction * inputAcceleration;
+				var direction = Mathf.Approximately( delta.x, 0 ) ? 0 : Mathf.Sign( delta.x );
+				inputDirectionProperty.sharedValue = direction;
 			}
 			else
-			{
 				inputDirectionProperty.sharedValue = 0;
-				inputAcceleration = 1;
-			}
 
 		}
 
 		public void LeanFingerUp( LeanFinger finger )
 		{
 			inputDirectionProperty.sharedValue = 0;
-			inputAcceleration = 1;
 		}
 #endregion
 
