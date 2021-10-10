@@ -417,6 +417,7 @@ public class PlayerController : MonoBehaviour
 		//TODO:(ofg) We can player different animation when transforming UP
 		animatorGroup.SetBool( "walking", false );
 		animatorGroup.SetBool( "rapping", false );
+		animatorGroup.SetBool( "transform_positive", true);
 		animatorGroup.SetTrigger( "transform" );
 		animatorGroup.SetInteger( "walk", currentStatus.status_Walking );
 	}
@@ -433,6 +434,7 @@ public class PlayerController : MonoBehaviour
 		//TODO:(ofg) We can player different animation when transforming DOWN
 		animatorGroup.SetBool( "walking", false );
 		animatorGroup.SetBool( "rapping", false );
+		animatorGroup.SetBool( "transform_positive", false);
 		animatorGroup.SetTrigger( "transform" );
 		animatorGroup.SetInteger( "walk", currentStatus.status_Walking );
 	}
