@@ -20,15 +20,20 @@ namespace FFEditor
 		public Direction spawnDirection;
 
 		public float height;
-		[ ShowIf("Line") ] public int count;
-        [ ShowIf("Line") ] public float gap;
+		[ ShowIf( EConditionOperator.Or, "Line", "ScatterLine", "ScatterLineFromPallet" ) ] public int count;
+        [ ShowIf( EConditionOperator.Or, "Line", "ScatterLine", "ScatterLineFromPallet" ) ] public float gap;
+        [ ShowIf( EConditionOperator.Or, "ScatterLine", "ScatterLineFromPallet" ) ] public float[] scatter;
+        [ ShowIf( "ScatterLineFromPallet" ) ] public GameObject[] scatterPallet;
+        // [ ShowIf( EConditionOperator.Or, "ScatterLine", "ScatterLineFromPallet" ) ] public GameObject[] scatterPallet;
 
 		[ HorizontalLine ]
 		public GameObject[] objectPalette;
 
         // Show If Properties
-        public bool Single => paintMode == PaintMode.Single; 
-        public bool Line => paintMode == PaintMode.Line; 
+        public bool Single 				  => paintMode == PaintMode.Single; 
+        public bool Line 				  => paintMode == PaintMode.Line; 
+        public bool ScatterLine 		  => paintMode == PaintMode.ScatterLine; 
+        public bool ScatterLineFromPallet => paintMode == PaintMode.ScatterLinePallet; 
 
 		// Private Fields \\ 
 		private List< GameObject > cachedObjects = new List< GameObject >( 64 );
@@ -71,6 +76,58 @@ namespace FFEditor
 
 				var position = transform.position + transform.forward * i * gap;
 				gameObject.transform.position = position.AddUp( height );
+				gameObject.transform.forward = ReturnDirection( spawnDirection );
+
+				gameObject.transform.SetSiblingIndex( seperatorObject.GetSiblingIndex() );
+
+				cachedObjects.Add( gameObject );
+			}
+
+			EditorSceneManager.SaveOpenScenes();
+        }
+
+        [ Button(), ShowIf("ScatterLine") ]
+        public void PaintScatterLine()
+        {
+			EditorSceneManager.MarkAllScenesDirty();
+
+			cachedObjects.Clear();
+
+			for( var i = 0; i < count; i++ )
+            {
+				var gameObject = PrefabUtility.InstantiatePrefab( objectToPaint ) as GameObject;
+
+				float scatterSign = Random.Range( 0, 2 ) == 0 ? 1f : -1f;
+
+				var position = transform.position + transform.forward * i * gap;
+				gameObject.transform.position = position.AddUp( height ) + transform.right * Random.Range( scatter[ 0 ] , scatter[ 1 ] ) * scatterSign;
+				gameObject.transform.forward = ReturnDirection( spawnDirection );
+
+				gameObject.transform.SetSiblingIndex( seperatorObject.GetSiblingIndex() );
+
+				cachedObjects.Add( gameObject );
+			}
+
+			EditorSceneManager.SaveOpenScenes();
+        }
+
+        [ Button(), ShowIf("ScatterLineFromPallet") ]
+        public void PaintScatterLineFromPallet()
+        {
+			EditorSceneManager.MarkAllScenesDirty();
+
+			cachedObjects.Clear();
+
+			for( var i = 0; i < count; i++ )
+            {
+				var objectToPaint = scatterPallet[ Random.Range( 0, scatterPallet.Length ) ];
+
+				var gameObject = PrefabUtility.InstantiatePrefab( objectToPaint ) as GameObject;
+
+				float scatterSign = Random.Range( 0, 2 ) == 0 ? 1f : -1f;
+
+				var position = transform.position + transform.forward * i * gap;
+				gameObject.transform.position = position.AddUp( height ) + transform.right * Random.Range( scatter[ 0 ] , scatter[ 1 ] ) * scatterSign;
 				gameObject.transform.forward = ReturnDirection( spawnDirection );
 
 				gameObject.transform.SetSiblingIndex( seperatorObject.GetSiblingIndex() );
@@ -137,7 +194,9 @@ namespace FFEditor
     public enum PaintMode
     {
         Single,
-        Line
+        Line,
+		ScatterLine,
+		ScatterLinePallet
     }
 
 	public enum Direction
