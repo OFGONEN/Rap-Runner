@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: level_data_1
   m_EditorClassIdentifier: 
   sceneIndex: 1
-  skyboxMaterial: {fileID: 2100000, guid: 528363c5c1cf6a7458140c6851c77b68, type: 2}
+  skyboxMaterial: {fileID: 2100000, guid: 56113b3b655ab7349bab4d7d405c258a, type: 2}
   subtractiveShadowColor: {r: 0.5176471, g: 0.5176471, b: 0.5176471, a: 1}
   ambientMode: 0
   ambientIntensity: 1.2
