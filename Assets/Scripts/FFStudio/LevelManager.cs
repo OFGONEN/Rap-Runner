@@ -1,6 +1,7 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace FFStudio
 {
@@ -47,7 +48,9 @@ namespace FFStudio
         private void LevelLoadedResponse()
         {
             levelProgress.SetValue( 0 );
-        }
+
+			SetRenderSettings( CurrentLevelData.Instance.levelData );
+		}
 
         private void LevelRevealedResponse()
         {
@@ -56,6 +59,41 @@ namespace FFStudio
         private void LevelStartedResponse()
         {
         }
+
+        private void SetRenderSettings( LevelData levelData )
+        {
+            // Skybox
+			RenderSettings.skybox                 = levelData.skyboxMaterial;
+			RenderSettings.subtractiveShadowColor = levelData.subtractiveShadowColor;
+
+            //Environment Lighting
+            if( levelData.ambientMode == AmbientMode.Skybox )
+            {
+                if( levelData.AmbientIntensity )
+				    RenderSettings.ambientIntensity = levelData.ambientIntensity;
+                else 
+				    RenderSettings.ambientLight = levelData.ambientLight;
+            }
+            else if( levelData.ambientMode == AmbientMode.Flat )
+            {
+				RenderSettings.ambientLight = levelData.ambientLight;
+			}
+            else if( levelData.ambientMode == AmbientMode.Trilight )
+            {
+				RenderSettings.ambientSkyColor     = levelData.ambientSkyColor;
+				RenderSettings.ambientEquatorColor = levelData.ambientEquatorColor;
+				RenderSettings.ambientGroundColor  = levelData.ambientGroundColor;
+            }
+
+            // Fog Settings
+            if( levelData.fogEnabled )
+            {
+				RenderSettings.fog        = levelData.fogEnabled;
+				RenderSettings.fogColor   = levelData.fogColor;
+				RenderSettings.fogMode    = levelData.fogMode;
+				RenderSettings.fogDensity = levelData.fogDensity;
+			}
+		}
 #endregion
     }
 }

@@ -17,6 +17,7 @@ namespace FFStudio
 
 		// World UI
         [ Foldout( "Input" ), Tooltip( "Input horizontal threshold" ) ] public float input_horizontal_threshold = 0.1f;
+        [ Foldout( "Input" ), Tooltip( "Input horizontal speed clamp" ) ] public float input_horizontal_clamp = 10f;
 
 		// World UI
         [ Foldout( "UI World" ), Tooltip( "Modifier announce duration" ) ] public float ui_world_modifier_duration = 0.75f;
@@ -42,6 +43,7 @@ namespace FFStudio
 
 		// Status
 		[ BoxGroup( "Status" ), Tooltip( "Max status point" ) ] public float status_maxPoint = 200f;
+		[ BoxGroup( "Status" ), Tooltip( "Obstacle depleted status color" ) ] public Color status_depleted_color;
 
         private static GameSettings instance;
 

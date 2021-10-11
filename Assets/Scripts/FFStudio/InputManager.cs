@@ -63,8 +63,7 @@ namespace FFStudio
 		{
 			if( Mathf.Abs( delta.x ) >= GameSettings.Instance.input_horizontal_threshold )
 			{
-				var direction = Mathf.Approximately( delta.x, 0 ) ? 0 : Mathf.Sign( delta.x );
-				inputDirectionProperty.sharedValue = direction;
+				inputDirectionProperty.sharedValue = delta.x;
 			}
 			else
 				inputDirectionProperty.sharedValue = 0;

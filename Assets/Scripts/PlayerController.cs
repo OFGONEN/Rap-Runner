@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
 	private bool transformAfterSequence = false;
 	private bool catwalking = false;
 
-	private Dictionary< string, Renderer > modelRendererDictionary;
+	private Dictionary< string, ModelRenderer > modelRendererDictionary;
 
 	// Delegates
 	private UnityMessage updateMethod;
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
 		updateMethod                   = ExtensionMethods.EmptyMethod;
 		catwalkEventListener.response  = CatwalkEventResponse;
 
-		modelRendererDictionary = new Dictionary< string, Renderer >( modelRenderers.Length );
+		modelRendererDictionary = new Dictionary< string, ModelRenderer >( modelRenderers.Length );
 
 	}
 	
@@ -95,7 +95,10 @@ public class PlayerController : MonoBehaviour
 
 		// Cache renderers in a dictionary
 		for( var i = 0; i < modelRenderers.Length; i++ )
-			modelRendererDictionary.Add( modelRenderers[ i ].rendererName, modelRenderers[ i ].Renderer );
+		{
+			modelRendererDictionary.Add( modelRenderers[ i ].rendererName, modelRenderers[ i ] );
+			modelRenderers[ i ].ToggleRenderer( false );
+		}
 
 		// Toogle on the current status model renderer
 		ToggleRenderer( currentStatus.status_Name, true );
@@ -140,10 +143,10 @@ public class PlayerController : MonoBehaviour
 #region Implementation
 	private void ToggleRenderer( string rendererName, bool value )
 	{
-		Renderer renderer;
+		ModelRenderer renderer;
 
 		modelRendererDictionary.TryGetValue( rendererName, out renderer );
-		renderer.enabled = value;
+		renderer.ToggleRenderer( value );
 	}
 
     private void LevelStartResponse()
@@ -216,14 +219,17 @@ public class PlayerController : MonoBehaviour
 
 		// Move GFX Object
 
-		Vector3 horizontalMove = Vector3.right * inputDirectionProperty.sharedValue;
+		var clampedInput = Mathf.Clamp( inputDirectionProperty.sharedValue, -1, 1 );
+		var clampedSpeed = Mathf.Clamp( Mathf.Abs( inputDirectionProperty.sharedValue ), 0, GameSettings.Instance.input_horizontal_clamp );
+		Vector3 horizontalMove = Vector3.right * clampedInput;
+
 		modelRotationAmount = Mathf.Lerp( modelRotationAmount, 
-                                inputDirectionProperty.sharedValue * GameSettings.Instance.player_clamp_rotation, 
+                                clampedInput * GameSettings.Instance.player_clamp_rotation, 
                                 Time.deltaTime * GameSettings.Instance.player_speed_turning );
 
         // Calculate new local position for model
 		var modelPosition = modelTransform.localPosition;
-		var model_NewPosition = Vector3.MoveTowards( modelPosition, modelPosition + horizontalMove, Time.deltaTime * GameSettings.Instance.player_speed_horizontal );
+		var model_NewPosition = Vector3.MoveTowards( modelPosition, modelPosition + horizontalMove, Time.deltaTime * clampedSpeed * GameSettings.Instance.player_speed_horizontal );
 
 		model_NewPosition.x = Mathf.Clamp( model_NewPosition.x, -currentWaypoint.Wide / 2f, currentWaypoint.Wide / 2f );
 		modelTransform.localPosition = model_NewPosition;
@@ -258,9 +264,7 @@ public class PlayerController : MonoBehaviour
 
 	private void ApproachObstacleMethod()
 	{
-		var position                   = transform.position;
 		var position_gfx               = modelTransform.localPosition;
-		var targetPosition             = currentObstacle.transform.position + currentObstacle.TargetDistance;
 		var model_targetPosition       = currentObstacle.TargetPoint;
 		var model_TargetPosition_Local = transform.InverseTransformPoint( model_targetPosition );
 
@@ -282,8 +286,12 @@ public class PlayerController : MonoBehaviour
 			return;
 		}
 
+		var targetPosition       = currentObstacle.transform.position + currentObstacle.TargetDistance;
+		var position             = transform.position;
+		var targetPosition_Local = transform.InverseTransformPoint( targetPosition );
+
 		var newPosition = Vector3.MoveTowards( position, 
-							targetPosition, 
+							position + transform.forward * targetPosition_Local.z, 
 							Time.deltaTime * GameSettings.Instance.player_speed_approach );
 
 		var newPosition_GFX_X = Mathf.MoveTowards( position_gfx.x, 
@@ -409,6 +417,7 @@ public class PlayerController : MonoBehaviour
 		//TODO:(ofg) We can player different animation when transforming UP
 		animatorGroup.SetBool( "walking", false );
 		animatorGroup.SetBool( "rapping", false );
+		animatorGroup.SetBool( "transform_positive", true);
 		animatorGroup.SetTrigger( "transform" );
 		animatorGroup.SetInteger( "walk", currentStatus.status_Walking );
 	}
@@ -425,6 +434,7 @@ public class PlayerController : MonoBehaviour
 		//TODO:(ofg) We can player different animation when transforming DOWN
 		animatorGroup.SetBool( "walking", false );
 		animatorGroup.SetBool( "rapping", false );
+		animatorGroup.SetBool( "transform_positive", false);
 		animatorGroup.SetTrigger( "transform" );
 		animatorGroup.SetInteger( "walk", currentStatus.status_Walking );
 	}
