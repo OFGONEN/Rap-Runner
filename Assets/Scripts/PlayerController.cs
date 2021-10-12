@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
 	private Waypoint currentWaypoint;
 	private Obstacle currentObstacle;
 	private float modelRotationAmount;
+	private float vertical_speed;
 
 	// Status releated
 	private float statusPoint_Current;
@@ -83,6 +84,8 @@ public class PlayerController : MonoBehaviour
 		modifierEventListener.response = ModifierEventResponse;
 		updateMethod                   = ExtensionMethods.EmptyMethod;
 		catwalkEventListener.response  = CatwalkEventResponse;
+
+		vertical_speed = GameSettings.Instance.player_speed_vertical;
 
 		modelRendererDictionary = new Dictionary< string, ModelRenderer >( modelRenderers.Length );
 
@@ -181,7 +184,7 @@ public class PlayerController : MonoBehaviour
 	{
 		catwalking = true;
 
-		GameSettings.Instance.player_speed_vertical /= 2f;
+		vertical_speed = GameSettings.Instance.player_speed_catwalking;
 
 		animatorGroup.SetBool( "walking", false );
 		animatorGroup.SetBool( "rapping", true );
@@ -191,7 +194,7 @@ public class PlayerController : MonoBehaviour
     {
 		var position = transform.position;
 
-		var approachDistance = currentWaypoint.ApproachMethod( transform );
+		var approachDistance = currentWaypoint.ApproachMethod( transform, vertical_speed );
 
         if( Vector3.Distance( approachDistance, currentWaypoint.TargetPoint ) <= GameSettings.Instance.player_target_checkDistance )
         {

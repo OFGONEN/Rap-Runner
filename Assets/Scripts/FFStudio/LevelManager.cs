@@ -19,11 +19,6 @@ namespace FFStudio
 
         [ Header( "Level Releated" ) ]
         public SharedFloatProperty levelProgress;
-
-        // Private Fields \\
-
-        // Cached game settings variables
-        private float player_speed_vertical;
 #endregion
 
 #region UnityAPI
@@ -47,11 +42,6 @@ namespace FFStudio
             levelRevealedListener.response = LevelRevealedResponse;
             levelStartedListener.response  = LevelStartedResponse;
         }
-
-        private void Start()
-        {
-			player_speed_vertical = GameSettings.Instance.player_speed_vertical;
-		}
 #endregion
 
 #region Implementation
@@ -60,8 +50,6 @@ namespace FFStudio
             levelProgress.SetValue( 0 );
 
 			// SetRenderSettings( CurrentLevelData.Instance.levelData );
-
-			GameSettings.Instance.player_speed_vertical = player_speed_vertical;
 		}
 
         private void LevelRevealedResponse()
@@ -70,7 +58,7 @@ namespace FFStudio
 
         private void LevelStartedResponse()
         {
-		}
+        }
 
         // private void SetRenderSettings( LevelData levelData )
         // {

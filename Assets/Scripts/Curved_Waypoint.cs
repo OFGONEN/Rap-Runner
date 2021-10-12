@@ -38,7 +38,7 @@ public class Curved_Waypoint : Waypoint
 #endregion
 
 #region API
-    public override Vector3 ApproachMethod( Transform targetTransform )
+    public override Vector3 ApproachMethod( Transform targetTransform, float speed )
     {
 		targetTransform.RotateAround( turnOrigin_WorldPosition, Vector3.up, Time.deltaTime * GameSettings.Instance.player_speed_rotation * turnModifier );
 

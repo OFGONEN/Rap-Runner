@@ -25,6 +25,7 @@ MonoBehaviour:
   player_target_checkDistance: 0.1
   player_clamp_rotation: 45
   player_speed_vertical: 8
+  player_speed_catwalking: 4
   player_speed_horizontal: 0.5
   player_speed_rotation: 90
   player_speed_turning: 10

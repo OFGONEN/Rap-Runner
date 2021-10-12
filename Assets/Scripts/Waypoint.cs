@@ -38,7 +38,7 @@ public abstract class Waypoint : MonoBehaviour
 #endregion
 
 #region API
-    public abstract Vector3 ApproachMethod( Transform targetTransform );
+    public abstract Vector3 ApproachMethod( Transform targetTransform, float speed );
 
     public virtual void PlayerEntered( PlayerController player ) 
     {
