@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public ModelRenderer[] modelRenderers;
     [ BoxGroup( "Setup" ) ] public CameraController cameraController;
     [ BoxGroup( "Setup" ) ] public Status currentStatus;
+	
+	[ BoxGroup( "Setup" ) ] public ParticleSystem particleSystem_transformUp;
+	[ BoxGroup( "Setup" ) ] public ParticleSystem particleSystem_transformDown;
 
     [ BoxGroup( "Rapping Camera" ) ] public Vector3 cameraRappingPositon;
     [ BoxGroup( "Rapping Camera" ) ] public Vector3 cameraRappingRotation;
@@ -435,6 +438,8 @@ public class PlayerController : MonoBehaviour
 		animatorGroup.SetBool( "transform_positive", true);
 		animatorGroup.SetTrigger( "transform" );
 		animatorGroup.SetInteger( "walk", currentStatus.status_Walking );
+
+		particleSystem_transformUp.Play();
 	}
 
 	private void TransformDown()
@@ -453,6 +458,8 @@ public class PlayerController : MonoBehaviour
 		animatorGroup.SetBool( "transform_positive", false);
 		animatorGroup.SetTrigger( "transform" );
 		animatorGroup.SetInteger( "walk", currentStatus.status_Walking );
+
+		particleSystem_transformDown.Play();
 	}
 
 	private void LevelComplete( GameEvent completeEvent )
