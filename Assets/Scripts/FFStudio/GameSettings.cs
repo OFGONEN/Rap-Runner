@@ -17,6 +17,7 @@ namespace FFStudio
 
 		// World UI
         [ Foldout( "Input" ), Tooltip( "Input horizontal threshold" ) ] public float input_horizontal_threshold = 0.1f;
+        [ Foldout( "Input" ), Tooltip( "Input horizontal speed clamp" ) ] public float input_horizontal_clamp = 10f;
 
 		// World UI
         [ Foldout( "UI World" ), Tooltip( "Modifier announce duration" ) ] public float ui_world_modifier_duration = 0.75f;
@@ -26,6 +27,7 @@ namespace FFStudio
 		[ BoxGroup( "Player" ), Tooltip( "Player's target point check distance" ) ] public float player_target_checkDistance = 0.1f;
 		[ BoxGroup( "Player" ), Tooltip( "Player's rotation clamp value" ) ] public float player_clamp_rotation = 30;
 		[ BoxGroup( "Player" ), Tooltip( "Player's vertical movement speed" ) ] public float player_speed_vertical = 10f;
+		[ BoxGroup( "Player" ), Tooltip( "Player's vertical movement speed" ) ] public float player_speed_catwalking = 4f;
 		[ BoxGroup( "Player" ), Tooltip( "Player's horizontal movement speed" ) ] public float player_speed_horizontal = 8f;
 		[ BoxGroup( "Player" ), Tooltip( "Player's rotation movement speed" ) ] public float player_speed_rotation = 10f;
 		[ BoxGroup( "Player" ), Tooltip( "Player model's turning speed" ) ] public float player_speed_turning = 20f;
@@ -42,6 +44,7 @@ namespace FFStudio
 
 		// Status
 		[ BoxGroup( "Status" ), Tooltip( "Max status point" ) ] public float status_maxPoint = 200f;
+		[ BoxGroup( "Status" ), Tooltip( "Obstacle depleted status color" ) ] public Color status_depleted_color;
 
         private static GameSettings instance;
 

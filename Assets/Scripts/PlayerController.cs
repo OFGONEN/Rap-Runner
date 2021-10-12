@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public ModelRenderer[] modelRenderers;
     [ BoxGroup( "Setup" ) ] public CameraController cameraController;
     [ BoxGroup( "Setup" ) ] public Status currentStatus;
+	
+	[ BoxGroup( "Setup" ) ] public ParticleSystem particleSystem_transformUp;
+	[ BoxGroup( "Setup" ) ] public ParticleSystem particleSystem_transformDown;
 
     [ BoxGroup( "Rapping Camera" ) ] public Vector3 cameraRappingPositon;
     [ BoxGroup( "Rapping Camera" ) ] public Vector3 cameraRappingRotation;
@@ -40,6 +43,7 @@ public class PlayerController : MonoBehaviour
 	private Waypoint currentWaypoint;
 	private Obstacle currentObstacle;
 	private float modelRotationAmount;
+	private float vertical_speed;
 
 	// Status releated
 	private float statusPoint_Current;
@@ -84,13 +88,16 @@ public class PlayerController : MonoBehaviour
 		updateMethod                   = ExtensionMethods.EmptyMethod;
 		catwalkEventListener.response  = CatwalkEventResponse;
 
+		vertical_speed = GameSettings.Instance.player_speed_vertical;
+
 		modelRendererDictionary = new Dictionary< string, ModelRenderer >( modelRenderers.Length );
 
 	}
 	
 	private void Start()
 	{
-		playerStatusRatioProperty.SetValue( statusPoint_Current / GameSettings.Instance.status_maxPoint );
+        statusPoint_Current = CurrentLevelData.Instance.levelData.levelStartStatusPoint;
+        playerStatusRatioProperty.SetValue( statusPoint_Current / GameSettings.Instance.status_maxPoint );
 		playerStatusProperty.SetValue( currentStatus );
 
 		// Cache renderers in a dictionary
@@ -135,20 +142,6 @@ public class PlayerController : MonoBehaviour
 	{
 		animatorGroup.SetBool( "walking", true );
 
-		// Since Model transform is a child object of player object
-		// When player player's transform is aproaching the obstacle, player's model is aproaching that much as well,
-		// And this pushes the player's model out of the platform. 
-		// If we blink the player to model's position, when player moves model would not need to move.
-
-		var camera_WorldPosition = cameraController.transform.position;
-		var model_WorldPosition = modelTransform.position;
-
-		transform.position = model_WorldPosition;
-		modelTransform.position = model_WorldPosition;
-		
-		// Camera's transform is child of player object. We dont want to blink camera's position
-		cameraController.transform.position = camera_WorldPosition;
-
 		currentObstacle = obstacle;
 		updateMethod    = ApproachObstacleMethod;
 	}
@@ -165,10 +158,14 @@ public class PlayerController : MonoBehaviour
 
     private void LevelStartResponse()
     {
+        animatorGroup.SetFloat( "walking_speed", currentStatus.status_Walking_Speed );
+        animatorGroup.SetInteger( "walk", currentStatus.status_Walking );
+
 		currentWaypoint = startWaypointReference.sharedValue as Waypoint;
 		currentWaypoint.PlayerEntered( this );
 
-		statusPoint_Floor = 0;
+
+        statusPoint_Floor = 0;
 		statusPoint_Ceil = currentStatus.status_Point;
 	}
 
@@ -195,7 +192,7 @@ public class PlayerController : MonoBehaviour
 	{
 		catwalking = true;
 
-		GameSettings.Instance.player_speed_vertical /= 2f;
+		vertical_speed = GameSettings.Instance.player_speed_catwalking;
 
 		animatorGroup.SetBool( "walking", false );
 		animatorGroup.SetBool( "rapping", true );
@@ -205,7 +202,7 @@ public class PlayerController : MonoBehaviour
     {
 		var position = transform.position;
 
-		var approachDistance = currentWaypoint.ApproachMethod( transform );
+		var approachDistance = currentWaypoint.ApproachMethod( transform, vertical_speed );
 
         if( Vector3.Distance( approachDistance, currentWaypoint.TargetPoint ) <= GameSettings.Instance.player_target_checkDistance )
         {
@@ -235,14 +232,17 @@ public class PlayerController : MonoBehaviour
 
 		// Move GFX Object
 
-		Vector3 horizontalMove = Vector3.right * inputDirectionProperty.sharedValue;
+		var clampedInput = Mathf.Clamp( inputDirectionProperty.sharedValue, -1, 1 );
+		var clampedSpeed = Mathf.Clamp( Mathf.Abs( inputDirectionProperty.sharedValue ), 0, GameSettings.Instance.input_horizontal_clamp );
+		Vector3 horizontalMove = Vector3.right * clampedInput;
+
 		modelRotationAmount = Mathf.Lerp( modelRotationAmount, 
-                                inputDirectionProperty.sharedValue * GameSettings.Instance.player_clamp_rotation, 
+                                clampedInput * GameSettings.Instance.player_clamp_rotation, 
                                 Time.deltaTime * GameSettings.Instance.player_speed_turning );
 
         // Calculate new local position for model
 		var modelPosition = modelTransform.localPosition;
-		var model_NewPosition = Vector3.MoveTowards( modelPosition, modelPosition + horizontalMove, Time.deltaTime * GameSettings.Instance.player_speed_horizontal );
+		var model_NewPosition = Vector3.MoveTowards( modelPosition, modelPosition + horizontalMove, Time.deltaTime * clampedSpeed * GameSettings.Instance.player_speed_horizontal );
 
 		model_NewPosition.x = Mathf.Clamp( model_NewPosition.x, -currentWaypoint.Wide / 2f, currentWaypoint.Wide / 2f );
 		modelTransform.localPosition = model_NewPosition;
@@ -277,9 +277,7 @@ public class PlayerController : MonoBehaviour
 
 	private void ApproachObstacleMethod()
 	{
-		var position                   = transform.position;
 		var position_gfx               = modelTransform.localPosition;
-		var targetPosition             = currentObstacle.transform.position + currentObstacle.TargetDistance;
 		var model_targetPosition       = currentObstacle.TargetPoint;
 		var model_TargetPosition_Local = transform.InverseTransformPoint( model_targetPosition );
 
@@ -301,8 +299,12 @@ public class PlayerController : MonoBehaviour
 			return;
 		}
 
+		var targetPosition       = currentObstacle.transform.position + currentObstacle.TargetDistance;
+		var position             = transform.position;
+		var targetPosition_Local = transform.InverseTransformPoint( targetPosition );
+
 		var newPosition = Vector3.MoveTowards( position, 
-							targetPosition, 
+							position + transform.forward * targetPosition_Local.z, 
 							Time.deltaTime * GameSettings.Instance.player_speed_approach );
 
 		var newPosition_GFX_X = Mathf.MoveTowards( position_gfx.x, 
@@ -430,10 +432,14 @@ public class PlayerController : MonoBehaviour
 		playerStatusProperty.SetValue( currentStatus );
 
 		//TODO:(ofg) We can player different animation when transforming UP
+        animatorGroup.SetFloat( "walking_speed", currentStatus.status_Walking_Speed );
 		animatorGroup.SetBool( "walking", false );
 		animatorGroup.SetBool( "rapping", false );
+		animatorGroup.SetBool( "transform_positive", true);
 		animatorGroup.SetTrigger( "transform" );
 		animatorGroup.SetInteger( "walk", currentStatus.status_Walking );
+
+		particleSystem_transformUp.Play();
 	}
 
 	private void TransformDown()
@@ -445,11 +451,15 @@ public class PlayerController : MonoBehaviour
 
 		playerStatusProperty.SetValue( currentStatus );
 
-		//TODO:(ofg) We can player different animation when transforming DOWN
-		animatorGroup.SetBool( "walking", false );
+        //TODO:(ofg) We can player different animation when transforming DOWN
+        animatorGroup.SetFloat( "walking_speed", currentStatus.status_Walking_Speed );
+        animatorGroup.SetBool( "walking", false );
 		animatorGroup.SetBool( "rapping", false );
+		animatorGroup.SetBool( "transform_positive", false);
 		animatorGroup.SetTrigger( "transform" );
 		animatorGroup.SetInteger( "walk", currentStatus.status_Walking );
+
+		particleSystem_transformDown.Play();
 	}
 
 	private void LevelComplete( GameEvent completeEvent )
@@ -507,6 +517,14 @@ public class PlayerController : MonoBehaviour
 			foreach( var animator in animators )
 			{
 				animator.SetInteger( parameterName, value );
+			}
+		}
+
+		public void SetFloat( string parameterName, float value )
+		{
+			foreach( var animator in animators )
+			{
+				animator.SetFloat( parameterName, value );
 			}
 		}
 	}

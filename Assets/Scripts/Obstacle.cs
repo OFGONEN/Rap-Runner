@@ -21,6 +21,8 @@ public class Obstacle : MonoBehaviour
 	// Private Fields \\
 	private Vector3 targetPosition_WorldPoint;
 	private Vector3 lookTargetPosition;
+	private Color statusColor;
+	private float currentStatusPoint;
 
 	// Components
 	private ColliderListener_EventRaiser colliderListener;
@@ -41,7 +43,7 @@ public class Obstacle : MonoBehaviour
 	{
 		get 
 		{
-			return statusPoint;
+			return currentStatusPoint;
 		}
 		set
 		{
@@ -71,7 +73,9 @@ public class Obstacle : MonoBehaviour
 		// Cache world position of target position
 		targetPosition_WorldPoint = boxCollider.transform.TransformPoint( targetPosition ).SetY( 0 );
 		lookTargetPosition        = boxCollider.transform.position.SetY( 0 );
-		worldUIText.text          = statusPoint.ToString();
+
+		currentStatusPoint = statusPoint;
+		statusColor        = worldUIText.color;
 	}
 #endregion
 
@@ -128,10 +132,10 @@ public class Obstacle : MonoBehaviour
 	{
 		var newIntValue = ( int )newValue;
 
-		if( (int)statusPoint != newIntValue )
-			worldUIText.text = newIntValue.ToString();
+		if( (int)currentStatusPoint != newIntValue )
+			worldUIText.color = Color.Lerp( GameSettings.Instance.status_depleted_color, statusColor , currentStatusPoint / statusPoint );
 
-		statusPoint = newValue;
+		currentStatusPoint = newValue;
 	}
 	#endregion
 
@@ -159,7 +163,7 @@ public class Obstacle : MonoBehaviour
 		Handles.DrawDottedLine( position.AddUp( 0.1f ), rappingPosition.AddUp( 0.1f ), 1f );
 		Handles.DrawWireDisc( rappingPosition.AddUp( 0.1f ), Vector3.up, 0.1f );
 
-		Handles.Label( transform.position.AddUp( 1f ), "Status: " + Mathf.CeilToInt( statusPoint ) );
+		Handles.Label( transform.position.AddUp( 1f ), "Status: " + Mathf.CeilToInt( currentStatusPoint ) );
 	}
 #endif
 #endregion

@@ -1,34 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2398681185700076458
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2988923777031117613}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 7c7d094e04c69a94da3b70391142733c, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7c7d094e04c69a94da3b70391142733c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.168
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7c7d094e04c69a94da3b70391142733c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.24
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 7c7d094e04c69a94da3b70391142733c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.151
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 7c7d094e04c69a94da3b70391142733c, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7c7d094e04c69a94da3b70391142733c, type: 3}
 --- !u!1001 &3779115100414243208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80,6 +51,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2092158969843411622, guid: b656b992cd523d2489804476a124ae43, type: 3}
+      propertyPath: modifier_Point
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092158969843411622, guid: b656b992cd523d2489804476a124ae43, type: 3}
+      propertyPath: modifier_ParticleName
+      value: money_scatter
+      objectReference: {fileID: 0}
     - target: {fileID: 2092158969843411623, guid: b656b992cd523d2489804476a124ae43, type: 3}
       propertyPath: m_Name
       value: modifier_positive_money_2
@@ -94,7 +73,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2092158971410706239, guid: b656b992cd523d2489804476a124ae43, type: 3}
       propertyPath: m_Size.x
-      value: 0.54577506
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 2092158971410706239, guid: b656b992cd523d2489804476a124ae43, type: 3}
       propertyPath: m_Size.y
@@ -111,6 +90,10 @@ PrefabInstance:
     - target: {fileID: 2092158971410706239, guid: b656b992cd523d2489804476a124ae43, type: 3}
       propertyPath: m_Center.y
       value: 0.07416096
+      objectReference: {fileID: 0}
+    - target: {fileID: 6667026920890337374, guid: b656b992cd523d2489804476a124ae43, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b656b992cd523d2489804476a124ae43, type: 3}
@@ -172,7 +155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4238e4a5596beb54aa902584ce024b6c, type: 3}
       propertyPath: m_Name
-      value: GFX
+      value: gfx
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4238e4a5596beb54aa902584ce024b6c, type: 3}
       propertyPath: m_Layer

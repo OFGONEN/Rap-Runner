@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/app.unity
     guid: ad0d37aebbbd4c54396618f1c151ebb7
   - enabled: 1
-    path: Assets/Scenes/game_1.unity
-    guid: 77bd79b3b08633c488ab2694e5563d64
+    path: Assets/Scenes/game_7_a_expire.unity
+    guid: f535f0947bb7a17448dd9f4f09438268
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_13_a_expire.unity
+    guid: f1e21bbe3260e4743b2cdaf21adc1abf
   m_configObjects: {}

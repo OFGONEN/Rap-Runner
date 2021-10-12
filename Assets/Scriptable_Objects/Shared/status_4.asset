@@ -17,5 +17,5 @@ MonoBehaviour:
   status_Color: {r: 0, g: 0.09885931, b: 1, a: 1}
   status_Name: Rap God
   status_Walking: 3
+  status_Walking_Speed: 1.5
   status_Point: 50
-  status_Model: {fileID: 0}

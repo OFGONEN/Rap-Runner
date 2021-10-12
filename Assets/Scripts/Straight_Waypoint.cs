@@ -18,9 +18,9 @@ public class Straight_Waypoint : Waypoint
 #endregion
 
 #region API
-    public override Vector3 ApproachMethod( Transform targetTransform )
+    public override Vector3 ApproachMethod( Transform targetTransform, float speed )
     {
-		return Vector3.MoveTowards( targetTransform.position, targetPoint_WorldPosition, Time.deltaTime * GameSettings.Instance.player_speed_vertical );
+		return Vector3.MoveTowards( targetTransform.position, targetPoint_WorldPosition, Time.deltaTime * speed );
 	}
 #endregion
 

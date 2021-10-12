@@ -98,7 +98,7 @@ public class UIModifier : UIText
 
 		uiTransform.localPosition = uiStartLocalPosition;
 
-		textRenderer.text   = stringBuilder.ToString();
+		textRenderer.text   = stringBuilder.ToString() + " $";
 		textRenderer.color  = textStartColor;
 		imageRenderer.color = iconStartColor;
 

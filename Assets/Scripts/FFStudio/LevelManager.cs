@@ -19,11 +19,6 @@ namespace FFStudio
 
         [ Header( "Level Releated" ) ]
         public SharedFloatProperty levelProgress;
-
-        // Private Fields \\
-
-        // Cached game settings variables
-        private float player_speed_vertical;
 #endregion
 
 #region UnityAPI
@@ -47,11 +42,6 @@ namespace FFStudio
             levelRevealedListener.response = LevelRevealedResponse;
             levelStartedListener.response  = LevelStartedResponse;
         }
-
-        private void Start()
-        {
-			player_speed_vertical = GameSettings.Instance.player_speed_vertical;
-		}
 #endregion
 
 #region Implementation
@@ -59,9 +49,7 @@ namespace FFStudio
         {
             levelProgress.SetValue( 0 );
 
-			SetRenderSettings( CurrentLevelData.Instance.levelData );
-
-			GameSettings.Instance.player_speed_vertical = player_speed_vertical;
+			// SetRenderSettings( CurrentLevelData.Instance.levelData );
 		}
 
         private void LevelRevealedResponse()
@@ -70,42 +58,42 @@ namespace FFStudio
 
         private void LevelStartedResponse()
         {
-		}
+        }
 
-        private void SetRenderSettings( LevelData levelData )
-        {
-            // Skybox
-			RenderSettings.skybox                 = levelData.skyboxMaterial;
-			RenderSettings.subtractiveShadowColor = levelData.subtractiveShadowColor;
+        // private void SetRenderSettings( LevelData levelData )
+        // {
+        //     // Skybox
+		// 	RenderSettings.skybox                 = levelData.skyboxMaterial;
+		// 	RenderSettings.subtractiveShadowColor = levelData.subtractiveShadowColor;
 
-            //Environment Lighting
-            if( levelData.ambientMode == AmbientMode.Skybox )
-            {
-                if( levelData.AmbientIntensity )
-				    RenderSettings.ambientIntensity = levelData.ambientIntensity;
-                else 
-				    RenderSettings.ambientLight = levelData.ambientLight;
-            }
-            else if( levelData.ambientMode == AmbientMode.Flat )
-            {
-				RenderSettings.ambientLight = levelData.ambientLight;
-			}
-            else if( levelData.ambientMode == AmbientMode.Trilight )
-            {
-				RenderSettings.ambientSkyColor     = levelData.ambientSkyColor;
-				RenderSettings.ambientEquatorColor = levelData.ambientEquatorColor;
-				RenderSettings.ambientGroundColor  = levelData.ambientGroundColor;
-            }
+        //     //Environment Lighting
+        //     if( levelData.ambientMode == AmbientMode.Skybox )
+        //     {
+        //         if( levelData.AmbientIntensity )
+		// 		    RenderSettings.ambientIntensity = levelData.ambientIntensity;
+        //         else 
+		// 		    RenderSettings.ambientLight = levelData.ambientLight;
+        //     }
+        //     else if( levelData.ambientMode == AmbientMode.Flat )
+        //     {
+		// 		RenderSettings.ambientLight = levelData.ambientLight;
+		// 	}
+        //     else if( levelData.ambientMode == AmbientMode.Trilight )
+        //     {
+		// 		RenderSettings.ambientSkyColor     = levelData.ambientSkyColor;
+		// 		RenderSettings.ambientEquatorColor = levelData.ambientEquatorColor;
+		// 		RenderSettings.ambientGroundColor  = levelData.ambientGroundColor;
+        //     }
 
-            // Fog Settings
-            if( levelData.fogEnabled )
-            {
-				RenderSettings.fog        = levelData.fogEnabled;
-				RenderSettings.fogColor   = levelData.fogColor;
-				RenderSettings.fogMode    = levelData.fogMode;
-				RenderSettings.fogDensity = levelData.fogDensity;
-			}
-		}
+        //     // Fog Settings
+        //     if( levelData.fogEnabled )
+        //     {
+		// 		RenderSettings.fog        = levelData.fogEnabled;
+		// 		RenderSettings.fogColor   = levelData.fogColor;
+		// 		RenderSettings.fogMode    = levelData.fogMode;
+		// 		RenderSettings.fogDensity = levelData.fogDensity;
+		// 	}
+		// }
 #endregion
     }
 }

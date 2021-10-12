@@ -72,9 +72,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4915594904472065847, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915594905840179249, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: m_text
+      value: Dancer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915594905840179249, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: m_fontSize
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915594905840179249, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915594905840179249, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.11764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915594905840179249, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915594905840179249, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278255390
+      objectReference: {fileID: 0}
     - target: {fileID: 8746794542451080753, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
       propertyPath: m_Name
       value: obstacle_dancer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746794542451080754, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: statusPoint
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8746794542451080755, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
       propertyPath: m_RootOrder

@@ -7,6 +7,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4915594904472065847, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915594905840179249, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: m_text
+      value: Street \nRapper
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915594905840179249, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: m_fontSize
+      value: 0.225
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915594905840179249, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915594905840179249, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915594905840179249, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.225
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915594905840179249, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278211839
+      objectReference: {fileID: 0}
     - target: {fileID: 8746794542451080753, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
       propertyPath: m_Name
       value: obstacle_rapper
