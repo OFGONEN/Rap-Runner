@@ -638,6 +638,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4684278216112045696, guid: 2ea5e574568ad7340b89b21804947141, type: 3}
+      propertyPath: particleEffectPools.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684278216112045696, guid: 2ea5e574568ad7340b89b21804947141, type: 3}
+      propertyPath: particleEffectPools.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1908bd2bd1ec94245803017c59bf6454, type: 2}
     - target: {fileID: 4684278216112045697, guid: 2ea5e574568ad7340b89b21804947141, type: 3}
       propertyPath: m_Name
       value: manager_particle
