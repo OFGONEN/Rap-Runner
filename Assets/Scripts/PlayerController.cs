@@ -409,6 +409,10 @@ public class PlayerController : MonoBehaviour
 
 			transform = true;
 		}
+		else if( newStatusPoint >= statusPoint_Ceil && currentStatus.nextStatus == null )
+		{
+			newStatusPoint = GameSettings.Instance.status_maxPoint;
+		}
 
 		statusPoint_Current = newStatusPoint;
 		playerStatusRatioProperty.SetValue( statusPoint_Current / GameSettings.Instance.status_maxPoint );
