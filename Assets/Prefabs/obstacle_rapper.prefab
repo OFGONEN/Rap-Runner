@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4915594905840179249, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
       propertyPath: m_text
-      value: Street Rapper
+      value: Street \nRapper
       objectReference: {fileID: 0}
     - target: {fileID: 4915594905840179249, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
       propertyPath: m_fontSize
