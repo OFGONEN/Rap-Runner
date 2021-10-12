@@ -13,15 +13,4 @@ MonoBehaviour:
   m_Name: level_data_1
   m_EditorClassIdentifier: 
   sceneIndex: 1
-  skyboxMaterial: {fileID: 2100000, guid: 56113b3b655ab7349bab4d7d405c258a, type: 2}
-  subtractiveShadowColor: {r: 0.5176471, g: 0.5176471, b: 0.5176471, a: 1}
-  ambientMode: 0
-  ambientIntensity: 1.2
-  ambientLight: {r: 0.21176471, g: 0.22745098, b: 0.25882354, a: 1}
-  ambientSkyColor: {r: 0.21176471, g: 0.22745098, b: 0.25882354, a: 1}
-  ambientEquatorColor: {r: 0.11372549, g: 0.1254902, b: 0.13333334, a: 1}
-  ambientGroundColor: {r: 0.047058824, g: 0.043137256, b: 0.03529412, a: 1}
-  fogEnabled: 1
-  fogColor: {r: 0.76862746, g: 0.6784314, b: 0.8117647, a: 1}
-  fogMode: 2
-  fogDensity: 0.02
+  levelStartStatusPoint: 10

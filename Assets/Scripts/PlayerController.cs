@@ -93,7 +93,8 @@ public class PlayerController : MonoBehaviour
 	
 	private void Start()
 	{
-		playerStatusRatioProperty.SetValue( statusPoint_Current / GameSettings.Instance.status_maxPoint );
+        statusPoint_Current = CurrentLevelData.Instance.levelData.levelStartStatusPoint;
+        playerStatusRatioProperty.SetValue( statusPoint_Current / GameSettings.Instance.status_maxPoint );
 		playerStatusProperty.SetValue( currentStatus );
 
 		// Cache renderers in a dictionary
