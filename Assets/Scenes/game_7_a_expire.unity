@@ -1969,6 +1969,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[0]
+      value: 
+      objectReference: {fileID: 1628018159}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[1]
+      value: 
+      objectReference: {fileID: 924937895}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1628468549}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[3]
+      value: 
+      objectReference: {fileID: 1594424232}
     - target: {fileID: 8557688479486393813, guid: f84d641f9bb46c64ab01482386709094, type: 3}
       propertyPath: m_RootOrder
       value: 139
@@ -2019,6 +2039,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+--- !u!114 &296261174 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+  m_PrefabInstance: {fileID: 296261173}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9194aecf01d3f7a42a0297621ecf3423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &298955931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6921,6 +6952,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[0]
+      value: 
+      objectReference: {fileID: 296261174}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1628018159}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1628468549}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[3]
+      value: 
+      objectReference: {fileID: 1594424232}
     - target: {fileID: 8557688479486393813, guid: f84d641f9bb46c64ab01482386709094, type: 3}
       propertyPath: m_RootOrder
       value: 141
@@ -6971,6 +7022,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+--- !u!114 &924937895 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+  m_PrefabInstance: {fileID: 924937894}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9194aecf01d3f7a42a0297621ecf3423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &929081115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9020,6 +9082,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[0]
+      value: 
+      objectReference: {fileID: 1862544622}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1946815730}
     - target: {fileID: 8557688479486393813, guid: f84d641f9bb46c64ab01482386709094, type: 3}
       propertyPath: m_RootOrder
       value: 135
@@ -9070,6 +9144,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+--- !u!114 &1339374364 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+  m_PrefabInstance: {fileID: 1339374363}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9194aecf01d3f7a42a0297621ecf3423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1345167324
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10275,8 +10360,35 @@ PrefabInstance:
       propertyPath: cameraTransition
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.data[0]
+      value: 
+      objectReference: {fileID: 2023899237}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1935374020}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1900088067}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+--- !u!114 &1516098730 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+  m_PrefabInstance: {fileID: 1516098729}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9194aecf01d3f7a42a0297621ecf3423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1532501577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10408,6 +10520,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[0]
+      value: 
+      objectReference: {fileID: 296261174}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1628018159}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[2]
+      value: 
+      objectReference: {fileID: 924937895}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[3]
+      value: 
+      objectReference: {fileID: 1628468549}
     - target: {fileID: 8557688479486393813, guid: f84d641f9bb46c64ab01482386709094, type: 3}
       propertyPath: m_RootOrder
       value: 143
@@ -10458,6 +10590,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+--- !u!114 &1594424232 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+  m_PrefabInstance: {fileID: 1594424231}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9194aecf01d3f7a42a0297621ecf3423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1598448896
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10661,6 +10804,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[0]
+      value: 
+      objectReference: {fileID: 296261174}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[1]
+      value: 
+      objectReference: {fileID: 924937895}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1628468549}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[3]
+      value: 
+      objectReference: {fileID: 1594424232}
     - target: {fileID: 8557688479486393813, guid: f84d641f9bb46c64ab01482386709094, type: 3}
       propertyPath: m_RootOrder
       value: 140
@@ -10711,6 +10874,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+--- !u!114 &1628018159 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+  m_PrefabInstance: {fileID: 1628018158}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9194aecf01d3f7a42a0297621ecf3423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1628468548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10718,6 +10892,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[0]
+      value: 
+      objectReference: {fileID: 296261174}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1628018159}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[2]
+      value: 
+      objectReference: {fileID: 924937895}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[3]
+      value: 
+      objectReference: {fileID: 1594424232}
     - target: {fileID: 8557688479486393813, guid: f84d641f9bb46c64ab01482386709094, type: 3}
       propertyPath: m_RootOrder
       value: 142
@@ -10768,6 +10962,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+--- !u!114 &1628468549 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+  m_PrefabInstance: {fileID: 1628468548}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9194aecf01d3f7a42a0297621ecf3423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1648367719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11903,6 +12108,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[0]
+      value: 
+      objectReference: {fileID: 1339374364}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1946815730}
     - target: {fileID: 8557688479486393813, guid: f84d641f9bb46c64ab01482386709094, type: 3}
       propertyPath: m_RootOrder
       value: 136
@@ -11953,6 +12170,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+--- !u!114 &1862544622 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+  m_PrefabInstance: {fileID: 1862544621}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9194aecf01d3f7a42a0297621ecf3423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1868081740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12315,8 +12543,35 @@ PrefabInstance:
       propertyPath: cameraTransition
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.data[0]
+      value: 
+      objectReference: {fileID: 2023899237}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1935374020}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1516098730}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+--- !u!114 &1900088067 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+  m_PrefabInstance: {fileID: 1900088066}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9194aecf01d3f7a42a0297621ecf3423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1901029045
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12728,8 +12983,35 @@ PrefabInstance:
       propertyPath: cameraTransition
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.data[0]
+      value: 
+      objectReference: {fileID: 2023899237}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1516098730}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1900088067}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+--- !u!114 &1935374020 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+  m_PrefabInstance: {fileID: 1935374019}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9194aecf01d3f7a42a0297621ecf3423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1935927191
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13056,6 +13338,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[0]
+      value: 
+      objectReference: {fileID: 1339374364}
+    - target: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+      propertyPath: pairedObstacles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1862544622}
     - target: {fileID: 8557688479486393813, guid: f84d641f9bb46c64ab01482386709094, type: 3}
       propertyPath: m_RootOrder
       value: 137
@@ -13106,6 +13400,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+--- !u!114 &1946815730 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8557688479486393812, guid: f84d641f9bb46c64ab01482386709094, type: 3}
+  m_PrefabInstance: {fileID: 1946815729}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9194aecf01d3f7a42a0297621ecf3423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1949376464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13641,8 +13946,35 @@ PrefabInstance:
       propertyPath: cameraTransition
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.data[0]
+      value: 
+      objectReference: {fileID: 1935374020}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1516098730}
+    - target: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+      propertyPath: pairedObstacles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1900088067}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+--- !u!114 &2023899237 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6741228755849550359, guid: def236499c5632b47a33f99d53aa2cb7, type: 3}
+  m_PrefabInstance: {fileID: 2023899236}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9194aecf01d3f7a42a0297621ecf3423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2046237547
 PrefabInstance:
   m_ObjectHideFlags: 0
