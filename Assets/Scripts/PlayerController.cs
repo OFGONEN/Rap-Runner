@@ -154,10 +154,14 @@ public class PlayerController : MonoBehaviour
 
     private void LevelStartResponse()
     {
+        animatorGroup.SetFloat( "walking_speed", currentStatus.status_Walking_Speed );
+        animatorGroup.SetInteger( "walk", currentStatus.status_Walking );
+
 		currentWaypoint = startWaypointReference.sharedValue as Waypoint;
 		currentWaypoint.PlayerEntered( this );
 
-		statusPoint_Floor = 0;
+
+        statusPoint_Floor = 0;
 		statusPoint_Ceil = currentStatus.status_Point;
 	}
 
@@ -424,6 +428,7 @@ public class PlayerController : MonoBehaviour
 		playerStatusProperty.SetValue( currentStatus );
 
 		//TODO:(ofg) We can player different animation when transforming UP
+        animatorGroup.SetFloat( "walking_speed", currentStatus.status_Walking_Speed );
 		animatorGroup.SetBool( "walking", false );
 		animatorGroup.SetBool( "rapping", false );
 		animatorGroup.SetBool( "transform_positive", true);
@@ -440,8 +445,9 @@ public class PlayerController : MonoBehaviour
 
 		playerStatusProperty.SetValue( currentStatus );
 
-		//TODO:(ofg) We can player different animation when transforming DOWN
-		animatorGroup.SetBool( "walking", false );
+        //TODO:(ofg) We can player different animation when transforming DOWN
+        animatorGroup.SetFloat( "walking_speed", currentStatus.status_Walking_Speed );
+        animatorGroup.SetBool( "walking", false );
 		animatorGroup.SetBool( "rapping", false );
 		animatorGroup.SetBool( "transform_positive", false);
 		animatorGroup.SetTrigger( "transform" );
@@ -503,6 +509,14 @@ public class PlayerController : MonoBehaviour
 			foreach( var animator in animators )
 			{
 				animator.SetInteger( parameterName, value );
+			}
+		}
+
+		public void SetFloat( string parameterName, float value )
+		{
+			foreach( var animator in animators )
+			{
+				animator.SetFloat( parameterName, value );
 			}
 		}
 	}

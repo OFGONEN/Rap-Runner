@@ -17,5 +17,5 @@ MonoBehaviour:
   status_Color: {r: 0.11645913, g: 1, b: 0, a: 1}
   status_Name: MC Rapper
   status_Walking: 2
+  status_Walking_Speed: 1.25
   status_Point: 50
-  status_Model: {fileID: 0}
