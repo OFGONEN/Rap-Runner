@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 723800683477006459, guid: b1ac70065d5db4c439f8caaed6e7e80b, type: 3}
+      propertyPath: modifier_Point
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 723800683477006460, guid: b1ac70065d5db4c439f8caaed6e7e80b, type: 3}
       propertyPath: m_Name
       value: modifier_positive_gate

@@ -91,6 +91,10 @@ PrefabInstance:
       propertyPath: pairGate
       value: 
       objectReference: {fileID: 65374068703060897}
+    - target: {fileID: 5051244824851874910, guid: e50d0ef8ae8ed094ba7331c296f858a2, type: 3}
+      propertyPath: modifier_Point
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e50d0ef8ae8ed094ba7331c296f858a2, type: 3}
 --- !u!4 &6310616714089764854 stripped

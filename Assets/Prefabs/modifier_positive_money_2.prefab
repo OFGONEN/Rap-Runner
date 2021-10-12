@@ -52,6 +52,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2092158969843411622, guid: b656b992cd523d2489804476a124ae43, type: 3}
+      propertyPath: modifier_Point
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092158969843411622, guid: b656b992cd523d2489804476a124ae43, type: 3}
       propertyPath: modifier_ParticleName
       value: money_scatter
       objectReference: {fileID: 0}
