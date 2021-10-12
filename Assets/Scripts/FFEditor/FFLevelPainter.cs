@@ -15,7 +15,7 @@ namespace FFEditor
 	{
 #region Fields
         public Transform seperatorObject;
-        public GameObject objectToPaint;
+        [ ShowIf( EConditionOperator.Or, "Single", "Line", "ScatterLine" ) ] public GameObject objectToPaint;
 		public PaintMode paintMode;
 		public Direction spawnDirection;
 
@@ -157,13 +157,13 @@ namespace FFEditor
 		private Vector3 ReturnDirection( Direction direction )
 		{
 			if( direction == Direction.forward )
-				return transform.forward;
+				return Vector3.forward;
 			else if( direction == Direction.backward )
-				return -1f * transform.forward;
+				return -1f * Vector3.forward;
 			else if( direction == Direction.right )
-				return transform.right;
+				return Vector3.right;
 			else if( direction == Direction.left )
-				return -1f * transform.right;
+				return -1f * Vector3.right;
 
 			return Vector3.zero;
 		}

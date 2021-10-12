@@ -110,6 +110,14 @@ namespace FFEditor
 			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
 		}
 
+		[ MenuItem( "FFShortcut/Select LevelPainter &l" ) ]
+		static private void SelectLevelPainter()
+		{
+			var levelPainter = GameObject.Find( "ff_level_painter" );
+
+			Selection.SetActiveObjectWithContext( levelPainter, levelPainter );
+		}
+
 		[ MenuItem( "FFShortcut/Copy Global Transform &c" ) ]
 		static private void CopyTransform()
 		{
