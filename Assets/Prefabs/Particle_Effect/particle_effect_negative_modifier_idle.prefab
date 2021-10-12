@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 19850470}
   - component: {fileID: 19920740}
   m_Layer: 0
-  m_Name: money_plus_sign_stream
+  m_Name: particle_effect_negative_modifier_idle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,7 +187,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.3254902, g: 1, b: 0.3254902, a: 1}
+      maxColor: {r: 1, g: 0.3254902, b: 0.3254902, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4656,7 +4656,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 634159e2a763d6b47bd5b3beaec53fc3, type: 2}
+  - {fileID: 2100000, guid: 9ee1a92eddd4c9c4c8b621942585c39e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4888,7 +4888,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.010005707, g: 0.26415092, b: 0, a: 0.13725491}
+      maxColor: {r: 0.27450982, g: 0, b: 0, a: 0.13725491}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
