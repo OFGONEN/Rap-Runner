@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: trigger_ctrl_crowd_stand
+  m_Controller: {fileID: 9100000, guid: 5d39c7aab941ae74a858e03c40be2964, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 11d4b544fe3dad0419e58111d3bc202e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 11d4b544fe3dad0419e58111d3bc202e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 91b4aa5fdc04be447bdfb4c54a4cf9be, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 83d4c6ecb9d70463f8ec6a964b01c7c1, type: 2}

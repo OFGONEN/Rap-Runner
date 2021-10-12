@@ -180,7 +180,9 @@ public class PlayerController : MonoBehaviour
 	private void CatwalkEventResponse()
 	{
 		catwalking = true;
-		
+
+		GameSettings.Instance.player_speed_vertical /= 2f;
+
 		animatorGroup.SetBool( "walking", false );
 		animatorGroup.SetBool( "rapping", true );
 	}
@@ -397,6 +399,10 @@ public class PlayerController : MonoBehaviour
 			currentStatus     = currentStatus.nextStatus;
 
 			transform = true;
+		}
+		else if( newStatusPoint >= statusPoint_Ceil && currentStatus.nextStatus == null )
+		{
+			newStatusPoint = GameSettings.Instance.status_maxPoint;
 		}
 
 		statusPoint_Current = newStatusPoint;
