@@ -28,7 +28,7 @@ MonoBehaviour:
   player_speed_rotation: 90
   player_speed_turning: 10
   player_speed_approach: 5
-  player_speed_statusDepleting: 30
+  player_speed_statusDepleting: 21
   player_duration_obstacleInteraction: 2
   camera_speed_follow: 5
   camera_duration_movement: 1

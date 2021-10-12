@@ -194,7 +194,9 @@ public class PlayerController : MonoBehaviour
 	private void CatwalkEventResponse()
 	{
 		catwalking = true;
-		
+
+		GameSettings.Instance.player_speed_vertical /= 2f;
+
 		animatorGroup.SetBool( "walking", false );
 		animatorGroup.SetBool( "rapping", true );
 	}
