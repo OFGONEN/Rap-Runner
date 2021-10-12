@@ -18,6 +18,10 @@ MonoBehaviour:
     customWaypoint: {fileID: 2575339873354737194, guid: 598da1ec95394e64b8ab033fdd07c289, type: 3}
   - character: 82
     customWaypoint: {fileID: 4786782825190934976, guid: 8b08d2cd06fec584f91113730bdb4e92, type: 3}
+  patternCode: 0,10,0,n-0,20,1,n-0,25,0,n-0,35,1,n
+  patternPallet:
+  - {fileID: 943359334335311168, guid: 51a2a6943e1676b4c9b7a52df8f7780e, type: 3}
+  - {fileID: 6280418701359240647, guid: 232eacfddf46db6498fb128de6caf251, type: 3}
   straightRoad: {fileID: 4891935131458898969, guid: 0e87347824b0b26448320b2ea9b8324b, type: 3}
   catwalk: {fileID: 5391997148747398471, guid: 2f65fe7df0518cd468768c9462c46590, type: 3}
   startRoad: {fileID: 4156388240315862050, guid: c1777b48c6a7fc24a9c05d426fe900b5, type: 3}

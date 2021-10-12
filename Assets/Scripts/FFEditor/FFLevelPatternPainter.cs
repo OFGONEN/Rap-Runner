@@ -46,7 +46,6 @@ namespace FFEditor
 			lastSpawnedPattern = gameObject;
 
 			EditorSceneManager.SaveOpenScenes();
-
         }
 
         [ Button( "Delete Last Pattern" ) ]

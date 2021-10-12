@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using FFStudio;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -14,12 +15,14 @@ namespace FFEditor
 	public class FFEditorLevelGenerator : ScriptableObject
 	{
 #region Fields
-		[BoxGroup( "Setup" )] public string levelCode;
-		[BoxGroup( "Setup" )] public CustomWaypoint[] customWaypoints;
-		[BoxGroup( "Setup" )] public Waypoint straightRoad;
-		[BoxGroup( "Setup" )] public Waypoint catwalk;
-		[BoxGroup( "Setup" )] public Waypoint startRoad;
-		[BoxGroup( "Setup" )] public GameObject playerPrefab;
+		[ BoxGroup( "Setup" ) ] public string levelCode;
+		[ BoxGroup( "Setup" ) ] public CustomWaypoint[] customWaypoints;
+		[ BoxGroup( "Setup" ) ] public string patternCode;
+		[ BoxGroup( "Setup" ) ] public GameObject[] patternPallet;
+		[ BoxGroup( "Setup" ) ] public Waypoint straightRoad;
+		[ BoxGroup( "Setup" ) ] public Waypoint catwalk;
+		[ BoxGroup( "Setup" ) ] public Waypoint startRoad;
+		[ BoxGroup( "Setup" ) ] public GameObject playerPrefab;
 
 
 		private static WaypointSewer sewer;
@@ -133,13 +136,69 @@ namespace FFEditor
 			EditorSceneManager.SaveOpenScenes();
 		}
 
+
+		[ Button() ]
+		public void GeneratePatterns()
+		{
+			EditorSceneManager.MarkAllScenesDirty();
+
+			// var code = "123.5,45.1,0,n-424.1,12.65,1,s";
+			var patterns = patternCode.Split( '-' );
+
+			var seperatorIndex_start = FindSeperatorIndex( "--- Patterns_Start ---" );
+			var seperatorIndex_end   = FindSeperatorIndex( "--- Patterns_End ---" );
+			var startIndex           = seperatorIndex_start + 1;
+
+			DeleteObjects( seperatorIndex_start, seperatorIndex_end );
+
+			foreach( var pattern in patterns )
+			{
+				var data = pattern.Split( ',' );
+
+				if( data.Length != 4)
+				{
+					FFLogger.LogError( "Wrong Info: " + data );
+					return;
+				}
+
+				// Info
+				var position        = new Vector3( float.Parse( data[ 0 ] ), 0, float.Parse( data[ 1 ] ) );
+				var selectedPattern = patternPallet[ int.Parse( data[ 2 ] ) ];
+				var direction       = ReturnDirection( data[ 3 ][ 0 ] );
+
+				// Spawn Object
+				var gameObject = PrefabUtility.InstantiatePrefab( selectedPattern ) as GameObject;
+				gameObject.transform.position = position;
+				gameObject.transform.SetSiblingIndex( startIndex );
+				gameObject.transform.forward = direction;
+
+				startIndex++;
+			}
+
+			EditorSceneManager.SaveOpenScenes();
+		}
 #endregion
 
 #region Implementation
-#endregion
+		private void DeleteObjects( int startIndex, int endIndex )
+		{
+			GameObject[] objects = new GameObject[ endIndex - startIndex - 1 ];
 
-#region Editor Only
-#if UNITY_EDITOR
+			Scene scene = SceneManager.GetActiveScene();
+			var rootObjects = scene.GetRootGameObjects();
+
+			for( var i = 0; i < objects.Length; i++ )
+			{
+				objects[ i ] = rootObjects[ startIndex + i + 1 ].gameObject;
+			}
+
+
+			for( var i = 0; i < objects.Length; i++ )
+			{
+				DestroyImmediate( objects[ i ] );
+			}
+		}
+
 		private void InstantiateWaypoint( Waypoint waypoint, Transform parent )
 		{
 			var gameObject = PrefabUtility.InstantiatePrefab( waypoint.gameObject ) as GameObject;
@@ -164,6 +223,13 @@ namespace FFEditor
 			sewer.lastSewedWaypoint = currentWayPoint;
 		}
 
+		private void InstantiatePattern( GameObject waypoint, Vector3 direction, int index )
+		{
+			var gameObject = PrefabUtility.InstantiatePrefab( waypoint.gameObject ) as GameObject;
+			gameObject.transform.SetSiblingIndex( index );
+			gameObject.transform.forward = direction;
+		}
+
 		private int FindSeperatorIndex( string seperatorName )
 		{
 			var seperator = GameObject.Find( seperatorName );
@@ -179,6 +245,25 @@ namespace FFEditor
 				return seperator.transform.GetSiblingIndex();
 			}
 		}
+
+		private Vector3 ReturnDirection( char direction )
+		{
+			if( direction == 'n' )
+				return Vector3.forward;
+			else if( direction == 's' )
+				return Vector3.forward * -1f;
+			else if( direction == 'w' )
+				return Vector3.right * -1f;
+			else if( direction == 'e' )
+				return Vector3.right;
+
+			return Vector3.zero;
+		}
+#endregion
+
+#region Editor Only
+#if UNITY_EDITOR
+
 #endif
 #endregion
 		class WaypointSewer
