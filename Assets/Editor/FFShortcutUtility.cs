@@ -147,5 +147,36 @@ namespace FFEditor
 			var method = type.GetMethod( "Clear" );
 			method.Invoke( new object(), null );
 		}
+
+		[ MenuItem( "FFShortcut/Layout Objects" ) ]
+		private static void LayoutObjects()
+		{
+            EditorSceneManager.MarkAllScenesDirty();
+
+            var selection = Selection.gameObjects;
+
+            var parent = new GameObject("Layout");
+
+            var position = Vector3.zero;
+
+            for( var i = 0; i < 22; i++ )
+			{
+                var pattern = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Patterns/pattern_" + i + ".prefab", typeof( Object ));
+                var spawned = PrefabUtility.InstantiatePrefab( pattern ) as GameObject;
+
+                spawned.transform.position = position;
+                spawned.transform.SetParent(parent.transform);
+
+                position += Vector3.right * 10;
+
+				if( i % 5 == 4)
+				{
+                    position += Vector3.forward * 15;
+                    position.x = 0;
+                }
+            }
+
+            EditorSceneManager.SaveOpenScenes();
+        }
 	}
 }

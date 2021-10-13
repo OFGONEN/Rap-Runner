@@ -218,7 +218,7 @@ namespace FFStudio
 		{
 			TransformData data;
 			data.position = transform.position;
-			data.rotation = transform.eulerAngles;
+			data.rotation = transform.forward;
 			data.scale    = transform.localScale;
 
 			return data;
@@ -226,9 +226,9 @@ namespace FFStudio
 
 		public static void SetTransformData( this Transform transform, TransformData data ) // Global values
 		{
-			transform.position    = data.position;
-			transform.eulerAngles = data.position;
-			transform.localScale  = data.scale;
+			transform.position = data.position;
+			transform.forward  = data.rotation;
+			// transform.localScale  = data.scale;
 		}
 	}
 }
