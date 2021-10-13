@@ -849,6 +849,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1522240918180715155, guid: 2f65fe7df0518cd468768c9462c46590, type: 3}
+      propertyPath: m_Center.z
+      value: -20
+      objectReference: {fileID: 0}
     - target: {fileID: 4007686565082815891, guid: 2f65fe7df0518cd468768c9462c46590, type: 3}
       propertyPath: m_Name
       value: road_straight_catwalk
