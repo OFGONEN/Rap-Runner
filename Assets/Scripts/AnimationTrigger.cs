@@ -9,6 +9,7 @@ public class AnimationTrigger : MonoBehaviour
 {
 #region Fields
     [ BoxGroup( "Setup" ), SerializeField ] public Animator[] animators;
+    [ BoxGroup( "Setup" ), SerializeField ] public bool playParticleOnTrigger = false;
 
     // Private Fields \\
     private ParticleSystem mainParticleSystem;
@@ -21,6 +22,11 @@ public class AnimationTrigger : MonoBehaviour
     private void Awake()
     {
 		mainParticleSystem = GetComponentInChildren< ParticleSystem >();
+
+        if( mainParticleSystem == null )
+        {
+            Debug.Log( "No Particle", gameObject );
+        }
 	}
 
     private void OnTriggerEnter( Collider other )
@@ -29,12 +35,17 @@ public class AnimationTrigger : MonoBehaviour
         {
 			animator.SetTrigger( "trigger" );
 		}
-    }
+
+        if( playParticleOnTrigger )
+			PlayParticle();
+	}
 #endregion
 
 #region API
     public void PlayParticle()
     {
+
+        Debug.Log( "Particle", mainParticleSystem.gameObject );
 		mainParticleSystem?.Play();
 	}
 #endregion
