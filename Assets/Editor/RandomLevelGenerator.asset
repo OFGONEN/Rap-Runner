@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1511607da9b4de7ade81da6af7841e, type: 3}
+  m_Name: RandomLevelGenerator
+  m_EditorClassIdentifier: 
+  patternPallet:
+  - {fileID: 30961854877383919, guid: 51a2a6943e1676b4c9b7a52df8f7780e, type: 3}
+  - {fileID: 1343416594848414145, guid: 7f7a8126702a5425081f0d2487d640ee, type: 3}
+  - {fileID: 135854704236960046, guid: 1423f286b17ec4a858577abf27029f6a, type: 3}
+  - {fileID: 6552386386140465844, guid: 7abb29be42d4f463b98b4fea6239dffd, type: 3}
+  - {fileID: 8158413412426363136, guid: dc2f7ae45f9584a4799ccd955032d203, type: 3}
+  - {fileID: 691435251814415745, guid: 89e5e76d66f7a4bfea279f6b28a74317, type: 3}
+  - {fileID: 5406558479828087690, guid: 034d570f5d7ce41bc883f53f8a841a9b, type: 3}
+  - {fileID: 5227212925201352615, guid: 7659cbd8502904ac1ad7a16104b4841e, type: 3}
+  - {fileID: 2619727711626072468, guid: 0e33b0ae96f4644238c772cffe77f7a0, type: 3}
+  - {fileID: 9036417635732400118, guid: 72f654aa0c8274851a6003057ac4511f, type: 3}
+  - {fileID: 3733045249233367742, guid: 4fd8755f452bb4a31948c3fe16ac2aa0, type: 3}
+  - {fileID: 5990911236070519683, guid: 774e50659e3144b25b717c2aed5c0848, type: 3}
+  - {fileID: 7121267606249633625, guid: ee45c678030864b3bbbd004fcb3e0325, type: 3}
+  - {fileID: 9196676256215188751, guid: 02dfc56b33ea24a19847beda9924e6df, type: 3}
+  - {fileID: 3016338596957603710, guid: 0a5f06567fea74927a74c56391fd95c5, type: 3}
+  - {fileID: 2542128065735071433, guid: 3b5de9a6c77b54e889fe08efa3254a60, type: 3}
+  - {fileID: 2825307847832095173, guid: 2c4bf48ea0d5b455ca21bb711428f665, type: 3}
+  - {fileID: 2585707690133516899, guid: cd78e11cc664c414d920f3924f0bc272, type: 3}
+  - {fileID: 8117599712884563220, guid: b689027f07fef45b4913efb71115a87c, type: 3}
+  - {fileID: 3929980088143938791, guid: 24e412a38c76b44f89b77c4489acabd3, type: 3}
+  - {fileID: 7733383863909836360, guid: aeea3c22fe5974d98a2db704d6208c89, type: 3}
+  - {fileID: 6148252947313663399, guid: 7426437f1b25f42558b088c0f9b1e050, type: 3}
+  - {fileID: 8924407761866190875, guid: e8c407fa637654b0f98ea79f072cd49d, type: 3}
+  - {fileID: 1476673419506613546, guid: bef56720692c447668e0e1fdcc0a44ed, type: 3}
+  - {fileID: 1263945862362686018, guid: 7af55a9083c745b4f945dc03183de32c, type: 3}
+  - {fileID: 609746922045870455, guid: 322bb4db999c1144b8ff96cc76e11ec3, type: 3}
+  minMaxRandom: {x: 2.5, y: 10}
+  roadLenght: 10

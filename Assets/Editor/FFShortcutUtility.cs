@@ -97,7 +97,7 @@ namespace FFEditor
 		[ MenuItem( "FFShortcut/Select Level Generator &4" ) ]
 		static private void SelectLevelGenerator()
 		{
-			var gameSettings = AssetDatabase.LoadAssetAtPath( "Assets/Editor/LevelGenerator.asset", typeof( ScriptableObject ) );
+			var gameSettings = AssetDatabase.LoadAssetAtPath( "Assets/Editor/RandomLevelGenerator.asset", typeof( ScriptableObject ) );
 
 			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
 		}
