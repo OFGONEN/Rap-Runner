@@ -203,8 +203,9 @@ public class PlayerController : MonoBehaviour
 		var position = transform.position;
 
 		var approachDistance = currentWaypoint.ApproachMethod( transform, vertical_speed );
+        var playerIsPassed = transform.InverseTransformPoint( currentWaypoint.TargetPoint ).z < 0;
 
-        if( Vector3.Distance( approachDistance, currentWaypoint.TargetPoint ) <= GameSettings.Instance.player_target_checkDistance )
+        if( Vector3.Distance( approachDistance, currentWaypoint.TargetPoint ) <= GameSettings.Instance.player_target_checkDistance || playerIsPassed )
         {
 			currentWaypoint.PlayerExited( this );
 
