@@ -41,3 +41,15 @@ MonoBehaviour:
   - {fileID: 609746922045870455, guid: 322bb4db999c1144b8ff96cc76e11ec3, type: 3}
   minMaxRandom: {x: 2.5, y: 10}
   roadLenght: 10
+  positiveGateNames:
+  - East Coast
+  - Old School
+  - Break Dance
+  - Drake
+  - Nicki Minaj
+  negativeGateNames:
+  - West Coast
+  - G Funk
+  - Graffiti
+  - Kanye West
+  - Cardi B

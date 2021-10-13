@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using FFStudio;
+using TMPro;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using NaughtyAttributes;
@@ -15,6 +16,8 @@ namespace FFEditor
         [ BoxGroup( "Setup" ) ] public GameObject[] patternPallet;
         [ BoxGroup( "Setup" ) ] public Vector2 minMaxRandom;
         [ BoxGroup( "Setup" ) ] public float roadLenght;
+        [ BoxGroup( "Setup - Gate" ) ] public string[] positiveGateNames;
+        [ BoxGroup( "Setup - Gate" ) ] public string[] negativeGateNames;
 
         private Waypoint currentWaypoint;
         private int spawnSiblingIndex;
@@ -92,6 +95,7 @@ namespace FFEditor
                 }
             }
 
+            SetGateNames();
 			EditorSceneManager.SaveOpenScenes();
         }
 
@@ -164,6 +168,30 @@ namespace FFEditor
             }
 
 			EditorSceneManager.SaveOpenScenes();
+        }
+
+        [ Button() ]
+        public void SetGateNames()
+        {
+            EditorSceneManager.MarkAllScenesDirty();
+
+            var gameObjects = GameObject.FindGameObjectsWithTag( "Gate" );
+
+            foreach( var gate in gameObjects )
+            {
+                var randomIndex = Random.Range( 0, positiveGateNames.Length );
+
+                var positiveText = gate.transform.GetChild( 0 ).GetComponentInChildren< TextMeshProUGUI >();
+                positiveText.text = positiveGateNames[ randomIndex ];
+
+                var negativeText = gate.transform.GetChild( 1 ).GetComponentInChildren< TextMeshProUGUI >();
+                negativeText.text = negativeGateNames[ randomIndex ];
+
+			    PrefabUtility.RecordPrefabInstancePropertyModifications( positiveText );
+			    PrefabUtility.RecordPrefabInstancePropertyModifications( negativeText );
+            }
+
+            EditorSceneManager.SaveOpenScenes();
         }
 
         [ Button( "ClearLevel" ) ]
