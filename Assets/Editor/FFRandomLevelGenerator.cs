@@ -246,5 +246,45 @@ namespace FFEditor
 				DestroyImmediate( objects[ i ] );
 			}
 		}
+
+        public GameObject[] replacePatterns;
+
+        [ Button() ]
+        private void ReplacePrefabs()
+        {
+            EditorSceneManager.MarkAllScenesDirty();
+
+            var rootObjects = EditorSceneManager.GetActiveScene().GetRootGameObjects();
+
+
+			spawnSiblingIndex = GameObject.Find( "--- Patterns_Start ---" ).transform.GetSiblingIndex() + 1;
+
+            for( var i = 0; i < rootObjects.Length; i++ )
+            {
+                var gameObject = rootObjects[ i ];
+
+                if( gameObject.name == "pattern_1_v2" )
+                {
+                    var position = gameObject.transform.position;
+                    var forward  = gameObject.transform.forward;
+
+                    DestroyImmediate( gameObject );
+
+                    PlaceRandomPattern( position, forward, replacePatterns[ 0 ] );
+                }
+                else if( gameObject.name == "pattern_2_v2" )
+                {
+                    var position = gameObject.transform.position;
+                    var forward  = gameObject.transform.forward;
+
+                    DestroyImmediate( gameObject );
+
+                    PlaceRandomPattern( position, forward, replacePatterns[ 1 ] );
+                }
+            }
+            
+
+            EditorSceneManager.SaveOpenScenes();
+        }
     }
 }
