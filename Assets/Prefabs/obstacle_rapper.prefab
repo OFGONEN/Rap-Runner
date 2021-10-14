@@ -39,6 +39,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: obstacle_rapper
       objectReference: {fileID: 0}
+    - target: {fileID: 8746794542451080754, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
+      propertyPath: statusPoint
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8746794542451080755, guid: c42f8ccdc75777043876d21a30d3f381, type: 3}
       propertyPath: m_RootOrder
       value: 0
