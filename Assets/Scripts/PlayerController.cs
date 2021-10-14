@@ -196,6 +196,9 @@ public class PlayerController : MonoBehaviour
 
 		animatorGroup.SetBool( "walking", false );
 		animatorGroup.SetBool( "rapping", true );
+
+		animatorGroup.SetBool( "catwalking", true );
+		animatorGroup.SetWeightOfLayer( 1, 1 );
 	}
 
     private void ApproachWaypointMethod()
@@ -465,6 +468,8 @@ public class PlayerController : MonoBehaviour
 
 	private void LevelComplete( GameEvent completeEvent )
 	{
+		animatorGroup.SetWeightOfLayer( 1, 0 );
+
 		animatorGroup.SetBool( "walking", false );
 		animatorGroup.SetBool( "rapping", false );
 		animatorGroup.SetTrigger( "complete" );
@@ -527,6 +532,14 @@ public class PlayerController : MonoBehaviour
 			{
 				animator.SetFloat( parameterName, value );
 			}
+		}
+
+		public void SetWeightOfLayer( int layerIndex, float weight )
+		{
+			foreach( var animator in animators )
+			{
+				animator.SetLayerWeight( layerIndex, weight );
+			}		
 		}
 	}
 }
