@@ -243,7 +243,7 @@ AnimatorTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: walking
+    m_ConditionEvent: catwalking
     m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: walk
@@ -617,7 +617,7 @@ AnimatorTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: walking
+    m_ConditionEvent: catwalking
     m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: walk
@@ -637,7 +637,7 @@ AnimatorTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: walking
+    m_ConditionEvent: catwalking
     m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: walk
@@ -1282,7 +1282,7 @@ AnimatorTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: walking
+    m_ConditionEvent: catwalking
     m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: walk
