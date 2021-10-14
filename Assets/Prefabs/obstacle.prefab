@@ -49,6 +49,7 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 1}
   rappingPosition: {x: 0, y: 0, z: -1.5}
   cameraTransition: 0
+  pairedObstacles: []
 --- !u!1 &8746794543228571792
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,8 +93,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 1}
+  m_Size: {x: 0.8, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0.6}
 --- !u!114 &4026159200453232652
 MonoBehaviour:
   m_ObjectHideFlags: 0

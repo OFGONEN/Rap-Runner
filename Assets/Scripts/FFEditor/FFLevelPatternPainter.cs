@@ -38,6 +38,8 @@ namespace FFEditor
         {
 			EditorSceneManager.MarkAllScenesDirty();
 
+			patternToPaint = patternPallet[ patternIndex ];
+
 			var gameObject = PrefabUtility.InstantiatePrefab( patternToPaint ) as GameObject;
 			gameObject.transform.position = transform.position;
 			gameObject.transform.SetSiblingIndex( seperatorObject.GetSiblingIndex() );

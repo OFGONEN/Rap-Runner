@@ -8,6 +8,7 @@ TagManager:
   - StartWaypoint
   - WaypointParent
   - FinishLine
+  - Gate
   layers:
   - Default
   - TransparentFX
