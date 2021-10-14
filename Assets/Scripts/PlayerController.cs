@@ -163,6 +163,7 @@ public class PlayerController : MonoBehaviour
 
 		currentWaypoint = startWaypointReference.sharedValue as Waypoint;
 		currentWaypoint.PlayerEntered( this );
+		transform.forward = currentWaypoint.transform.forward;
 
 
         statusPoint_Floor = 0;
@@ -217,6 +218,7 @@ public class PlayerController : MonoBehaviour
 
 				currentWaypoint = currentWaypoint.NextWaypoint;
 				currentWaypoint.PlayerEntered( this );
+				transform.forward = currentWaypoint.transform.forward;
 			}
             else
             {
