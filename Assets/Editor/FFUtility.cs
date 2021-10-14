@@ -50,6 +50,24 @@ namespace FFEditor
 			}
 		}
 
+		[MenuItem( "FFStudios/Create LevelDatas" )]
+		public static void CreateLevelDatas()
+		{
+			var maxLevelCount = GameSettings.Instance.maxLevelCount;
+			
+			for( var i = 1; i <= maxLevelCount; i++ )
+			{
+				var levelData = AssetDatabase.LoadAssetAtPath< ScriptableObject >( "Assets/Resources/level_data_" + i + ".asset" );
+
+				if( levelData == null )
+				{
+					AssetDatabase.CreateAsset( ScriptableObject.CreateInstance< LevelData >(), "Assets/Resources/level_data_" + i + ".asset" );
+				}
+			}
+
+			AssetDatabase.SaveAssets();
+		}
+
 		[MenuItem( "FFStudios/Set LevelDatas" )]
 		public static void SetLevelDatas()
 		{
