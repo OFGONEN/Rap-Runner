@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8220ce51433959f4c920dafc66407b2a, type: 3}
   m_Name: LevelGenerator
   m_EditorClassIdentifier: 
-  levelCode: 22R3R2
+  levelCode: 4R4L8L7
   customWaypoints:
   - character: 76
     customWaypoint: {fileID: 2575339873354737194, guid: 598da1ec95394e64b8ab033fdd07c289, type: 3}
