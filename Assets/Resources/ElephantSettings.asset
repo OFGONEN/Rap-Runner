@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d20837e5ecd714515802b3c4d7db9e35, type: 3}
   m_Name: ElephantSettings
   m_EditorClassIdentifier: 
-  GameID: 
-  GameSecret: 
+  GameID: 43ea51c970a5655848ca77f65262cf94a7e2482e8809b99dde7fab69c8872f5b
+  GameSecret: fc2bd6d095419b281d2da33f5da108633ca0a857db7eb22ec51f3a3a5d4a55f1

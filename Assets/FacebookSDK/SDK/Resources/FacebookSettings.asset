@@ -16,9 +16,9 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 0
+  - 235032918660736
   appLabels:
-  - App Name
+  - Rapper Runner
   cookie: 1
   logging: 1
   status: 1
