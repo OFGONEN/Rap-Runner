@@ -24,7 +24,13 @@ public class ElephantIOS
     public static extern string getConsentStatus();
     
     [DllImport ("__Internal")]
+    public static extern string getBuildNumber();
+    
+    [DllImport ("__Internal")]
     public static extern void showAlertDialog(string title, string message);
+    
+    [DllImport ("__Internal")]
+    public static extern void showForceUpdate(string title, string message);
     
     #endif
 }

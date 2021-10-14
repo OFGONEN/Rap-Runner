@@ -41,6 +41,9 @@ namespace ElephantSDK
 
             // ATT
             rootDict.SetString("NSUserTrackingUsageDescription", "Your data will only be used to deliver personalized ads to you.");
+            
+            // Attribution report endpoint
+            rootDict.SetString("NSAdvertisingAttributionReportEndpoint", "https://newapi.rollic.gs");
 
             
             File.WriteAllText(plistPath, plist.WriteToString());

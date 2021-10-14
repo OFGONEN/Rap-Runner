@@ -13,6 +13,18 @@ void TestFunction(const char * a){
         NSLog(@"From Unity -> %s", a);
 }
 
+void showForceUpdate(const char * _ttl, const char * _msg) {
+     const char * _titleTextCopy = ElephantCopyString(_ttl);
+     const char * _messsageTextCopy = ElephantCopyString(_msg);
+     
+     
+     NSString *ttlString = [NSString stringWithCString:_titleTextCopy encoding:NSUTF8StringEncoding];
+     NSString *msgString = [NSString stringWithCString:_messsageTextCopy encoding:NSUTF8StringEncoding];
+ 
+     IdfaConsentViewController *viewController = [IdfaConsentViewController sharedInstance];
+     [viewController showForceUpdate:ttlString :msgString];
+}
+
 void showAlertDialog(const char * _ttl, const char * _msg) {
      const char * _titleTextCopy = ElephantCopyString(_ttl);
      const char * _messsageTextCopy = ElephantCopyString(_msg);
@@ -91,6 +103,13 @@ const char* IDFA(){
     }
 }
 
+const char* getBuildNumber() {
+    NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
+    NSString *buildNumber = [infoDict objectForKey:@"CFBundleVersion"];
+    
+    return ElephantCopyString(buildNumber.UTF8String);
+}
+
 const char* getConsentStatus(){
     NSString *statusText = @"NotDetermined";
     if (@available(iOS 14.0, *)) {
@@ -137,7 +156,7 @@ void ElephantPost(const char * _url, const char * _body, const char * _gameID, c
                                                                    cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                                timeoutInterval:300.0];
 
-            
+            [request addValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
             [request addValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
             [request addValue:authToken forHTTPHeaderField:@"Authorization"];
             [request addValue:gameID forHTTPHeaderField:@"GameID"];

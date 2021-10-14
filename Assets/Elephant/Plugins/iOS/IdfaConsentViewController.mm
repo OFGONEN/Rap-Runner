@@ -1,5 +1,6 @@
 #import "IdfaConsentViewController.h"
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
+#import <StoreKit/SKStoreProductViewController.h>
 
 extern UIViewController *UnityGetGLViewController();
 static UIView* unityView = nil;
@@ -17,6 +18,35 @@ static UIView* mainView = nil;
     });
     return sharedInstance;
 }
+
+-(void)showForceUpdate:(NSString*)message
+                      :(NSString*)title {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSDictionary* infoDictionary = [[NSBundle mainBundle] infoDictionary];
+            NSString* appID = infoDictionary[@"CFBundleIdentifier"];
+            NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?bundleId=%@", appID]];
+            NSData* data = [NSData dataWithContentsOfURL:url];
+            NSDictionary* lookup = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSString * appITunesItemIdentifier =  lookup[@"results"][0][@"trackId"];
+            
+            
+            SKStoreProductViewController *storeViewController = [[SKStoreProductViewController alloc] init];
+            
+            NSNumber *identifier = [NSNumber numberWithInteger:[appITunesItemIdentifier intValue]];
+            NSDictionary *parameters = @{ SKStoreProductParameterITunesItemIdentifier:identifier };
+            [storeViewController loadProductWithParameters:parameters completionBlock:nil];
+            [UnityGetGLViewController() presentViewController: storeViewController animated: YES completion: nil];
+            
+        }]];
+
+        [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:alertController animated:YES completion:^{
+        }];
+    });
+}
+
 
 - (void) showAlertDialog:(NSString *)titleString
                         :(NSString *)messageString {
@@ -525,6 +555,10 @@ static UIView* mainView = nil;
 
 - (void)rejectButtonTap {
     UnitySendMessage("Elephant", "sendUiConsentStatus", "denied");
+    [self hideConsentView];
+}
+
+- (void)dismissAlertButton {
     [self hideConsentView];
 }
 

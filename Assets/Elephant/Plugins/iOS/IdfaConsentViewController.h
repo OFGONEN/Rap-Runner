@@ -8,6 +8,8 @@
 
 + (IdfaConsentViewController*)sharedInstance;
 
+- (void) showForceUpdate:(NSString*) message
+                        :(NSString*) title;
 - (void) showAlertDialog:(NSString*) titleText
                         :(NSString*) descriptionText;
 - (void) presentConsentView;

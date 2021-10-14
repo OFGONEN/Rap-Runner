@@ -21,6 +21,8 @@ namespace ElephantSDK
         public string terms_of_service_url;
         public string privacy_policy_text;
         public string privacy_policy_url;
+        public string min_app_version;
+        public float focus_interval;
 
         private InternalConfig()
         {
@@ -39,6 +41,8 @@ namespace ElephantSDK
             terms_of_service_url = "https://www.rollicgames.com/terms";
             privacy_policy_text = "Privacy Policy";
             privacy_policy_url = "https://www.rollicgames.com/privacy";
+            min_app_version = "";
+            focus_interval = 300;
         }
 
         public static InternalConfig GetInstance()

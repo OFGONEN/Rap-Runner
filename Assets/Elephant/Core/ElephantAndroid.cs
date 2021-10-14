@@ -32,12 +32,31 @@ public class ElephantAndroid
         }
     }
 
+    public static void showForceUpdate(string title, string message)
+    {
+        if (elephantController != null)
+        {
+            elephantController.Call("showForceUpdate", title, message);    
+        }
+    }
+
     public static void ElephantPost(string url, string body, string gameID, string authToken, int tryCount)
     {
         if (elephantController != null)
         {
             elephantController.Call("ElephantPost", url, body, gameID, authToken, tryCount);    
         }
+    }
+
+    public static string getBuildNumber()
+    {
+        var buildNumber = "";
+        if (elephantController != null)
+        {
+            buildNumber = elephantController.Call<string>("getBuildNumber");    
+        }
+
+        return buildNumber;
     }
     
      public static string FetchAdId()

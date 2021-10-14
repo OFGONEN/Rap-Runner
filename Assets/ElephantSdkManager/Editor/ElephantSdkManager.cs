@@ -28,6 +28,7 @@ namespace ElephantSdkManager
         private string _selfUpdateStatus;
         private bool _canUpdateSelf = false;
         private Sdk selfUpdateSdk;
+        public string requiredSdks = "";
 
         private GUIStyle _labelStyle;
         private GUIStyle _headerStyle;
@@ -156,6 +157,11 @@ namespace ElephantSdkManager
         {
             GUILayout.Space(5);
             EditorGUILayout.LabelField(groupTitle, _labelStyle, GUILayout.Height(20));
+            
+            if (groupTitle.Equals("Elephant SDKs"))
+            {
+                groupedSdkList = groupedSdkList.OrderBy(sdk => sdk.sdkName).ToList();
+            }
 
             using (new EditorGUILayout.VerticalScope("box"))
             {
@@ -219,8 +225,27 @@ namespace ElephantSdkManager
                     {
                         text = isInst ? "Upgrade" : "Install",
                     }, _fieldWidth))
+                    {
+                        if (!IsInstallAvailable(sdkInfo))
+                        {
+                            EditorUtility.DisplayDialog("Warning!", "Please install or upgrade required SDKs first:\n" + requiredSdks, "OK");
+                            return;
+                        }
                         this.StartCoroutine(DownloadSDK(sdkInfo));
+                    }
                     GUI.enabled = true;
+                }
+                
+                if (!canInst && sdkName.Equals("Rollic Ads"))
+                {
+                    var isChinaLoaded = EditorPrefs.GetBool(RegionSwitch.KeyIsRollicAdsChinaInstalled, false);
+                    if (GUILayout.Button(new GUIContent
+                    {
+                        text = isChinaLoaded ? "WW" : "China",
+                    }, _fieldWidth))
+                    {
+                        RegionSwitch.SwitchRegions(!isChinaLoaded);
+                    }
                 }
 
                 GUILayout.Space(5);
@@ -298,7 +323,7 @@ namespace ElephantSdkManager
                 }
             }
             
-            var unityWebRequest = new UnityWebRequest(ManifestSource.ManifestURL + gameId)
+            var unityWebRequest = new UnityWebRequest(ManifestSource.ManifestURL + gameId +  "&version=" + ElephantSdkManagerVersion.SDK_VERSION)
             {
                 downloadHandler = new DownloadHandlerBuffer(),
                 timeout = 10,
@@ -477,7 +502,7 @@ namespace ElephantSdkManager
 
         private IEnumerator DownloadSDK(Sdk sdkInfo)
         {
-            var path = Path.Combine(DownloadDirectory, sdkInfo.sdkName);
+            var path = Path.Combine(DownloadDirectory, sdkInfo.sdkName + ".unitypackage");
             _activity = $"Downloading {sdkInfo.sdkName}...";
 
             // Start the async download job.
@@ -526,6 +551,35 @@ namespace ElephantSdkManager
             _editorCoroutine = null;
 
             yield return null;
+        }
+
+        private bool IsInstallAvailable(Sdk dependentSdk)
+        {
+            requiredSdks = "";
+            if (_sdkList == null || _sdkList.Count == 0)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(dependentSdk.depends_on)) return true;
+
+            var requiredSDK = _sdkList.Find(sdk => sdk.sdkName.Equals(dependentSdk.depends_on));
+
+            if (string.IsNullOrEmpty(requiredSDK?.currentVersion))
+            {
+                requiredSdks = requiredSDK?.sdkName;
+                return false;
+            }
+
+            if (VersionUtils.CompareVersions(requiredSDK.currentVersion.Replace("v", string.Empty),
+                dependentSdk.depending_sdk_version) >= 0)
+            {
+                return true;
+            }
+
+            requiredSdks = requiredSDK.sdkName;
+            return false;
+
         }
 
         private void CancelOperation()
