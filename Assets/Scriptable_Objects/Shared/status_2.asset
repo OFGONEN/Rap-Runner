@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d94ff15c769e94940a9706da34d4bad3, type: 3}
+  m_Name: status_2
+  m_EditorClassIdentifier: 
+  nextStatus: {fileID: 11400000, guid: 67ca9bec734563841b23303e4c903c00, type: 2}
+  prevStatus: {fileID: 11400000, guid: 2e6acfcfa457bb3469418da1f3a92f0c, type: 2}
+  status_Color: {r: 1, g: 0.80811393, b: 0, a: 1}
+  status_Name: Gangsta Rapper
+  status_Walking: 1
+  status_Walking_Speed: 1.75
+  status_Point: 50

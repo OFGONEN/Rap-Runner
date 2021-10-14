@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: level_data_1
   m_EditorClassIdentifier: 
   sceneIndex: 1
+  levelStartStatusPoint: 10

@@ -88,6 +88,36 @@ namespace FFStudio
 			baseTransform.rotation = Quaternion.LookRotation( newDirection );
 		}
 
+		public static void LookAtAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis )
+		{
+
+			var _directionVector = targetPosition - baseTransform.position;
+			var eulerAngles      = baseTransform.eulerAngles;
+			var newRotationEuler = Quaternion.LookRotation( _directionVector ).eulerAngles;
+
+			newRotationEuler.x = eulerAngles.x + ( newRotationEuler.x - eulerAngles.x ) * axis.x;
+			newRotationEuler.y = eulerAngles.y + ( newRotationEuler.y - eulerAngles.y ) * axis.y;
+			newRotationEuler.z = eulerAngles.z + ( newRotationEuler.z - eulerAngles.z ) * axis.z;
+
+			// baseTransform.rotation = Quaternion.LookRotation( newDirection );
+			baseTransform.rotation = Quaternion.Euler( newRotationEuler );
+		}
+
+		public static void LookAtAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis, float cofactor )
+		{
+
+			var _directionVector = targetPosition - baseTransform.position;
+			var eulerAngles      = baseTransform.eulerAngles;
+			var newRotationEuler = Quaternion.LookRotation( _directionVector * cofactor ).eulerAngles;
+
+			newRotationEuler.x = eulerAngles.x + ( newRotationEuler.x - eulerAngles.x ) * axis.x;
+			newRotationEuler.y = eulerAngles.y + ( newRotationEuler.y - eulerAngles.y ) * axis.y;
+			newRotationEuler.z = eulerAngles.z + ( newRotationEuler.z - eulerAngles.z ) * axis.z;
+
+			// baseTransform.rotation = Quaternion.LookRotation( newDirection );
+			baseTransform.rotation = Quaternion.Euler( newRotationEuler );
+		}
+
 		public static void LookAtOverTimeAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis, float speed )
 		{
 
@@ -174,6 +204,11 @@ namespace FFStudio
 			return theVector;
 		}
 
+		public static Vector3 AddUp( this Vector3 theVector, float addUp )
+		{
+			return theVector + Vector3.up * addUp;
+		}
+
 		public static float ComponentSum( this Vector3 theVector )
 		{
 			return theVector.x + theVector.y + theVector.z;
@@ -183,7 +218,7 @@ namespace FFStudio
 		{
 			TransformData data;
 			data.position = transform.position;
-			data.rotation = transform.eulerAngles;
+			data.rotation = transform.forward;
 			data.scale    = transform.localScale;
 
 			return data;
@@ -191,9 +226,9 @@ namespace FFStudio
 
 		public static void SetTransformData( this Transform transform, TransformData data ) // Global values
 		{
-			transform.position    = data.position;
-			transform.eulerAngles = data.position;
-			transform.localScale  = data.scale;
+			transform.position = data.position;
+			transform.forward  = data.rotation;
+			// transform.localScale  = data.scale;
 		}
 	}
 }

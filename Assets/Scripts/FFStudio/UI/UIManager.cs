@@ -28,6 +28,7 @@ namespace FFStudio
 
         [ Header( "Fired Events" ) ]
         public GameEvent levelRevealedEvent;
+        public GameEvent levelStartEvent;
         public GameEvent loadNewLevelEvent;
         public GameEvent resetLevelEvent;
         public ElephantLevelEvent elephantLevelEvent;
@@ -124,6 +125,7 @@ namespace FFStudio
 			sequence.Append( foreGroundImage.DOFade( 0, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
 					// .Append( tween ) // TODO: UIElements tween.
 					.AppendCallback( levelRevealedEvent.Raise );
+					// .AppendCallback( levelStartEvent.Raise );
 
             elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;
             elephantLevelEvent.elephantEventType = ElephantEvent.LevelStarted;

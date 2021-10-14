@@ -9,6 +9,120 @@ EditorBuildSettings:
     path: Assets/Scenes/app.unity
     guid: ad0d37aebbbd4c54396618f1c151ebb7
   - enabled: 1
-    path: Assets/Scenes/game_1.unity
-    guid: 77bd79b3b08633c488ab2694e5563d64
+    path: Assets/Scenes/game_parkour_1_a.unity
+    guid: cdba5642ec47c441da5cd22a7b0c46cc
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_2_a.unity
+    guid: d52d2a814060c43fdbbaf7be3593ec4d
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_3_a.unity
+    guid: ef45921d722244198be4e3a4843c44c7
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_4_a.unity
+    guid: a1693aaca7f3347deabe871938703895
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_5_a.unity
+    guid: 15676aa3dc29d4cedb69844ba1856ddf
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_6_a.unity
+    guid: 569d063418e0a4e7ab52ed5217ef108c
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_7_a.unity
+    guid: 781fc1bd4ff3a4c7fbdfa88e8dafa81f
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_8_a.unity
+    guid: c1bb2a9ff384041368ed58b49b91e05e
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_9_a.unity
+    guid: 2c0374d5f7f4f4284817035ac1237ace
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_10_a.unity
+    guid: 3a3f0622bfb3b4ea2921c08d60dbc9a9
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_11_a.unity
+    guid: 4b6bc7a2c5c1243f8b9b8ae309407fb7
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_12_a.unity
+    guid: d32aac095bd484420b9f9e3adcf4bf0a
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_13_a.unity
+    guid: 4b9dce12aa8574a7f9c60dbd723ff922
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_1_b.unity
+    guid: 628cfa7773e3d447eaf852c15c77adc9
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_2_b.unity
+    guid: 297b1bf3664c241c680792535c74fae6
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_3_b.unity
+    guid: 11185a17f52a2408fb9799d62d7c95ee
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_4_b.unity
+    guid: 7716215e0248743c38d281e7ebc4007e
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_5_b.unity
+    guid: 78f7b3110fac74e97a931ee13a18f772
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_6_b.unity
+    guid: c83860700067d4234b2e2068d99abd4b
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_7_b.unity
+    guid: 5f8ed0f9c55b1446394cc2b6ffa4ea49
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_8_b.unity
+    guid: c5f6e6afee83e4545b23fcb3c9e4f387
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_9_b.unity
+    guid: 8e046fac836a4444a98fd1cf499a69c7
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_10_b.unity
+    guid: 5a5fc3592ef88427fa92648ec46a3fee
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_11_b.unity
+    guid: 02b00b443872a43da83d8f04b8da5ebe
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_12_b.unity
+    guid: ea31641a13d41458a9cc83033a8eb40e
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_13_b.unity
+    guid: 0635d1f1f625f4f0c96786e107851e1d
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_1_c.unity
+    guid: b30ccad864c2a46cd8b62c16b9359361
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_2_c.unity
+    guid: e055d3326b99440cd8168c077719f746
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_3_c.unity
+    guid: 05161a2848b654fe79742ca9b4e23e02
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_4_c.unity
+    guid: 886ecd8cbe1014eb6a4ab73c6d2815c1
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_5_c.unity
+    guid: e9762d4f6331e46a7bcd9b4cd44d529a
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_6_c.unity
+    guid: 69fa76065918d446882ff04006db5fb0
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_7_c.unity
+    guid: c1b5b3d964fb946868eab451175c158f
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_8_c.unity
+    guid: 5d1ab12a7497b49cba570a560c741987
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_9_c.unity
+    guid: 622aa298698564d91b43e27cef79b709
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_10_c.unity
+    guid: bf5f3d37f87234359be1f1ee1496e164
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_11_c.unity
+    guid: 7130827161b58496795572b525d20794
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_12_c.unity
+    guid: 3ee6619df9a98472998a9c52f36ff615
+  - enabled: 1
+    path: Assets/Scenes/game_parkour_13_c.unity
+    guid: fced046068d4142ef9a9896c8706768b
   m_configObjects: {}

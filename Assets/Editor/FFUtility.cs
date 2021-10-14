@@ -26,16 +26,16 @@ namespace FFEditor
 			}
 
 			// Create GameSettings.
-			var path_GameSettings = "Assets/Resources/game_settings.asset";
-			gameSettings = AssetDatabase.LoadAssetAtPath( path_GameSettings, typeof( GameSettings ) ) as GameSettings;
+			// var path_GameSettings = "Assets/Resources/game_settings.asset";
+			// gameSettings = AssetDatabase.LoadAssetAtPath( path_GameSettings, typeof( GameSettings ) ) as GameSettings;
 
-			if( gameSettings == null )
-			{
-				gameSettings = ScriptableObject.CreateInstance<GameSettings>();
+			// if( gameSettings == null )
+			// {
+			// 	gameSettings = ScriptableObject.CreateInstance<GameSettings>();
 
-				AssetDatabase.CreateAsset( gameSettings, "Assets/Resources/game_settings.asset" );
-				Debug.Log( "GameSettings Created" );
-			}
+			// 	AssetDatabase.CreateAsset( gameSettings, "Assets/Resources/game_settings.asset" );
+			// 	Debug.Log( "GameSettings Created" );
+			// }
 
 			// Create CurrentLevel.
 			var path_CurrentLevel = "Assets/Resources/level_current.asset";
@@ -48,6 +48,24 @@ namespace FFEditor
 				AssetDatabase.CreateAsset( currentLevel, "Assets/Resources/level_current.asset" );
 				Debug.Log( "CurrentLevel Created" );
 			}
+		}
+
+		[MenuItem( "FFStudios/Create LevelDatas" )]
+		public static void CreateLevelDatas()
+		{
+			var maxLevelCount = GameSettings.Instance.maxLevelCount;
+			
+			for( var i = 1; i <= maxLevelCount; i++ )
+			{
+				var levelData = AssetDatabase.LoadAssetAtPath< ScriptableObject >( "Assets/Resources/level_data_" + i + ".asset" );
+
+				if( levelData == null )
+				{
+					AssetDatabase.CreateAsset( ScriptableObject.CreateInstance< LevelData >(), "Assets/Resources/level_data_" + i + ".asset" );
+				}
+			}
+
+			AssetDatabase.SaveAssets();
 		}
 
 		[MenuItem( "FFStudios/Set LevelDatas" )]
@@ -343,6 +361,12 @@ namespace FFEditor
 		public static void SetMaxLevelForGameSettings()
 		{
 			string[] guids = AssetDatabase.FindAssets( "level_data_ t:levelData", new[] { "Assets/Resources" } );
+
+			if( gameSettings == null )
+			{
+				var path_GameSettings = "Assets/Resources/game_settings.asset";
+				gameSettings = AssetDatabase.LoadAssetAtPath( path_GameSettings, typeof( GameSettings ) ) as GameSettings;
+			}
 
 			gameSettings.maxLevelCount = guids.Length;
 
