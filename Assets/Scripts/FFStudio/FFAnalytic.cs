@@ -28,11 +28,6 @@ namespace FFStudio
 		private void Awake()
 		{
 			elephantEventListener.response = ElephantEventResponse;
-
-			if( !FB.IsInitialized )
-				FB.Init( OnFacebookInitialized, OnHideUnity );
-			else
-				FB.ActivateApp();
 		}
 
 #endregion
@@ -57,25 +52,6 @@ namespace FFStudio
 					FFLogger.Log( "FFAnalytic Elephant LevelFailed: " + gameEvent.level );
 					break;
 			}
-		}
-		void OnFacebookInitialized()
-		{
-			if( FB.IsInitialized )
-			{
-				FB.ActivateApp();
-				Debug.Log( "[FFAnalitic] Facebook initiliazed" );
-			}
-			else
-				Debug.Log( "[FFAnalitic] Failed to initialize Facebook SDK" );
-
-
-			DontDestroyOnLoad( gameObject );
-
-		}
-
-		void OnHideUnity( bool hide )
-		{
-
 		}
 #endregion
 	}
